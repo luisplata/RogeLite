@@ -7,6 +7,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.bellseboss.servicelocator": {
+      "version": "https://github.com/luisplata/ServiceLocatorToUnity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e1846e9eeed4cee8483f5bdf973ad62d94341224"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

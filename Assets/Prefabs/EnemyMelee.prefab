@@ -122,6 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   moveSpeed: 2
+  level: 0
+  lootTable: {fileID: 11400000, guid: f5ae29e95f71a6c4dbce6e6e6627f647, type: 2}
+  luckFactor: 1
   damage: 10
   attackCooldown: 1.5
 --- !u!1 &3384053747489131250
