@@ -27,7 +27,7 @@ public class MeleeEnemy : Enemy
 
             if (damageable != null)
             {
-                damageable.TakeDamage(damage);
+                damageable.TakeDamage(damage, this);
             }
 
             nextAttackTime = Time.time + attackCooldown;

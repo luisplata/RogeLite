@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class PowerUpManager : MonoBehaviour
 {
     public List<PowerUp> powerUps;
-    public float powerUpInterval = 30f;
     private float nextPowerUpTime;
     private PlayerMediator mediator;
 
@@ -13,16 +12,8 @@ public class PowerUpManager : MonoBehaviour
         this.mediator = mediator;
     }
 
-    void Update()
-    {
-        if (Time.time >= nextPowerUpTime)
-        {
-            ShowPowerUpOptions();
-            nextPowerUpTime = Time.time + powerUpInterval;
-        }
-    }
 
-    void ShowPowerUpOptions()
+    public void ShowPowerUpOptions()
     {
         List<PowerUp> randomPowerUps = GetRandomPowerUps(1);
         //PowerUpUI.Instance.ShowOptions(randomPowerUps);

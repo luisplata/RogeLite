@@ -42,6 +42,6 @@ public class RangedEnemy : Enemy
         GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         EnemyBullet bullet = bulletObj.GetComponent<EnemyBullet>();
         Vector2 direction = (player.position - firePoint.position).normalized;
-        bullet.Initialize(direction, bulletDamage);
+        bullet.Initialize(direction, bulletDamage, this);
     }
 }

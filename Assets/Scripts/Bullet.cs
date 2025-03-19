@@ -7,11 +7,13 @@ public class Bullet : MonoBehaviour
     public float lifetime = 3f; // Tiempo antes de autodestruirse
 
     private Vector2 direction;
+    private IAttacker attacker;
 
-    public void Initialize(Vector2 direction, int damage)
+    public void Initialize(Vector2 direction, int damage, IAttacker a)
     {
         this.direction = direction.normalized;
         this.damage = damage;
+        attacker = a;
         Destroy(gameObject, lifetime);
     }
 
@@ -26,13 +28,8 @@ public class Bullet : MonoBehaviour
 
         if (damageable != null)
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(damage, attacker);
             Destroy(gameObject);
         }
     }
-}
-
-public interface IDamageable
-{
-    void TakeDamage(int amount);
 }

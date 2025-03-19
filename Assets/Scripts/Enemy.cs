@@ -1,31 +1,33 @@
 ﻿using System;
+using Bellseboss;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable
+public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker, ILootSource
 {
     public int health = 50;
     public float moveSpeed = 2f;
     public int level;
     [SerializeField] private LootTable lootTable;
     [SerializeField] private float luckFactor = 1.0f;
+    [SerializeField] private int xp = 1;
 
     public event Action OnDeath;
 
     protected Transform player;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IAttacker attacker)
     {
         health -= damage;
         if (health <= 0)
         {
-            Die();
+            Die(attacker);
         }
     }
 
-    protected virtual void Die()
+    protected virtual void Die(IAttacker attacker)
     {
         OnDeath?.Invoke();
-        DropItems();
+        attacker.OnKill(this);
         Destroy(gameObject);
     }
 
@@ -41,14 +43,18 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable
         level = levelFromPlayer;
     }
 
-    public void DropItems()
+    public int GetXPAmount()
     {
-        var droppedItems = ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor);
+        return xp * level;
+    }
 
-        foreach (var item in droppedItems)
-        {
-            Debug.Log($"Dropped: {item.Name} ({item.Type}, {item.Stars}⭐)");
-            //TODO instantiate elements
-        }
+    public void OnKill(IDamageable target)
+    {
+        Debug.Log($"Kill Player!");
+    }
+
+    public Item[] GetLoot()
+    {
+        return ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor).ToArray();
     }
 }

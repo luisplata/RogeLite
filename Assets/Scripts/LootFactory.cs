@@ -27,8 +27,9 @@ public class LootFactory : MonoBehaviour, ILootFactory
                 drops++;
             }
         }
-        
-        droppedItems.Add(new Item("Gold", LootType.Gold));
+
+        var goldAmount = Mathf.CeilToInt(5 * luckFactor);
+        droppedItems.Add(new Item("Gold", LootType.Gold, goldAmount));
 
         return droppedItems;
     }

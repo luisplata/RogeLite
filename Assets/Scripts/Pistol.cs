@@ -11,11 +11,13 @@ public class Pistol : MonoBehaviour
 
     private float nextAttackTime;
     private PlayerMediator mediator;
+    private IAttacker attacker;
 
-    public void Initialize(PlayerMediator mediator)
+    public void Initialize(PlayerMediator mediator, IAttacker a)
     {
         this.mediator = mediator;
         UpdateStats(mediator.playerStats);
+        attacker = a;
     }
 
     public void UpdateStats(PlayerStats stats)
@@ -62,7 +64,7 @@ public class Pistol : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         PlayerBullet bullet = bulletObj.GetComponent<PlayerBullet>();
         Vector2 direction = (targetPosition - (Vector2)firePoint.position).normalized;
-        bullet.Initialize(direction, bulletDamage);
+        bullet.Initialize(direction, bulletDamage, attacker);
     }
 
     private void OnDrawGizmosSelected()

@@ -7,8 +7,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float spawnRadius = 10f;
 
-    [SerializeField] private float minSpawnRate = 0.5f; // 0.5 segundos entre spawns (máximo 120 enemigos por minuto)
-    [SerializeField] private float maxSpawnRate = 3f; // 3 segundos entre spawns (20 enemigos por minuto)
+    [SerializeField] private float minSpawnRate = 0.5f; // Spawn más rápido
+    [SerializeField] private float maxSpawnRate = 3f;   // Spawn más lento
+    [SerializeField] private int maxPlayerLevel = 100;  // Nivel máximo del jugador para el cálculo
 
     private float nextSpawnTime;
     private int currentEnemyCount;
@@ -42,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
         var ene = enemy.GetComponent<ILevelEnemy>();
         if (ene != null)
         {
-            ene.SetLevel(levelPlayer.Level); // Asigna el nivel del jugador al enemigo
+            ene.SetLevel(levelPlayer.Level); // Ajusta el nivel del enemigo al del jugador
         }
 
         var enem = enemy.GetComponent<Enemy>();
@@ -66,8 +67,9 @@ public class EnemySpawner : MonoBehaviour
     {
         if (levelPlayer == null) return maxSpawnRate;
 
-        float level = levelPlayer.Level;
-        return Mathf.Lerp(maxSpawnRate, minSpawnRate, level / 100f);
-        //TODO implement a max level from player
+        float level = Mathf.Clamp(levelPlayer.Level, 1, maxPlayerLevel);
+        float progression = Mathf.Clamp01(level / (float)maxPlayerLevel);
+
+        return Mathf.Lerp(maxSpawnRate, minSpawnRate, progression);
     }
 }
