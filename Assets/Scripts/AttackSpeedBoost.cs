@@ -7,6 +7,6 @@ public class AttackSpeedBoost : PowerUp
 
     public override void ApplyEffect(PlayerStats playerStats)
     {
-        playerStats.attackCooldown *= speedMultiplier;
+        playerStats.IncreaseAttackSpeed(speedMultiplier);
     }
 }

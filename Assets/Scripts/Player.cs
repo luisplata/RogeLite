@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     public void ApplyStats()
     {
-        moveSpeed = mediator.playerStats.moveSpeed;
+        moveSpeed = mediator.playerStats.MoveSpeed;
     }
 
     void Update()

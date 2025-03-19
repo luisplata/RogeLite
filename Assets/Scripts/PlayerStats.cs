@@ -4,11 +4,11 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
 {
     private PlayerMediator mediator;
 
-    public float baseDamage = 10f;
-    public float attackCooldown = 1f;
-    public float moveSpeed = 5f;
-    public int health = 100;
-    public int gold;
+    [SerializeField] private float baseDamage = 10f;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private int health = 100;
+    [SerializeField] private int gold;
     [SerializeField] private int level = 1;
     [SerializeField] private int exp;
     [SerializeField] private XPConfig xpConfig;
@@ -62,6 +62,8 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
     }
 
     public int Level => level;
+    public float AttackCooldown => attackCooldown;
+    public float MoveSpeed => moveSpeed;
 
     public void TakeDamage(int amount, IAttacker attacker)
     {
@@ -121,5 +123,10 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
                $"<b>Attack Cooldown:</b> {attackCooldown:F2}s\n" +
                $"<b>Speed:</b> {moveSpeed}\n" +
                $"<b>Gold:</b> {gold}";
+    }
+
+    public void IncreaseAttackSpeed(float speedMultiplier)
+    {
+        attackCooldown *= speedMultiplier;
     }
 }

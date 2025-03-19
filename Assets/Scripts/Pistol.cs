@@ -22,7 +22,7 @@ public class Pistol : MonoBehaviour
 
     public void UpdateStats(PlayerStats stats)
     {
-        attackCooldown = stats.attackCooldown;
+        attackCooldown = stats.AttackCooldown;
     }
 
     void Update()
