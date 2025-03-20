@@ -17,6 +17,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     public event Action<int> OnLevelUp;
     public event Action OnDie;
     public bool IsDead => playerStats.IsDead;
+
     public void DisableControls()
     {
         player.DisableControls();
@@ -46,12 +47,14 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     {
         player.ApplyStats();
         pistol.UpdateStats(playerStats);
-        stats.text = playerStats.GetFormattedStats() + equipmentManager.GetFormattedEquipment();
+        stats.text = playerStats.GetFormattedStats() + "\n" + equipmentManager.GetFormattedEquipment();
         inventoryText.text = inventory.GetFormattedInventory();
     }
 
     public void GameOver()
     {
+        Debug.Log(inventory.GetFormattedInventory());
+        ServiceLocator.Instance.GetService<IDataBaseService>().SaveInventory(inventory);
         OnDie?.Invoke();
     }
 

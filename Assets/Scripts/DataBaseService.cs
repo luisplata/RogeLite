@@ -35,4 +35,12 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         obtainedItems.Clear();
         Debug.Log("Base de datos temporal limpiada.");
     }
+
+    public void SaveInventory(Inventory inventory)
+    {
+        foreach (var item in inventory.GetAllItems())
+        {
+            AddItem(item);
+        }
+    }
 }

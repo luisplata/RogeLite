@@ -6,6 +6,7 @@
         </engine:VisualElement>
         <engine:VisualElement style="flex-grow: 1; max-height: 248px;">
             <engine:Button text="Start" name="Button_Play" class="start" />
+            <engine:Button text="Store" name="Button_Store" class="exit" />
             <engine:Button text="Exit" name="Button_Exit" class="exit" />
         </engine:VisualElement>
     </engine:VisualElement>
