@@ -1,0 +1,27 @@
+.root {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(34, 34, 34);
+}
+
+.title {
+    font-size: 120px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.button {
+    font-size: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    max-width: none;
+    width: 400px;
+    height: 200px;
+    background-image: url("project://database/Assets/sprites/kenney_ui-pack-pixel-adventure/Tilesheets/Large%20tiles/Thin%20outline/tilemap.png?fileID=4755373664117421245&guid=46240ebfaf2ff0f4c8696a653b7d8ccc&type=3#button_2");
+    -unity-text-align: middle-center;
+}

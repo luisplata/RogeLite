@@ -280,7 +280,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -294,7 +294,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -382,15 +382,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tilemap_0
+      name: cuadro_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 197
-        width: 33
-        height: 33
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -404,15 +404,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_1
+      name: cuadro_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 164
-        width: 33
-        height: 34
+        x: 33
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -426,15 +426,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_2
+      name: cuadro_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 197
-        width: 34
-        height: 33
+        x: 66
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -448,15 +448,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_3
+      name: cuadro_6
       rect:
         serializedVersion: 2
-        x: 32
-        y: 164
-        width: 34
-        height: 34
+        x: 99
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -470,15 +470,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_4
+      name: button_4
       rect:
         serializedVersion: 2
-        x: 65
-        y: 197
-        width: 34
-        height: 33
+        x: 132
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -492,15 +492,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_5
+      name: button_3
       rect:
         serializedVersion: 2
-        x: 65
-        y: 164
-        width: 34
-        height: 34
+        x: 165
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -514,16 +514,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_6
+      name: button_1
       rect:
         serializedVersion: 2
-        x: 98
-        y: 197
-        width: 34
-        height: 33
+        x: 198
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 7, z: 7, w: 7}
       customData: 
       outline: []
       physicsShape: []
@@ -536,16 +536,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_7
+      name: button_2
       rect:
         serializedVersion: 2
-        x: 98
-        y: 164
-        width: 34
-        height: 34
+        x: 231
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 7, z: 7, w: 7}
       customData: 
       outline: []
       physicsShape: []
@@ -561,12 +561,12 @@ TextureImporter:
       name: tilemap_8
       rect:
         serializedVersion: 2
-        x: 131
-        y: 197
-        width: 34
-        height: 33
+        x: 264
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -583,12 +583,12 @@ TextureImporter:
       name: tilemap_9
       rect:
         serializedVersion: 2
-        x: 131
-        y: 164
-        width: 34
-        height: 34
+        x: 297
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -602,15 +602,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_10
+      name: cuadro_3
       rect:
         serializedVersion: 2
-        x: 164
-        y: 197
-        width: 34
-        height: 33
+        x: 0
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -624,15 +624,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_11
+      name: cuadro_4
       rect:
         serializedVersion: 2
-        x: 164
-        y: 164
-        width: 34
-        height: 34
+        x: 33
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -646,15 +646,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_12
+      name: cuadro_7
       rect:
         serializedVersion: 2
-        x: 197
-        y: 197
-        width: 34
-        height: 33
+        x: 66
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -668,15 +668,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_13
+      name: cuadro_8
       rect:
         serializedVersion: 2
-        x: 197
-        y: 164
-        width: 34
-        height: 34
+        x: 99
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -693,12 +693,12 @@ TextureImporter:
       name: tilemap_14
       rect:
         serializedVersion: 2
-        x: 230
-        y: 197
-        width: 34
-        height: 33
+        x: 132
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -715,12 +715,12 @@ TextureImporter:
       name: tilemap_15
       rect:
         serializedVersion: 2
-        x: 230
-        y: 164
-        width: 34
-        height: 34
+        x: 165
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -737,12 +737,12 @@ TextureImporter:
       name: tilemap_16
       rect:
         serializedVersion: 2
-        x: 263
-        y: 197
-        width: 34
-        height: 33
+        x: 198
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -759,12 +759,12 @@ TextureImporter:
       name: tilemap_17
       rect:
         serializedVersion: 2
-        x: 263
-        y: 164
-        width: 34
-        height: 34
+        x: 231
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -781,12 +781,12 @@ TextureImporter:
       name: tilemap_18
       rect:
         serializedVersion: 2
-        x: 296
-        y: 197
-        width: 34
-        height: 33
+        x: 264
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -803,12 +803,12 @@ TextureImporter:
       name: tilemap_19
       rect:
         serializedVersion: 2
-        x: 296
-        y: 164
-        width: 34
-        height: 34
+        x: 297
+        y: 165
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -826,11 +826,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 131
-        width: 33
-        height: 34
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -847,12 +847,12 @@ TextureImporter:
       name: tilemap_21
       rect:
         serializedVersion: 2
-        x: 0
-        y: 98
-        width: 33
-        height: 34
+        x: 33
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -869,12 +869,12 @@ TextureImporter:
       name: tilemap_22
       rect:
         serializedVersion: 2
-        x: 32
-        y: 131
-        width: 34
-        height: 34
+        x: 66
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -891,12 +891,12 @@ TextureImporter:
       name: tilemap_23
       rect:
         serializedVersion: 2
-        x: 32
-        y: 98
-        width: 34
-        height: 34
+        x: 99
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -913,12 +913,12 @@ TextureImporter:
       name: tilemap_24
       rect:
         serializedVersion: 2
-        x: 65
-        y: 131
-        width: 34
-        height: 34
+        x: 132
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -935,12 +935,12 @@ TextureImporter:
       name: tilemap_25
       rect:
         serializedVersion: 2
-        x: 65
-        y: 98
-        width: 34
-        height: 34
+        x: 165
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -957,12 +957,12 @@ TextureImporter:
       name: tilemap_26
       rect:
         serializedVersion: 2
-        x: 98
-        y: 131
-        width: 34
-        height: 34
+        x: 198
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -979,12 +979,12 @@ TextureImporter:
       name: tilemap_27
       rect:
         serializedVersion: 2
-        x: 98
-        y: 98
-        width: 34
-        height: 34
+        x: 231
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1001,12 +1001,12 @@ TextureImporter:
       name: tilemap_28
       rect:
         serializedVersion: 2
-        x: 131
-        y: 131
-        width: 34
-        height: 34
+        x: 264
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1023,12 +1023,12 @@ TextureImporter:
       name: tilemap_29
       rect:
         serializedVersion: 2
-        x: 131
-        y: 101
-        width: 34
-        height: 31
+        x: 297
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1045,12 +1045,12 @@ TextureImporter:
       name: tilemap_30
       rect:
         serializedVersion: 2
-        x: 164
-        y: 131
-        width: 34
-        height: 34
+        x: 363
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1067,12 +1067,12 @@ TextureImporter:
       name: tilemap_31
       rect:
         serializedVersion: 2
-        x: 197
-        y: 131
-        width: 34
-        height: 34
+        x: 396
+        y: 132
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1089,12 +1089,12 @@ TextureImporter:
       name: tilemap_32
       rect:
         serializedVersion: 2
-        x: 197
-        y: 101
-        width: 34
-        height: 31
+        x: 0
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1111,12 +1111,12 @@ TextureImporter:
       name: tilemap_33
       rect:
         serializedVersion: 2
-        x: 230
-        y: 131
-        width: 34
-        height: 34
+        x: 33
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1133,12 +1133,12 @@ TextureImporter:
       name: tilemap_34
       rect:
         serializedVersion: 2
-        x: 231
-        y: 98
-        width: 33
-        height: 33
+        x: 66
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1155,12 +1155,12 @@ TextureImporter:
       name: tilemap_35
       rect:
         serializedVersion: 2
-        x: 263
-        y: 131
-        width: 34
-        height: 34
+        x: 99
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1177,12 +1177,12 @@ TextureImporter:
       name: tilemap_36
       rect:
         serializedVersion: 2
-        x: 263
-        y: 98
-        width: 33
-        height: 33
+        x: 132
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1199,12 +1199,12 @@ TextureImporter:
       name: tilemap_37
       rect:
         serializedVersion: 2
-        x: 296
-        y: 131
-        width: 34
-        height: 34
+        x: 165
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1221,12 +1221,12 @@ TextureImporter:
       name: tilemap_38
       rect:
         serializedVersion: 2
-        x: 297
-        y: 98
-        width: 33
-        height: 33
+        x: 198
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1243,12 +1243,12 @@ TextureImporter:
       name: tilemap_39
       rect:
         serializedVersion: 2
-        x: 329
-        y: 98
-        width: 33
-        height: 33
+        x: 231
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1265,12 +1265,12 @@ TextureImporter:
       name: tilemap_40
       rect:
         serializedVersion: 2
-        x: 363
-        y: 98
-        width: 33
-        height: 33
+        x: 264
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1287,12 +1287,12 @@ TextureImporter:
       name: tilemap_41
       rect:
         serializedVersion: 2
-        x: 395
-        y: 98
-        width: 33
-        height: 33
+        x: 297
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1309,12 +1309,12 @@ TextureImporter:
       name: tilemap_42
       rect:
         serializedVersion: 2
-        x: 164
-        y: 100
-        width: 34
-        height: 27
+        x: 330
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1331,12 +1331,12 @@ TextureImporter:
       name: tilemap_43
       rect:
         serializedVersion: 2
-        x: 0
-        y: 65
-        width: 33
-        height: 34
+        x: 363
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1353,12 +1353,12 @@ TextureImporter:
       name: tilemap_44
       rect:
         serializedVersion: 2
-        x: 32
-        y: 65
-        width: 34
-        height: 34
+        x: 396
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1375,12 +1375,12 @@ TextureImporter:
       name: tilemap_45
       rect:
         serializedVersion: 2
-        x: 65
-        y: 65
-        width: 34
-        height: 34
+        x: 0
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1397,12 +1397,12 @@ TextureImporter:
       name: tilemap_46
       rect:
         serializedVersion: 2
-        x: 98
-        y: 65
-        width: 34
-        height: 34
+        x: 33
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1419,12 +1419,12 @@ TextureImporter:
       name: tilemap_47
       rect:
         serializedVersion: 2
-        x: 133
-        y: 65
+        x: 66
+        y: 66
         width: 32
-        height: 34
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1441,12 +1441,12 @@ TextureImporter:
       name: tilemap_48
       rect:
         serializedVersion: 2
-        x: 164
-        y: 69
-        width: 34
-        height: 27
+        x: 99
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1463,12 +1463,12 @@ TextureImporter:
       name: tilemap_49
       rect:
         serializedVersion: 2
-        x: 197
-        y: 65
+        x: 132
+        y: 66
         width: 32
-        height: 34
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1485,12 +1485,12 @@ TextureImporter:
       name: tilemap_50
       rect:
         serializedVersion: 2
-        x: 231
+        x: 165
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1507,12 +1507,12 @@ TextureImporter:
       name: tilemap_51
       rect:
         serializedVersion: 2
-        x: 263
+        x: 198
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1529,12 +1529,12 @@ TextureImporter:
       name: tilemap_52
       rect:
         serializedVersion: 2
-        x: 297
+        x: 231
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1551,12 +1551,12 @@ TextureImporter:
       name: tilemap_53
       rect:
         serializedVersion: 2
-        x: 329
+        x: 264
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1573,12 +1573,12 @@ TextureImporter:
       name: tilemap_54
       rect:
         serializedVersion: 2
-        x: 363
+        x: 297
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1595,12 +1595,12 @@ TextureImporter:
       name: tilemap_55
       rect:
         serializedVersion: 2
-        x: 395
+        x: 330
         y: 66
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1617,12 +1617,12 @@ TextureImporter:
       name: tilemap_56
       rect:
         serializedVersion: 2
-        x: 1
-        y: 32
-        width: 30
-        height: 34
+        x: 363
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1639,12 +1639,12 @@ TextureImporter:
       name: tilemap_57
       rect:
         serializedVersion: 2
-        x: 34
-        y: 32
-        width: 30
-        height: 34
+        x: 396
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1658,15 +1658,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_58
+      name: ui_item_1
       rect:
         serializedVersion: 2
-        x: 67
-        y: 32
-        width: 30
-        height: 34
+        x: 0
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1680,15 +1680,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_59
+      name: ui_item_2
       rect:
         serializedVersion: 2
-        x: 100
-        y: 32
-        width: 30
-        height: 34
+        x: 33
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1702,15 +1702,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_60
+      name: ui_item_5
       rect:
         serializedVersion: 2
-        x: 131
-        y: 35
-        width: 34
-        height: 28
+        x: 66
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1724,15 +1724,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_61
+      name: ui_item_6
       rect:
         serializedVersion: 2
-        x: 164
-        y: 35
-        width: 34
-        height: 28
+        x: 99
+        y: 33
+        width: 32
+        height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1746,15 +1746,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_62
+      name: ui_title_l
       rect:
         serializedVersion: 2
-        x: 197
-        y: 35
-        width: 34
-        height: 28
+        x: 132
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1768,15 +1768,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_63
+      name: ui_title_c
       rect:
         serializedVersion: 2
-        x: 230
-        y: 32
-        width: 34
-        height: 34
+        x: 165
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1790,15 +1790,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_64
+      name: ui_title_r
       rect:
         serializedVersion: 2
-        x: 263
-        y: 32
-        width: 34
-        height: 34
+        x: 198
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1815,12 +1815,12 @@ TextureImporter:
       name: tilemap_65
       rect:
         serializedVersion: 2
-        x: 296
-        y: 32
-        width: 34
-        height: 34
+        x: 231
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1837,12 +1837,12 @@ TextureImporter:
       name: tilemap_66
       rect:
         serializedVersion: 2
-        x: 329
-        y: 32
-        width: 34
-        height: 34
+        x: 264
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1859,12 +1859,12 @@ TextureImporter:
       name: tilemap_67
       rect:
         serializedVersion: 2
-        x: 362
-        y: 32
-        width: 34
-        height: 34
+        x: 297
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1881,12 +1881,12 @@ TextureImporter:
       name: tilemap_68
       rect:
         serializedVersion: 2
-        x: 395
-        y: 32
-        width: 33
-        height: 34
+        x: 330
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1903,12 +1903,12 @@ TextureImporter:
       name: tilemap_69
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 30
-        height: 33
+        x: 363
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1925,12 +1925,12 @@ TextureImporter:
       name: tilemap_70
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
-        width: 30
-        height: 33
+        x: 396
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1944,15 +1944,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_71
+      name: ui_item_3
       rect:
         serializedVersion: 2
-        x: 67
+        x: 0
         y: 0
-        width: 30
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1966,15 +1966,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_72
+      name: ui_item_4
       rect:
         serializedVersion: 2
-        x: 100
+        x: 33
         y: 0
-        width: 30
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1988,15 +1988,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_73
+      name: ui_item_7
       rect:
         serializedVersion: 2
-        x: 131
-        y: 2
-        width: 34
-        height: 28
+        x: 66
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2010,15 +2010,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_74
+      name: ui_item_8
       rect:
         serializedVersion: 2
-        x: 164
-        y: 2
-        width: 34
-        height: 28
+        x: 99
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2032,15 +2032,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_75
+      name: ui_title_good_l
       rect:
         serializedVersion: 2
-        x: 197
-        y: 2
-        width: 34
-        height: 28
+        x: 132
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2054,15 +2054,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_76
+      name: ui_title_good_c
       rect:
         serializedVersion: 2
-        x: 230
+        x: 165
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2076,15 +2076,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_77
+      name: ui_title_good_r
       rect:
         serializedVersion: 2
-        x: 263
+        x: 198
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2101,12 +2101,12 @@ TextureImporter:
       name: tilemap_78
       rect:
         serializedVersion: 2
-        x: 296
+        x: 231
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2123,12 +2123,12 @@ TextureImporter:
       name: tilemap_79
       rect:
         serializedVersion: 2
-        x: 329
+        x: 264
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2145,12 +2145,12 @@ TextureImporter:
       name: tilemap_80
       rect:
         serializedVersion: 2
-        x: 362
+        x: 297
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2167,12 +2167,12 @@ TextureImporter:
       name: tilemap_81
       rect:
         serializedVersion: 2
-        x: 395
+        x: 330
         y: 0
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2185,11 +2185,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tilemap_82
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22825ecb9a5809489dcd6301ee0d43e
+      internalID: 314061803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilemap_83
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1ffa4f82a325114286b9a8a272ca3e9
+      internalID: -615807880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 69999d713e3a141489d9a51c52fb3630
     internalID: 0
     vertices: []
     indices: 
@@ -2199,19 +2243,24 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tilemap_0: 8490642196906846815
-      tilemap_1: 7988907048659085410
-      tilemap_10: -8435285650344880516
-      tilemap_11: 2376107565742220442
-      tilemap_12: 1761957491966546689
-      tilemap_13: -2455287069041890485
+      button_1: 8266258911003420344
+      button_2: 4755373664117421245
+      button_3: -8420670720628680731
+      button_4: -8717017754119436831
+      cuadro_1: 8490642196906846815
+      cuadro_2: 7988907048659085410
+      cuadro_3: -8435285650344880516
+      cuadro_4: 2376107565742220442
+      cuadro_5: 1873917168148291061
+      cuadro_6: 4035501790466999928
+      cuadro_7: 1761957491966546689
+      cuadro_8: -2455287069041890485
       tilemap_14: -702408572997326234
       tilemap_15: -4080137071908401649
       tilemap_16: 2311664880600967918
       tilemap_17: -3772098893637499282
       tilemap_18: -6813189574185817458
       tilemap_19: 7179352014698049699
-      tilemap_2: 1873917168148291061
       tilemap_20: -3639016157858113680
       tilemap_21: 5645451735475491846
       tilemap_22: 1432774421400288080
@@ -2222,7 +2271,6 @@ TextureImporter:
       tilemap_27: -4683339530408089196
       tilemap_28: 7979362951490992292
       tilemap_29: -6264777607469435119
-      tilemap_3: 4035501790466999928
       tilemap_30: -298017716872398204
       tilemap_31: 361865038524173698
       tilemap_32: -4326689981271417894
@@ -2233,7 +2281,6 @@ TextureImporter:
       tilemap_37: 6803150025632533582
       tilemap_38: 4152910327465251759
       tilemap_39: -6171851250645186540
-      tilemap_4: -8717017754119436831
       tilemap_40: -6416789122189490246
       tilemap_41: 1148596048466274273
       tilemap_42: -7195449788458874145
@@ -2244,7 +2291,6 @@ TextureImporter:
       tilemap_47: 8934909955309115845
       tilemap_48: 5997434355426740714
       tilemap_49: 3212541487564439254
-      tilemap_5: -8420670720628680731
       tilemap_50: -6140826305895023941
       tilemap_51: -190942367214245151
       tilemap_52: -6361271296530862326
@@ -2253,34 +2299,34 @@ TextureImporter:
       tilemap_55: -5780151342473224253
       tilemap_56: -2890417086725145291
       tilemap_57: 2537453318863259956
-      tilemap_58: -1400832232712754758
-      tilemap_59: -1530432162528392
-      tilemap_6: 8266258911003420344
-      tilemap_60: -2994928844648702356
-      tilemap_61: -3576083122866698956
-      tilemap_62: 9180185122099951743
-      tilemap_63: 5584533179027898419
-      tilemap_64: -8664873945852756419
       tilemap_65: -8129655836590701982
       tilemap_66: 2628091620012382583
       tilemap_67: 8876887957534861168
       tilemap_68: -6201439586384320899
       tilemap_69: 3113743566345720758
-      tilemap_7: 4755373664117421245
       tilemap_70: 3242445901158374030
-      tilemap_71: 8388207307120750826
-      tilemap_72: 749326418515318850
-      tilemap_73: 9478795197586167
-      tilemap_74: 4182479260922306610
-      tilemap_75: -5047225978721033957
-      tilemap_76: 590150312393183423
-      tilemap_77: 4928565880463290548
       tilemap_78: -2996584346089854527
       tilemap_79: 4760556609404049016
       tilemap_8: 778136270091268006
       tilemap_80: -185618232069188130
       tilemap_81: -6457282284672588498
+      tilemap_82: 314061803
+      tilemap_83: -615807880
       tilemap_9: 3400160013776356846
+      ui_item_1: -1400832232712754758
+      ui_item_2: -1530432162528392
+      ui_item_3: 8388207307120750826
+      ui_item_4: 749326418515318850
+      ui_item_5: -2994928844648702356
+      ui_item_6: -3576083122866698956
+      ui_item_7: 9478795197586167
+      ui_item_8: 4182479260922306610
+      ui_title_c: 5584533179027898419
+      ui_title_good_c: 590150312393183423
+      ui_title_good_l: -5047225978721033957
+      ui_title_good_r: 4928565880463290548
+      ui_title_l: 9180185122099951743
+      ui_title_r: -8664873945852756419
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

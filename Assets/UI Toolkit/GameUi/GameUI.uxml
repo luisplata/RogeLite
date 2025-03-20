@@ -1,0 +1,17 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUi/CSS/gameUi.uss?fileID=7433441132597879392&amp;guid=8592d0f6d7ac21343b82e9a6feccaeb7&amp;type=3#gameUi" />
+    <engine:VisualElement name="topbar" style="flex-grow: 1; max-height: 200px; top: 0; bottom: auto; position: absolute; left: 0; right: 0; height: 200px; align-content: auto; align-self: center; justify-content: space-around; flex-wrap: wrap; flex-direction: row; flex-shrink: 1; background-color: rgba(255, 255, 255, 0.2); margin-top: 200px;">
+        <engine:VisualElement style="flex-grow: 1;">
+            <engine:Label text="Nivel:" name="Nivel" />
+            <engine:Label text="Health" name="Health" style="white-space: pre;" />
+            <engine:Label text="Damage" name="Damage" />
+            <engine:Label text="CoolDown" name="CooldDown" />
+        </engine:VisualElement>
+        <engine:VisualElement style="flex-grow: 1;">
+            <engine:Label text="Exp" name="Exp" />
+            <engine:Label text="Speed" name="Speed" />
+            <engine:Label text="Gold" name="Gold" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="bottonbar" style="flex-grow: 1; height: 200px; max-height: 200px; bottom: 0; -unity-text-align: upper-left; position: absolute; right: 0; left: 0;" />
+</engine:UXML>

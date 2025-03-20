@@ -7,15 +7,17 @@ public class ItemBuilder
     private string _name;
     private LootType _type;
     private int _stars;
+    private EquipmentSlot? _slot;
     private Dictionary<string, float> _stats = new();
 
     public static Item Create(LootItem lootItem)
     {
-        int stars = DetermineStars(); // Calculamos las estrellas
+        int stars = DetermineStars(); // Calculamos estrellas
         return new ItemBuilder()
             .SetName(lootItem.itemName)
             .SetType(lootItem.lootType)
             .SetStars(stars)
+            .SetSlot(lootItem.equipmentSlot) // Ahora los ítems pueden tener un slot de equipamiento
             .GenerateStats()
             .Build();
     }
@@ -38,23 +40,49 @@ public class ItemBuilder
         return this;
     }
 
+    public ItemBuilder SetSlot(EquipmentSlot? slot)
+    {
+        _slot = slot;
+        return this;
+    }
+
     public ItemBuilder GenerateStats()
     {
         if (_type == LootType.Equipable)
         {
-            _stats["Attack"] = 10 * _stars;
-            _stats["Defense"] = 5 * _stars;
+            switch (_slot)
+            {
+                case EquipmentSlot.LeftHandWeapon:
+                case EquipmentSlot.RightHandWeapon:
+                    _stats["Attack"] = 10 * _stars;
+                    _stats["Attack Speed"] = Random.Range(0.5f, 1.5f) * _stars;
+                    break;
+
+                case EquipmentSlot.TwoHandedWeapon:
+                    _stats["Attack"] = 20 * _stars; // Más fuerte que un arma de una mano
+                    _stats["Attack Speed"] = Random.Range(0.3f, 1.0f) * _stars;
+                    break;
+
+                case EquipmentSlot.Helmet:
+                case EquipmentSlot.Chestplate:
+                case EquipmentSlot.Pants:
+                case EquipmentSlot.Shoes:
+                    _stats["Defense"] = 5 * _stars;
+                    _stats["Health"] = 20 * _stars;
+                    break;
+            }
         }
         else if (_type == LootType.Consumable)
         {
             _stats["Heal"] = 20 * _stars;
         }
+
         return this;
     }
 
     public Item Build()
     {
-        return new Item(_name, _type, _stars) { Stats = _stats };
+        return new Item(_name, _type, _stars, _slot) { Stats = _stats };
     }
 
     private static int DetermineStars()

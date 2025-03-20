@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IEnemySpawn
 {
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private int maxEnemies = 10;
@@ -8,14 +10,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnRadius = 10f;
 
     [SerializeField] private float minSpawnRate = 0.5f; // Spawn más rápido
-    [SerializeField] private float maxSpawnRate = 3f;   // Spawn más lento
-    [SerializeField] private int maxPlayerLevel = 100;  // Nivel máximo del jugador para el cálculo
+    [SerializeField] private float maxSpawnRate = 3f; // Spawn más lento
+    [SerializeField] private int maxPlayerLevel = 100; // Nivel máximo del jugador para el cálculo
 
     private float nextSpawnTime;
     private int currentEnemyCount;
     private ILevelPlayer levelPlayer;
+    private bool isStarted;
 
-    void Start()
+    public void StartSpawn()
     {
         levelPlayer = player.GetComponent<ILevelPlayer>();
 
@@ -23,10 +26,28 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.LogError("El Player no implementa ILevelPlayer");
         }
+
+        isStarted = true;
+    }
+
+    public void DisableSpawn()
+    {
+        Pause();
+    }
+
+    private void OnDestroy()
+    {
+        Pause();
+    }
+
+    private void Pause()
+    {
+        isStarted = false;
     }
 
     void Update()
     {
+        if (!isStarted) return;
         if (Time.time >= nextSpawnTime && currentEnemyCount < maxEnemies)
         {
             SpawnEnemy();

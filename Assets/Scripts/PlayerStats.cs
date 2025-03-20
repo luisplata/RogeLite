@@ -1,18 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
+public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiController
 {
     private PlayerMediator mediator;
 
     [SerializeField] private float baseDamage = 10f;
     [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private int health = 100;
+    [SerializeField] private int health = 1;
     [SerializeField] private int gold;
     [SerializeField] private int level = 1;
     [SerializeField] private int exp;
     [SerializeField] private XPConfig xpConfig;
     private XPManager xpManager;
+
+    private Dictionary<string, float> statModifiers = new();
 
     public int ExpToNextLevel => GetXpForLevel(level + 1);
 
@@ -28,50 +32,70 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
     private void HandleLevelUp(int newLevel)
     {
         Debug.Log($"¡Nivel {newLevel} alcanzado!");
-        // Aquí podrías dar recompensas al jugador.
         ApplyStats();
     }
 
     public void ApplyStats()
     {
         mediator.OnStatsChanged();
+        OnUpdate?.Invoke(this);
     }
 
-    public void IncreaseDamage(float amount)
+    public void ApplyStat(string stat, float value)
     {
-        baseDamage += amount;
-        ApplyStats();
+        if (statModifiers.ContainsKey(stat))
+        {
+            statModifiers[stat] += value;
+        }
+        else
+        {
+            statModifiers[stat] = value;
+        }
+
+        UpdateStats();
     }
 
-    public void ReduceAttackCooldown(float factor)
+    public void RemoveStat(string stat, float value)
     {
-        attackCooldown *= factor;
-        ApplyStats();
+        if (statModifiers.ContainsKey(stat))
+        {
+            statModifiers[stat] -= value;
+            if (statModifiers[stat] == 0) statModifiers.Remove(stat);
+        }
+
+        UpdateStats();
     }
 
-    public void IncreaseSpeed(float amount)
+    private void UpdateStats()
     {
-        moveSpeed += amount;
-        ApplyStats();
-    }
+        float totalDamage = baseDamage + (statModifiers.ContainsKey("Attack") ? statModifiers["Attack"] : 0);
+        float totalSpeed = moveSpeed + (statModifiers.ContainsKey("Speed") ? statModifiers["Speed"] : 0);
+        float totalCooldown = attackCooldown -
+                              (statModifiers.ContainsKey("CooldownReduction") ? statModifiers["CooldownReduction"] : 0);
 
-    public void Heal(int amount)
-    {
-        health += amount;
+        // Aplicamos los valores finales
+        baseDamage = totalDamage;
+        moveSpeed = totalSpeed;
+        attackCooldown = Mathf.Max(0.1f, totalCooldown); // Evitamos cooldown negativo
+
         ApplyStats();
     }
 
     public int Level => level;
-    public float AttackCooldown => attackCooldown;
     public float MoveSpeed => moveSpeed;
+    public float AttackCooldown => attackCooldown;
+    public bool IsDead => health <= 0;
+    public int Health => health;
+    public int Damage => Mathf.CeilToInt(baseDamage);
+    public int Gold => gold;
 
     public void TakeDamage(int amount, IAttacker attacker)
     {
-        Heal(-amount);
-        Debug.Log($"Health {health}");
+        health -= amount;
+        ApplyStats();
         if (health <= 0)
         {
-            Debug.Log($"Game Over");
+            Debug.Log("Game Over");
             mediator.GameOver();
             attacker.OnKill(this);
         }
@@ -88,24 +112,17 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
     {
         while (exp >= ExpToNextLevel && level < xpConfig.maxLevel)
         {
-            exp -= ExpToNextLevel; // Restar la exp necesaria para el nivel actual
-            level++; // Subir de nivel
-
-            //OnLevelUp?.Invoke(level); // Disparar el evento de subida de nivel
+            exp -= ExpToNextLevel;
+            level++;
             mediator.LevelUp(level);
-
-            //Debug.Log($"🎉 Subiste al nivel {level}!");
         }
     }
 
-    public int GetExp()
-    {
-        return exp;
-    }
+    public int GetExp() => exp;
 
-    public void AddGold(int amountOfGold)
+    public void AddGold(int amount)
     {
-        gold += amountOfGold;
+        gold += amount;
         ApplyStats();
     }
 
@@ -129,4 +146,16 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable
     {
         attackCooldown *= speedMultiplier;
     }
+
+    private void Awake()
+    {
+        ServiceLocator.Instance.RegisterService<IGameUiController>(this);
+    }
+
+    private void OnDisable()
+    {
+        ServiceLocator.Instance.UnregisterService<IGameUiController>();
+    }
+
+    public event Action<PlayerStats> OnUpdate;
 }

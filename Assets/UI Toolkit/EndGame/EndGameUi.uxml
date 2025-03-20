@@ -1,0 +1,8 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenu/CSS/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=105eee8953adc43408777271213cc21d&amp;type=3#MainMenuStyle" />
+    <engine:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); padding-top: 50%;">
+        <engine:Label text="Game Over" style="color: rgb(255, 255, 255); font-size: 120px; -unity-text-align: middle-center;" />
+        <engine:Button text="Restart" name="finish_game" class="start" />
+        <engine:Button text="Button" name="btn_otro" class="exit" />
+    </engine:VisualElement>
+</engine:UXML>

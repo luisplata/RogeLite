@@ -1,0 +1,32 @@
+Label.title {
+    align-items: center;
+    align-self: center;
+    color: rgb(255, 255, 255);
+    font-size: 120px;
+    padding-top: 400px;
+    -unity-font-style: bold;
+}
+
+Button {
+    width: 500px;
+    height: 150px;
+    align-items: center;
+    align-self: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 70px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    text-overflow: clip;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("project://database/Assets/sprites/kenney_ui-pack-pixel-adventure/Tilesheets/Large%20tiles/Thick%20outline/tilemap_packed.png?fileID=-1453350334737186109&guid=b60feaa6f5f04f247bbbd1f19c497d3a&type=3#tilemap_packed_0");
+}
+
+Button.start {
+    background-image: url("project://database/Assets/sprites/kenney_ui-pack-pixel-adventure/Tilesheets/Large%20tiles/Thin%20outline/tilemap.png?fileID=8266258911003420344&guid=46240ebfaf2ff0f4c8696a653b7d8ccc&type=3#button_1");
+    background-color: rgb(255, 255, 255);
+}
+
+Button.exit {
+    background-image: url("project://database/Assets/sprites/kenney_ui-pack-pixel-adventure/Tilesheets/Large%20tiles/Thin%20outline/tilemap.png?fileID=4755373664117421245&guid=46240ebfaf2ff0f4c8696a653b7d8ccc&type=3#button_2");
+}

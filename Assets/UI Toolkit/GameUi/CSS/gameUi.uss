@@ -1,0 +1,7 @@
+Label {
+    max-width: 150px;
+    align-content: auto;
+    justify-content: flex-start;
+    align-self: auto;
+    font-size: 25px;
+}

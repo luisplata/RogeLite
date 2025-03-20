@@ -1,26 +1,35 @@
-﻿using Bellseboss;
+﻿using System;
+using Bellseboss;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerMediator : MonoBehaviour, IAttacker
+public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
 {
-    public Player player;
-    public PlayerStats playerStats;
-    public Pistol pistol;
-    public PowerUpManager powerUpManager;
-    public Inventory inventory;
+    [SerializeField] private Player player;
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private Pistol pistol;
+    [SerializeField] private PowerUpManager powerUpManager;
+    [SerializeField] private Inventory inventory;
     [SerializeField] private TextMeshProUGUI stats, inventoryText;
+    [SerializeField] private EquipmentManager equipmentManager;
+    public PlayerStats PlayerStats => playerStats;
+    public event Action<int> OnLevelUp;
+    public event Action OnDie;
+    public bool IsDead => playerStats.IsDead;
+    public void DisableControls()
+    {
+        player.DisableControls();
+    }
 
-
-    void Awake()
+    public void Initialize()
     {
         player = GetComponent<Player>();
         playerStats = GetComponent<PlayerStats>();
         pistol = GetComponentInChildren<Pistol>();
         powerUpManager = GetComponent<PowerUpManager>();
 
-        // Configurar referencias en los componentes
+        equipmentManager.Initialize(playerStats);
         player.Initialize(this);
         playerStats.Initialize(this);
         pistol.Initialize(this, this);
@@ -37,13 +46,13 @@ public class PlayerMediator : MonoBehaviour, IAttacker
     {
         player.ApplyStats();
         pistol.UpdateStats(playerStats);
-        stats.text = playerStats.GetFormattedStats();
+        stats.text = playerStats.GetFormattedStats() + equipmentManager.GetFormattedEquipment();
         inventoryText.text = inventory.GetFormattedInventory();
     }
 
     public void GameOver()
     {
-        SceneManager.LoadScene(0);
+        OnDie?.Invoke();
     }
 
     public void OnKill(IDamageable target)
@@ -94,6 +103,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker
     public void LevelUp(int newLevel)
     {
         Debug.Log($"New Level! {newLevel}");
-        powerUpManager.ShowPowerUpOptions();
+        //powerUpManager.ShowPowerUpOptions();
+        OnLevelUp?.Invoke(newLevel);
     }
 }

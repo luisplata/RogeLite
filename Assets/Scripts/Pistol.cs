@@ -16,7 +16,7 @@ public class Pistol : MonoBehaviour
     public void Initialize(PlayerMediator mediator, IAttacker a)
     {
         this.mediator = mediator;
-        UpdateStats(mediator.playerStats);
+        UpdateStats(mediator.PlayerStats);
         attacker = a;
     }
 

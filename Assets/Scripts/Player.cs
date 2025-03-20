@@ -17,15 +17,22 @@ public class Player : MonoBehaviour
 
     public void ApplyStats()
     {
-        moveSpeed = mediator.playerStats.MoveSpeed;
+        if (!mediator) return;
+        moveSpeed = mediator.PlayerStats.MoveSpeed;
     }
 
     void Update()
     {
+        if (!mediator) return;
         Vector2 moveDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
 
         //moveDirection.Normalize();
 
         rb.linearVelocity = moveDirection * moveSpeed;
+    }
+
+    public void DisableControls()
+    {
+        mediator = null;
     }
 }
