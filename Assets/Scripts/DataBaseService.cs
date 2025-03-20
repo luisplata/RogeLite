@@ -22,7 +22,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
     public void AddItem(Item item)
     {
         obtainedItems.Add(item);
-        Debug.Log($"Item almacenado: {item.Name} ({item.Stars}★)");
+        //Debug.Log($"Item almacenado: {item.Name} ({item.Stars}★)");
     }
 
     public List<Item> GetItems()
@@ -33,7 +33,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
     public void ClearItems()
     {
         obtainedItems.Clear();
-        Debug.Log("Base de datos temporal limpiada.");
+        //Debug.Log("Base de datos temporal limpiada.");
     }
 
     public void SaveInventory(Inventory inventory)

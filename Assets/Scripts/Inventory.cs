@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     public void AddItem(Item item)
     {
         items.Add(item);
-        Debug.Log($"Added {item.Name} ({item.Stars}★) to inventory.");
+        //Debug.Log($"Added {item.Name} ({item.Stars}★) to inventory.");
     }
 
     public void RemoveItem(Item item)
@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
         if (items.Contains(item))
         {
             items.Remove(item);
-            Debug.Log($"Removed {item.Name} ({item.Stars}★) from inventory.");
+            //Debug.Log($"Removed {item.Name} ({item.Stars}★) from inventory.");
         }
         else
         {
@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour
 
     public List<Item> GetAllItems()
     {
+        Debug.Log($"Count of inventory ingame {items.Count}");
         return new List<Item>(items); // Retorna una copia para evitar modificaciones externas
     }
 
@@ -41,7 +42,7 @@ public class Inventory : MonoBehaviour
     {
         if (items.Count == 0)
         {
-            Debug.Log("Inventory is empty.");
+            //Debug.Log("Inventory is empty.");
             return;
         }
 

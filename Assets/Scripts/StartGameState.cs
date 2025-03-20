@@ -8,7 +8,7 @@ public class StartGameState : StateBase
 
     public override async Awaitable Enter()
     {
-        Debug.Log($"{GetType()}");
+        //Debug.Log($"{GetType()}");
         gameLoop.EnablePlayerMovement();
         gameLoop.EnableSpawnEnemies();
         gameLoop.HideMenuUI();

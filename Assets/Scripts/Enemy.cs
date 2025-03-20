@@ -50,7 +50,7 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
 
     public void OnKill(IDamageable target)
     {
-        Debug.Log($"Kill Player!");
+        //Debug.Log($"Kill Player!");
     }
 
     public Item[] GetLoot()

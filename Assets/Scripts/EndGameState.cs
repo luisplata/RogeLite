@@ -8,7 +8,7 @@ public class EndGameState : StateBase
 
     public override async Awaitable Enter()
     {
-        Debug.Log($"{GetType()}");
+        //Debug.Log($"{GetType()}");
         await Awaitable.NextFrameAsync();
         gameLoop.ShowGameOverUi();
     }
@@ -19,7 +19,7 @@ public class EndGameState : StateBase
         {
             await Awaitable.WaitForSecondsAsync(0.5f);
         }
-        Debug.Log($"Is wana to exit {gameLoop.WantExit}");
+        //Debug.Log($"Is wana to exit {gameLoop.WantExit}");
     }
 
     public override async Awaitable Exit()

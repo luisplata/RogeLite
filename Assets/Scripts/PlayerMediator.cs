@@ -39,7 +39,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
 
     public void OnPowerUpApplied(PowerUp powerUp)
     {
-        Debug.Log($"Power-up aplicado: {powerUp.powerUpName}");
+        //Debug.Log($"Power-up aplicado: {powerUp.powerUpName}");
         powerUp.ApplyEffect(playerStats);
     }
 
@@ -53,10 +53,14 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
 
     public void GameOver()
     {
-        Debug.Log(inventory.GetFormattedInventory());
+        if (isGameOverRunning) return;
+        //Debug.Log(inventory.GetFormattedInventory());
         ServiceLocator.Instance.GetService<IDataBaseService>().SaveInventory(inventory);
+        isGameOverRunning = true;
         OnDie?.Invoke();
     }
+
+    private bool isGameOverRunning;
 
     public void OnKill(IDamageable target)
     {

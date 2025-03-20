@@ -8,14 +8,14 @@ public class InitState : StateBase
 
     public override async Awaitable Enter()
     {
-        Debug.Log($"{GetType()}");
+        //Debug.Log($"{GetType()}");
         await Awaitable.NextFrameAsync();
         gameLoop.HideGameOverUi();
     }
 
     public override async Awaitable Doing()
     {
-        Debug.Log("Doing");
+        //Debug.Log("Doing");
         while (!gameLoop.StartGame)
         {
             await Awaitable.WaitForSecondsAsync(0.5f);

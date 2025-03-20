@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
 {
-    private Button startButton, exitButton;
+    [SerializeField] private Store store;
+    private Button startButton, exitButton, storeButton;
 
     private void OnEnable()
     {
@@ -26,6 +27,7 @@ public class MainMenuController : MonoBehaviour
 
         exitButton = root.Q<Button>("Button_Exit");
         startButton = root.Q<Button>("Button_Play");
+        storeButton = root.Q<Button>("Button_Store");
 
         if (exitButton == null)
             Debug.LogError("⚠️ No se encontró el elemento 'Button_Exit' en el UXML.");
@@ -41,6 +43,16 @@ public class MainMenuController : MonoBehaviour
         {
             exitButton.clicked += OnExitButton;
         }
+        
+        if (storeButton != null)
+        {
+            storeButton.clicked += StoreButtonOnclicked;
+        }
+    }
+
+    private void StoreButtonOnclicked()
+    {
+        store.ShowStore();
     }
 
     private void OnExitButton()
