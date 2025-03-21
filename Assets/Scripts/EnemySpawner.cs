@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour, IEnemySpawn
     private ILevelPlayer levelPlayer;
     private bool isStarted;
 
+    [ContextMenu("Start Spawn")]
     public void StartSpawn()
     {
         levelPlayer = player.GetComponent<ILevelPlayer>();
@@ -64,12 +65,26 @@ public class EnemySpawner : MonoBehaviour, IEnemySpawn
         var ene = enemy.GetComponent<ILevelEnemy>();
         if (ene != null)
         {
-            ene.SetLevel(levelPlayer.Level); // Ajusta el nivel del enemigo al del jugador
+            if (levelPlayer != null)
+            {
+                ene.SetLevel(levelPlayer.Level); // Ajusta el nivel del enemigo al del jugador   
+            }
+            else
+            {
+                ene.SetLevel(50);
+            }
         }
 
         var enem = enemy.GetComponent<Enemy>();
         enem.OnDeath += HandleEnemyDeath;
-        enem.Configure(player);
+        if (levelPlayer != null)
+        {
+            enem.Configure(player);   
+        }
+        else
+        {
+            enem.Configure(null);
+        }
         currentEnemyCount++;
     }
 

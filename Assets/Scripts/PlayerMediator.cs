@@ -2,7 +2,6 @@
 using Bellseboss;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
 {
@@ -18,9 +17,55 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     public event Action OnDie;
     public bool IsDead => playerStats.IsDead;
 
+    public bool ICantGetMinerals { get; set; }
+
+    private GameStateMachine _stateMachine;
+    private bool _whileTrue;
+
+    private Mineral currentMineral;
+
+    private void OnEnable()
+    {
+        _whileTrue = true;
+    }
+
+    private void OnDisable()
+    {
+        _whileTrue = false;
+    }
+
+    private async Awaitable StartStateMachine()
+    {
+        var gameState = _stateMachine.GetInitialState();
+        while (_whileTrue)
+        {
+            await gameState.Enter();
+            await gameState.Doing();
+            await gameState.Exit();
+            var nextState = gameState.NextState();
+            if (nextState == StateOfGame.EXIT)
+            {
+                break;
+            }
+
+            gameState = _stateMachine.GetState(nextState);
+        }
+    }
+
     public void DisableControls()
     {
         player.DisableControls();
+    }
+
+    public void CanGetMinerals(bool canGetMinerals, Mineral mineral)
+    {
+        ICantGetMinerals = canGetMinerals;
+        currentMineral = mineral;
+    }
+
+    public void CanMove(bool canMove)
+    {
+        player.CanMove(canMove);
     }
 
     public void Initialize()
@@ -35,6 +80,16 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         playerStats.Initialize(this);
         pistol.Initialize(this, this);
         powerUpManager.Initialize(this);
+        
+        
+        _stateMachine = new GameStateMachine();
+        _stateMachine.AddInitialState(StateOfGame.INIT, new InitPlayerState(StateOfGame.PLAYER_WALK, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_WALK, new WalkPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_SHOOT, new ShootingPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_MINING, new MiningPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_DEAD, new DeadPlayerState(StateOfGame.EXIT, this));
+        
+        _ = StartStateMachine();
     }
 
     public void OnPowerUpApplied(PowerUp powerUp)
@@ -86,23 +141,17 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     {
         foreach (var item in loot)
         {
-            if (item.Type == LootType.Equipable)
+            switch (item.Type)
             {
-                inventory.AddItem(item);
+                case LootType.Equipable:
+                case LootType.Consumable:
+                case LootType.Mineral:
+                    inventory.AddItem(item);
+                    break;
+                case LootType.Gold:
+                    playerStats.AddGold(item.Stars);
+                    break;
             }
-            else if (item.Type == LootType.Consumable)
-            {
-                Debug.Log("Consume");
-            }
-            else if (item.Type == LootType.Gold)
-            {
-                playerStats.AddGold(item.Stars);
-            }
-            else if (item.Type == LootType.Mineral)
-            {
-                Debug.Log("Mineral");
-            }
-
             //Debug.Log($"Loot {item.Name} with {item.Stars} stars {playerStats.GetExp()}");
         }
     }

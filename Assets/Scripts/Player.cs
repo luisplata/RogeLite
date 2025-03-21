@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private float moveSpeed = 5f;
     private PlayerMediator mediator;
 
+    private bool playerCanMove;
+
     public void Initialize(PlayerMediator mediator)
     {
         this.mediator = mediator;
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!mediator) return;
+        if (!mediator || !playerCanMove) return;
         Vector2 moveDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
 
         //moveDirection.Normalize();
@@ -34,5 +36,10 @@ public class Player : MonoBehaviour
     public void DisableControls()
     {
         mediator = null;
+    }
+
+    public void CanMove(bool canMove)
+    {
+        playerCanMove = canMove;
     }
 }

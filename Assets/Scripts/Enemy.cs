@@ -57,4 +57,9 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
     {
         return ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor).ToArray();
     }
+
+    public bool PlayerIsConfigured()
+    {
+        return player != null;
+    }
 }

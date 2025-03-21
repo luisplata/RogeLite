@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SubidaDeNivelState : StateBase
+public class SubidaDeNivelState : StateBaseGameLoop
 {
     public SubidaDeNivelState(StateOfGame next, IGameLoop mediator) : base(next, mediator)
     {

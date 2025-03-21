@@ -3,12 +3,10 @@
 public abstract class StateBase : IGameState
 {
     protected StateOfGame nextState;
-    protected IGameLoop gameLoop;
 
-    public StateBase(StateOfGame next, IGameLoop mediator)
+    public StateBase(StateOfGame next)
     {
         nextState = next;
-        gameLoop = mediator;
     }
 
     public abstract Awaitable Enter();

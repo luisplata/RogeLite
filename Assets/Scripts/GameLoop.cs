@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
@@ -9,12 +10,14 @@ public class GameLoop : MonoBehaviour, IGameLoop
     private Object player;
 
     private IPlayerMediator PlayerMediatorInstance => player as IPlayerMediator;
-
-
+    
+    // [SerializeField, InterfaceType(typeof(IEnemySpawn))]
+    // private Object spawnEnemy;
+    // private IEnemySpawn EnemySpawnInstance => spawnEnemy as IEnemySpawn;
+    
     [SerializeField, InterfaceType(typeof(IEnemySpawn))]
-    private Object spawnEnemy;
-
-    private IEnemySpawn EnemySpawnInstance => spawnEnemy as IEnemySpawn;
+    private Object[] spawnEnemies;
+    public IEnemySpawn[] spawnEnemiesInstance => spawnEnemies.OfType<IEnemySpawn>().ToArray();
 
     [SerializeField] private UIDocument menuUi;
     [SerializeField] private GameObject endUi;
@@ -32,7 +35,11 @@ public class GameLoop : MonoBehaviour, IGameLoop
 
     public void DisableSpawnEnemies()
     {
-        EnemySpawnInstance.DisableSpawn();
+        foreach (var enemySpawn in spawnEnemiesInstance)
+        {
+            enemySpawn.DisableSpawn();
+        }
+        //EnemySpawnInstance.DisableSpawn();
     }
 
     public void HideMenuUI()
@@ -100,7 +107,11 @@ public class GameLoop : MonoBehaviour, IGameLoop
 
     public void EnableSpawnEnemies()
     {
-        EnemySpawnInstance.StartSpawn();
+        foreach (var enemySpawn in spawnEnemiesInstance)
+        {
+            enemySpawn.StartSpawn();
+        }
+        //EnemySpawnInstance.StartSpawn();
     }
 }
 

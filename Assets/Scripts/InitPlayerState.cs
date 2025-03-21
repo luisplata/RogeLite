@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 
-public class MuerteState : StateBaseGameLoop
+public class InitPlayerState : StateBasePlayer
 {
-    public MuerteState(StateOfGame next, IGameLoop mediator) : base(next, mediator)
+    public InitPlayerState(StateOfGame next, IPlayerMediator mediator) : base(next, mediator)
     {
     }
 
     public override async Awaitable Enter()
     {
-        Debug.Log($"{GetType()}");
+        Debug.Log($"Enter to {GetType()}");
         await Awaitable.NextFrameAsync();
     }
 
     public override async Awaitable Doing()
     {
-        await Awaitable.WaitForSecondsAsync(2);
+        await Awaitable.NextFrameAsync();
     }
 
     public override async Awaitable Exit()

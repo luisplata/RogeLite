@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
@@ -14,8 +15,14 @@ public class MeleeEnemy : Enemy
 
     protected override void Move()
     {
-        if (player == null) return;
-        transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+        if (player == null)
+        {
+            return;
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+        }
     }
 
     void Attack()

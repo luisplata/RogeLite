@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class StartGameState : StateBase
+public class StartGameState : StateBaseGameLoop
 {
     public StartGameState(StateOfGame next, IGameLoop mediator) : base(next, mediator)
     {
