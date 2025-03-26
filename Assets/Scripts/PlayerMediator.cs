@@ -68,6 +68,19 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         player.CanMove(canMove);
     }
 
+    public void GetMinerals()
+    {
+        if (currentMineral == null) return;
+        var loot = currentMineral as ILootSource;
+        CollectLoot(loot.GetLoot());
+        currentMineral.TryToDestroy();
+    }
+
+    public float GetTimeToMining()
+    {
+        return playerStats.GetTimeToMining();
+    }
+
     public void Initialize()
     {
         player = GetComponent<Player>();
@@ -161,5 +174,10 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         Debug.Log($"New Level! {newLevel}");
         //powerUpManager.ShowPowerUpOptions();
         OnLevelUp?.Invoke(newLevel);
+    }
+
+    public bool IsMining()
+    {
+        return ICantGetMinerals;
     }
 }

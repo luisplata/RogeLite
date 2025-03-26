@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     [SerializeField] private int level = 1;
     [SerializeField] private int exp;
     [SerializeField] private XPConfig xpConfig;
+    [SerializeField] private float miningTime = 1f;
     private XPManager xpManager;
 
     private Dictionary<string, float> statModifiers = new();
@@ -158,4 +159,9 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     }
 
     public event Action<PlayerStats> OnUpdate;
+
+    public float GetTimeToMining()
+    {
+        return miningTime;
+    }
 }

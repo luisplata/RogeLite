@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8664fe13aa7f41bcabac41649a5117df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lootTable: {fileID: 11400000, guid: c024d7d18f2f9d940b627bca93d48d9f, type: 2}
+  luckFactor: 1
 --- !u!58 &-4299069954580658344
 CircleCollider2D:
   m_ObjectHideFlags: 0

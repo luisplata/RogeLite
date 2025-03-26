@@ -18,10 +18,23 @@ public class MiningPlayerState : StateBasePlayer
         while (whileTrue)
         {
             await Awaitable.WaitForSecondsAsync(0.2f);
+            //Try to get minerals
             if (!_mediator.ICantGetMinerals)
             {
                 whileTrue = false;
                 nextState = StateOfGame.PLAYER_WALK;
+            }
+            else
+            {
+                await Awaitable.WaitForSecondsAsync(_mediator.GetTimeToMining());
+                if (!_mediator.ICantGetMinerals)
+                {
+                    whileTrue = false;
+                    nextState = StateOfGame.PLAYER_WALK;
+                    break;
+                }                                            
+
+                _mediator.GetMinerals();
             }
         }
     }

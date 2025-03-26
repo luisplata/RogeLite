@@ -12,12 +12,14 @@ public class Pistol : MonoBehaviour
     private float nextAttackTime;
     private PlayerMediator mediator;
     private IAttacker attacker;
+    private bool isConfigured;
 
     public void Initialize(PlayerMediator mediator, IAttacker a)
     {
         this.mediator = mediator;
         UpdateStats(mediator.PlayerStats);
         attacker = a;
+        isConfigured = true;
     }
 
     public void UpdateStats(PlayerStats stats)
@@ -27,6 +29,8 @@ public class Pistol : MonoBehaviour
 
     void Update()
     {
+        if (!isConfigured) return;
+        if (mediator.IsMining()) return;
         if (Time.time >= nextAttackTime)
         {
             GameObject target = FindClosestEnemy();
