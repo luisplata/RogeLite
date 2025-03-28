@@ -1,0 +1,13 @@
+.item-entry {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.star {
+    width: 50px;
+    height: 70px;
+    background-image: url("project://database/Assets/sprites/kenney_ui-pack-pixel-adventure/Tilesheets/Large%20tiles/Thin%20outline/tilemap.png?fileID=4035501790466999928&guid=46240ebfaf2ff0f4c8696a653b7d8ccc&type=3#cuadro_6");
+    min-width: auto;
+    max-width: 70px;
+}

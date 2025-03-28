@@ -8,7 +8,7 @@ public class ItemBuilder
     private LootType _type;
     private int _stars;
     private EquipmentSlot? _slot;
-    private Dictionary<string, float> _stats = new();
+    private List<BaseStatsOnItem> stats = new();
 
     public static Item Create(LootItem lootItem)
     {
@@ -54,35 +54,40 @@ public class ItemBuilder
             {
                 case EquipmentSlot.LeftHandWeapon:
                 case EquipmentSlot.RightHandWeapon:
-                    _stats["Attack"] = 10 * _stars;
-                    _stats["Attack Speed"] = Random.Range(0.5f, 1.5f) * _stars;
+                    SetStats(StatType.Attack, 10 * _stars);
+                    SetStats(StatType.AttackSpeed, Random.Range(0.5f, 1.5f) * _stars);
                     break;
 
                 case EquipmentSlot.TwoHandedWeapon:
-                    _stats["Attack"] = 20 * _stars; // Más fuerte que un arma de una mano
-                    _stats["Attack Speed"] = Random.Range(0.3f, 1.0f) * _stars;
+                    SetStats(StatType.Attack, 20 * _stars);
+                    SetStats(StatType.AttackSpeed, Random.Range(0.3f, 1.0f) * _stars);
                     break;
 
                 case EquipmentSlot.Helmet:
                 case EquipmentSlot.Chestplate:
                 case EquipmentSlot.Pants:
                 case EquipmentSlot.Shoes:
-                    _stats["Defense"] = 5 * _stars;
-                    _stats["Health"] = 20 * _stars;
+                    SetStats(StatType.Defense, 5 * _stars);
+                    SetStats(StatType.Heal, 20 * _stars);
                     break;
             }
         }
         else if (_type == LootType.Consumable)
         {
-            _stats["Heal"] = 20 * _stars;
+            SetStats(StatType.Heal, 20 * _stars);
         }
 
         return this;
     }
 
+    private void SetStats(StatType statType, float statValue)
+    {
+        stats.Add(new BaseStatsOnItem(statType, statValue));
+    }
+
     public Item Build()
     {
-        return new Item(_name, _type, _stars, _slot) { Stats = _stats };
+        return new Item(_name, _type, _stars, _slot) { stats = stats };
     }
 
     private static int DetermineStars()

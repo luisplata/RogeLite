@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiController
@@ -9,15 +10,19 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     [SerializeField] private float baseDamage = 10f;
     [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private int health = 1;
+    [SerializeField] private int health = 100;
     [SerializeField] private int gold;
     [SerializeField] private int level = 1;
     [SerializeField] private int exp;
     [SerializeField] private XPConfig xpConfig;
     [SerializeField] private float miningTime = 1f;
     private XPManager xpManager;
+    [SerializeField] private float currentDamage;
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private float currentCooldown;
 
-    private Dictionary<string, float> statModifiers = new();
+
+    private List<BaseStatsOnItem> statModifiers = new();
 
     public int ExpToNextLevel => GetXpForLevel(level + 1);
 
@@ -25,6 +30,7 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     public void Initialize(PlayerMediator mediator)
     {
         this.mediator = mediator;
+        UpdateStats();
         ApplyStats();
         xpManager = new XPManager(xpConfig);
         xpManager.OnLevelUp += HandleLevelUp;
@@ -42,26 +48,25 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
         OnUpdate?.Invoke(this);
     }
 
-    public void ApplyStat(string stat, float value)
+    public void ApplyStat(BaseStatsOnItem stat)
     {
-        if (statModifiers.ContainsKey(stat))
+        if (statModifiers.Contains(stat))
         {
-            statModifiers[stat] += value;
+            statModifiers.Find(s => s == stat).statValue += stat.statValue;
         }
         else
         {
-            statModifiers[stat] = value;
+            statModifiers.Add(stat);
         }
 
         UpdateStats();
     }
 
-    public void RemoveStat(string stat, float value)
+    public void RemoveStat(BaseStatsOnItem stat)
     {
-        if (statModifiers.ContainsKey(stat))
+        if (statModifiers.Contains(stat))
         {
-            statModifiers[stat] -= value;
-            if (statModifiers[stat] == 0) statModifiers.Remove(stat);
+            statModifiers.Remove(stat);
         }
 
         UpdateStats();
@@ -69,25 +74,46 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
 
     private void UpdateStats()
     {
-        float totalDamage = baseDamage + (statModifiers.ContainsKey("Attack") ? statModifiers["Attack"] : 0);
-        float totalSpeed = moveSpeed + (statModifiers.ContainsKey("Speed") ? statModifiers["Speed"] : 0);
-        float totalCooldown = attackCooldown -
-                              (statModifiers.ContainsKey("CooldownReduction") ? statModifiers["CooldownReduction"] : 0);
+        float totalDamage = baseDamage;
+        float totalSpeed = moveSpeed;
+        float totalCooldown = attackCooldown;
+
+        foreach (var stat in statModifiers)
+        {
+            switch (stat.statType)
+            {
+                case StatType.Attack:
+                    totalDamage += stat.statValue;
+                    break;
+                case StatType.Speed:
+                    totalSpeed += stat.statValue;
+                    break;
+                case StatType.CooldownReduction:
+                    totalCooldown -= stat.statValue;
+                    break;
+                case StatType.Heal:
+                    health += Mathf.CeilToInt(stat.statValue);
+                    break;
+                case StatType.AttackSpeed:
+                    totalCooldown *= stat.statValue;
+                    break;
+            }
+        }
 
         // Aplicamos los valores finales
-        baseDamage = totalDamage;
-        moveSpeed = totalSpeed;
-        attackCooldown = Mathf.Max(0.1f, totalCooldown); // Evitamos cooldown negativo
+        currentDamage = totalDamage;
+        currentSpeed = totalSpeed;
+        currentCooldown = Mathf.Max(0.1f, totalCooldown);
 
         ApplyStats();
     }
 
     public int Level => level;
-    public float MoveSpeed => moveSpeed;
-    public float AttackCooldown => attackCooldown;
+    public float MoveSpeed => currentSpeed;
+    public float AttackCooldown => currentCooldown;
     public bool IsDead => health <= 0;
     public int Health => health;
-    public int Damage => Mathf.CeilToInt(baseDamage);
+    public int Damage => Mathf.CeilToInt(currentDamage);
     public int Gold => gold;
 
     public void TakeDamage(int amount, IAttacker attacker)

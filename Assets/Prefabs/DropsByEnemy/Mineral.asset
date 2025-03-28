@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootEntries:
   - item: {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
-    dropChance: 0.1
+    dropChance: 1
   - item: {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
-    dropChance: 0.1
+    dropChance: 0.05
   - item: {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
-    dropChance: 0.1
+    dropChance: 0.05
   - item: {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
-    dropChance: 0.1
-  maxDrops: 1
+    dropChance: 0.05
+  maxDrops: 2

@@ -14,4 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: sword
   lootType: 0
-  equipmentSlot: 4
+  equipmentSlot: 7
+  baseStatsOnItem:
+  - statType: 0
+    statValue: 300
+  - statType: 1
+    statValue: 200
+  - statType: 2
+    statValue: 10
+  - statType: 3
+    statValue: 1
+  - statType: 4
+    statValue: 100
+  - statType: 5
+    statValue: 1

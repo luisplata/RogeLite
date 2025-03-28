@@ -1,0 +1,17 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/EquipmentManager/itemTemplate.uss?fileID=7433441132597879392&amp;guid=54b999cb04a6eb245a36554fdc9b12aa&amp;type=3#itemTemplate" />
+    <engine:VisualElement xmlns:engine="UnityEngine.UIElements" class="item-entry">
+        <engine:VisualElement style="flex-grow: 1;">
+            <engine:Label name="ItemName" text="Item Name" style="align-self: center; -unity-text-align: upper-center; font-size: 40px;" />
+            <engine:VisualElement name="Image" style="background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=-9131601288912829532&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#roguelikeChar_transparent_274&quot;); width: 200px; height: 200px; align-self: center;" />
+            <engine:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: center;">
+                <engine:VisualElement name="Star_1" class="star" style="flex-grow: 1;" />
+                <engine:VisualElement name="Star_2" class="star" style="flex-grow: 1;" />
+                <engine:VisualElement name="Star_3" class="star" style="flex-grow: 1;" />
+                <engine:VisualElement name="Star_4" class="star" style="flex-grow: 1;" />
+                <engine:VisualElement name="Star_5" class="star" style="flex-grow: 1;" />
+            </engine:VisualElement>
+            <engine:Label name="ItemQuantity" text="x1" style="align-self: center; -unity-text-align: upper-center; font-size: 25px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

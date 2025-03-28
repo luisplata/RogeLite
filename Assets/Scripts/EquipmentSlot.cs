@@ -1,4 +1,7 @@
-﻿public enum EquipmentSlot
+﻿using System;
+
+[Serializable]
+public enum EquipmentSlot
 {
     NONE,
     Pants,

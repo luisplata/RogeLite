@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Store : MonoBehaviour
+public class Store : MonoBehaviour, IUIScreen
 {
     [SerializeField] private GameObject sotre;
     [SerializeField] private Button closeButton;
@@ -10,14 +10,26 @@ public class Store : MonoBehaviour
     [SerializeField] private GameObject parentToContainer;
 
     private List<ItemToBuyContainer> instantiates = new();
+    private UIManager uiManager;
 
-    private void Start()
+    public void Initialize(UIManager manager)
     {
+        uiManager = manager;
+        uiManager.RegisterScreen("Store", this);
         closeButton.onClick.AddListener(HideStore);
-        HideStore();
     }
 
     public void ShowStore()
+    {
+        Show();
+    }
+
+    public void HideStore()
+    {
+        uiManager.ShowScreen("MainMenu");
+    }
+
+    public void Show()
     {
         var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
         Debug.Log($"Count of items {items.Count}");
@@ -31,7 +43,7 @@ public class Store : MonoBehaviour
         sotre.SetActive(true);
     }
 
-    public void HideStore()
+    public void Hide()
     {
         sotre.SetActive(false);
         foreach (var container in instantiates)

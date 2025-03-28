@@ -27,7 +27,7 @@ public class ItemToBuyContainer : MonoBehaviour
 
     public void Configure(Item item)
     {
-        switch (item.Type)
+        switch (item.itemType)
         {
             case LootType.Consumable:
             case LootType.Mineral:
@@ -41,11 +41,11 @@ public class ItemToBuyContainer : MonoBehaviour
                 break;
         }
 
-        for (int i = 0; i < item.Stars; i++)
+        for (int i = 0; i < item.stars; i++)
         {
             positionStarts[i].SetActive(true);
         }
 
-        itenName.text = item.Name;
+        itenName.text = item.itemName;
     }
 }

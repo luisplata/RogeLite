@@ -42,17 +42,17 @@ public class EquipmentManager : MonoBehaviour
 
     private void ApplyItemStats(Item item)
     {
-        foreach (var stat in item.Stats)
+        foreach (var stat in item.stats)
         {
-            playerStats.ApplyStat(stat.Key, stat.Value);
+            playerStats.ApplyStat(stat);
         }
     }
 
     private void RemoveItemStats(Item item)
     {
-        foreach (var stat in item.Stats)
+        foreach (var stat in item.stats)
         {
-            playerStats.ApplyStat(stat.Key, -stat.Value);
+            playerStats.ApplyStat(stat);
         }
     }
 
@@ -65,7 +65,7 @@ public class EquipmentManager : MonoBehaviour
 
         foreach (var entry in equippedItems)
         {
-            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.Name} (<color=yellow>{entry.Value.Stars}★</color>)");
+            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.itemName} (<color=yellow>{entry.Value.stars}★</color>)");
         }
 
         return sb.ToString();

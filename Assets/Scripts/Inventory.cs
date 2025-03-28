@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Tried to remove {item.Name}, but it's not in the inventory.");
+            Debug.LogWarning($"Tried to remove {item.itemName}, but it's not in the inventory.");
         }
     }
 
@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
 
         foreach (var item in items)
         {
-            sb.AppendLine($"- {item.Name} ({item.Stars}★)");
+            sb.AppendLine($"- {item.itemName} ({item.stars}★)");
         }
 
         Debug.Log(sb.ToString());
@@ -69,7 +69,7 @@ public class Inventory : MonoBehaviour
 
         foreach (var item in items)
         {
-            sb.AppendLine($"- {item.Name} (<color=yellow>{item.Stars} Start</color>)");
+            sb.AppendLine($"- {item.itemName} (<color=yellow>{item.stars} Start</color>)");
         }
 
         PrintInventory();

@@ -4,8 +4,6 @@ using Bellseboss;
 
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
-    private List<Item> obtainedItems = new();
-
     private void Awake()
     {
         var count = FindObjectsByType<DataBaseService>(FindObjectsSortMode.None).Length;
@@ -17,23 +15,44 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
 
         ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
         DontDestroyOnLoad(gameObject);
+
+        LoadInventory();
     }
 
     public void AddItem(Item item)
     {
-        obtainedItems.Add(item);
-        //Debug.Log($"Item almacenado: {item.Name} ({item.Stars}★)");
+        // Cargar el inventario actual
+        InventoryData inventory = LoadInventory();
+
+        // Agregar el nuevo ítem
+        inventory.Items.Add(item);
+
+        // Convertir a JSON y guardar
+        string json = JsonUtility.ToJson(inventory);
+        PlayerPrefs.SetString("Inventory", json);
+        PlayerPrefs.Save(); // Asegurar que se guarde inmediatamente
+
+        Debug.Log($"Json Saved: {json}");
+    }
+
+    private InventoryData LoadInventory()
+    {
+        string json = PlayerPrefs.GetString("Inventory", "{}"); // Evitar null
+        Debug.Log($"Json Loaded: {json}");
+
+        InventoryData inventory = JsonUtility.FromJson<InventoryData>(json);
+        return inventory;
     }
 
     public List<Item> GetItems()
     {
-        return new List<Item>(obtainedItems); // Se retorna una copia para evitar modificaciones externas.
+        return new List<Item>(LoadInventory().Items);
     }
 
     public void ClearItems()
     {
-        obtainedItems.Clear();
-        //Debug.Log("Base de datos temporal limpiada.");
+        PlayerPrefs.DeleteKey("Inventory"); // Elimina los datos guardados
+        PlayerPrefs.Save(); // Asegurar que se apliquen los cambios
     }
 
     public void SaveInventory(Inventory inventory)

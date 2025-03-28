@@ -14,3 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pota de vida
   lootType: 1
+  equipmentSlot: 0
+  baseStatsOnItem:
+  - statType: 0
+    statValue: 0
+  - statType: 1
+    statValue: 0
+  - statType: 2
+    statValue: 0
+  - statType: 3
+    statValue: 0
+  - statType: 4
+    statValue: 100
+  - statType: 5
+    statValue: 0

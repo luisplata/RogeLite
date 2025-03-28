@@ -31,11 +31,12 @@ public class LootFactory : MonoBehaviour, ILootFactory
         foreach (var entry in lootTable.lootEntries)
         {
             if (drops >= lootTable.maxDrops) break;
-
             float modifiedChance = entry.dropChance * luckFactor;
             if (Random.value <= modifiedChance)
             {
-                Item newItem = ItemBuilder.Create(entry.item);
+                var configItemInstantiate = Instantiate(entry.item);
+                Item newItem = ItemBuilder.Create(configItemInstantiate);
+                newItem.stats = configItemInstantiate.baseStatsOnItem;
                 droppedItems.Add(newItem);
                 drops++;
             }

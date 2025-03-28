@@ -154,7 +154,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     {
         foreach (var item in loot)
         {
-            switch (item.Type)
+            switch (item.itemType)
             {
                 case LootType.Equipable:
                 case LootType.Consumable:
@@ -162,7 +162,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
                     inventory.AddItem(item);
                     break;
                 case LootType.Gold:
-                    playerStats.AddGold(item.Stars);
+                    playerStats.AddGold(item.stars);
                     break;
             }
             //Debug.Log($"Loot {item.Name} with {item.Stars} stars {playerStats.GetExp()}");

@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootTable: {fileID: 11400000, guid: c024d7d18f2f9d940b627bca93d48d9f, type: 2}
   luckFactor: 1
+  timesToMining: 3
 --- !u!58 &-4299069954580658344
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,4 +139,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1
+  m_Radius: 0.5

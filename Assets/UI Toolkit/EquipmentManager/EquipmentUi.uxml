@@ -1,0 +1,27 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/EquipmentManager/equipmentStyle.uss?fileID=7433441132597879392&amp;guid=695a199d573531c4aa434f04f5a0925f&amp;type=3#equipmentStyle" />
+    <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
+    <engine:VisualElement name="main" style="flex-grow: 1;">
+        <engine:VisualElement name="TopBar" picking-mode="Ignore" class="bar" style="flex-grow: 1; margin-top: 200px;">
+            <engine:Button text="Back" name="Button_Back" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" />
+        </engine:VisualElement>
+        <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; max-width: 900px; max-height: 800px; min-height: 800px; justify-content: space-between; align-self: center; align-content: flex-start; top: auto; bottom: initial; width: 900px; padding-top: initial; padding-bottom: initial; margin-top: 0; margin-bottom: 0; background-color: rgba(255, 255, 255, 0.45); height: 700px;">
+            <engine:VisualElement name="Pants" class="player-item" style="flex-grow: 1; height: 171px; width: 188px; position: absolute; top: 250px; left: 708px;" />
+            <engine:VisualElement name="Shoes" class="player-item" style="flex-grow: 1; height: 157px; width: 199px; position: absolute; left: 697px; top: 447px;" />
+            <engine:VisualElement name="Chestplate" class="player-item" style="flex-grow: 1; height: 186px; width: 180px; position: absolute; left: 9px; top: 222px;" />
+            <engine:VisualElement name="Helmet" class="player-item" style="flex-grow: 1; height: 160px; width: 173px; position: absolute; left: 12px; top: 29px;" />
+            <engine:VisualElement name="Player" picking-mode="Ignore" style="flex-grow: 1; height: 500px; width: 500px; position: absolute; top: 115px; left: 202px; background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=7117352459926733294&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#human_1&quot;);">
+                <engine:VisualElement name="equip_Pants" picking-mode="Ignore" class="Equipment" style="width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0); background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=-1216740824874361976&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#roguelikeChar_transparent_283&quot;);" />
+                <engine:VisualElement name="equip_Shoes" picking-mode="Ignore" class="Equipment" style="flex-grow: 1; height: 100%; width: 100%; position: absolute; top: 2px; left: 2px; background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=7556249715932374297&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#roguelikeChar_transparent_52&quot;); background-color: rgba(255, 255, 255, 0);" />
+                <engine:VisualElement name="equip_Chestplate" picking-mode="Ignore" class="Equipment" style="flex-grow: 1; height: 100%; width: 100%; position: absolute; top: 2px; left: 2px; background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=3765511987169681835&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#roguelikeChar_transparent_59&quot;); background-color: rgba(255, 255, 255, 0);" />
+                <engine:VisualElement name="equip_Helmet" picking-mode="Ignore" class="Equipment" style="flex-grow: 1; height: 100%; width: 100%; position: absolute; top: 2px; left: 2px; background-image: url(&quot;project://database/Assets/sprites/kenney_roguelike-characters/Spritesheet/roguelikeChar_transparent.png?fileID=8494893402755440149&amp;guid=5c974ab32eddb074c9abc696258fce42&amp;type=3#roguelikeChar_transparent_115&quot;); background-color: rgba(255, 255, 255, 0);" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="BotoonBar" picking-mode="Ignore" class="bar">
+            <engine:Button text="Save" name="save" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="ItemList" style="flex-grow: 1; display: flex; padding-left: 70px; padding-top: 70px; padding-right: 70px; padding-bottom: 70px;">
+        <engine:VisualElement style="flex-grow: 1;" />
+    </engine:VisualElement>
+</engine:UXML>
