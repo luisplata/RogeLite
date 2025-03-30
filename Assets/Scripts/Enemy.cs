@@ -53,9 +53,13 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
         //Debug.Log($"Kill Player!");
     }
 
-    public Item[] GetLoot()
+    public LootItemInstance[] GetLoot()
     {
-        return ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor).ToArray();
+        var list = ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor);
+        
+        list.Add(ServiceLocator.Instance.GetService<ILootFactory>().GenerateGold(luckFactor));
+
+        return list.ToArray();
     }
 
     public bool PlayerIsConfigured()

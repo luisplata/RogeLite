@@ -74,7 +74,7 @@ Button:active {
     width: 100%;
 }
 
-#ItemList {
+#Modal {
     position: absolute;
     top: auto;
     left: auto;

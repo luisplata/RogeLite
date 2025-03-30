@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private List<Item> items = new();
+    private List<LootItemInstance> items = new();
 
-    public void AddItem(Item item)
+    public void AddItem(LootItemInstance item)
     {
         items.Add(item);
         //Debug.Log($"Added {item.Name} ({item.Stars}★) to inventory.");
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(LootItemInstance item)
     {
         if (items.Contains(item))
         {
@@ -26,15 +26,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HasItem(Item item)
+    public bool HasItem(LootItemInstance item)
     {
         return items.Contains(item);
     }
 
-    public List<Item> GetAllItems()
+    public List<LootItemInstance> GetAllItems()
     {
         Debug.Log($"Count of inventory ingame {items.Count}");
-        return new List<Item>(items); // Retorna una copia para evitar modificaciones externas
+        return new List<LootItemInstance>(items); // Retorna una copia para evitar modificaciones externas
     }
 
     [ContextMenu("PrintInventory")]

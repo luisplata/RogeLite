@@ -4,5 +4,6 @@ using Bellseboss;
 public interface IDataBaseService
 {
     void SaveInventory(Inventory inventory);
-    List<Item> GetItems();
+    List<LootItemInstance> GetItems();
+    List<LootItem> GetListItemLoot();
 }

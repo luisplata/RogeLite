@@ -3,5 +3,7 @@ using Bellseboss;
 
 public interface ILootFactory
 {
-    List<Item> GenerateLoot(LootTable lootTable, float luckFactor);
+    List<LootItemInstance> GenerateLoot(LootTable lootTable, float luckFactor);
+    LootItemInstance CreateLootItem(LootItem lootItem);
+    LootItemInstance GenerateGold(float luckFactor);
 }

@@ -21,7 +21,9 @@
             <engine:Button text="Save" name="save" />
         </engine:VisualElement>
     </engine:VisualElement>
-    <engine:VisualElement name="ItemList" style="flex-grow: 1; display: flex; padding-left: 70px; padding-top: 70px; padding-right: 70px; padding-bottom: 70px;">
-        <engine:VisualElement style="flex-grow: 1;" />
+    <engine:VisualElement name="Modal" style="flex-grow: 1; display: flex; padding-left: 70px; padding-top: 70px; padding-right: 70px; padding-bottom: 70px;">
+        <engine:VisualElement name="VisualElement" style="flex-grow: 1;">
+            <engine:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="ItemsContainer" style="width: 100%; height: 100%;" />
+        </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

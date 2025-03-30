@@ -23,16 +23,10 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     private bool _whileTrue;
 
     private Mineral currentMineral;
+    private bool isGameOverRunning;
 
-    private void OnEnable()
-    {
-        _whileTrue = true;
-    }
-
-    private void OnDisable()
-    {
-        _whileTrue = false;
-    }
+    private void OnEnable() => _whileTrue = true;
+    private void OnDisable() => _whileTrue = false;
 
     private async Awaitable StartStateMachine()
     {
@@ -43,19 +37,12 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
             await gameState.Doing();
             await gameState.Exit();
             var nextState = gameState.NextState();
-            if (nextState == StateOfGame.EXIT)
-            {
-                break;
-            }
-
+            if (nextState == StateOfGame.EXIT) break;
             gameState = _stateMachine.GetState(nextState);
         }
     }
 
-    public void DisableControls()
-    {
-        player.DisableControls();
-    }
+    public void DisableControls() => player.DisableControls();
 
     public void CanGetMinerals(bool canGetMinerals, Mineral mineral)
     {
@@ -63,23 +50,19 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         currentMineral = mineral;
     }
 
-    public void CanMove(bool canMove)
-    {
-        player.CanMove(canMove);
-    }
+    public void CanMove(bool canMove) => player.CanMove(canMove);
 
     public void GetMinerals()
     {
         if (currentMineral == null) return;
-        var loot = currentMineral as ILootSource;
-        CollectLoot(loot.GetLoot());
-        currentMineral.TryToDestroy();
+        if (currentMineral is ILootSource lootSource)
+        {
+            CollectLoot(lootSource.GetLoot());
+            currentMineral.TryToDestroy();
+        }
     }
 
-    public float GetTimeToMining()
-    {
-        return playerStats.GetTimeToMining();
-    }
+    public float GetTimeToMining() => playerStats.GetTimeToMining();
 
     public void Initialize()
     {
@@ -93,23 +76,18 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         playerStats.Initialize(this);
         pistol.Initialize(this, this);
         powerUpManager.Initialize(this);
-        
-        
+
         _stateMachine = new GameStateMachine();
         _stateMachine.AddInitialState(StateOfGame.INIT, new InitPlayerState(StateOfGame.PLAYER_WALK, this));
         _stateMachine.AddState(StateOfGame.PLAYER_WALK, new WalkPlayerState(StateOfGame.PLAYER_DEAD, this));
         _stateMachine.AddState(StateOfGame.PLAYER_SHOOT, new ShootingPlayerState(StateOfGame.PLAYER_DEAD, this));
         _stateMachine.AddState(StateOfGame.PLAYER_MINING, new MiningPlayerState(StateOfGame.PLAYER_DEAD, this));
         _stateMachine.AddState(StateOfGame.PLAYER_DEAD, new DeadPlayerState(StateOfGame.EXIT, this));
-        
+
         _ = StartStateMachine();
     }
 
-    public void OnPowerUpApplied(PowerUp powerUp)
-    {
-        //Debug.Log($"Power-up aplicado: {powerUp.powerUpName}");
-        powerUp.ApplyEffect(playerStats);
-    }
+    public void OnPowerUpApplied(PowerUp powerUp) => powerUp.ApplyEffect(playerStats);
 
     public void OnStatsChanged()
     {
@@ -122,35 +100,20 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     public void GameOver()
     {
         if (isGameOverRunning) return;
-        //Debug.Log(inventory.GetFormattedInventory());
         ServiceLocator.Instance.GetService<IDataBaseService>().SaveInventory(inventory);
         isGameOverRunning = true;
         OnDie?.Invoke();
     }
 
-    private bool isGameOverRunning;
-
     public void OnKill(IDamageable target)
     {
-        //Debug.Log($"Kill Enemy!");
-        if (target is IXPSource xpSource)
-        {
-            GainXP(xpSource.GetXPAmount());
-        }
-
-        if (target is ILootSource lootSource)
-        {
-            CollectLoot(lootSource.GetLoot());
-        }
+        if (target is IXPSource xpSource) GainXP(xpSource.GetXPAmount());
+        if (target is ILootSource lootSource) CollectLoot(lootSource.GetLoot());
     }
 
-    private void GainXP(int amount)
-    {
-        playerStats.AddExp(amount);
-        //Debug.Log($"Gained {amount} XP. Total XP: {playerStats.GetExp()}");
-    }
+    private void GainXP(int amount) => playerStats.AddExp(amount);
 
-    private void CollectLoot(Item[] loot)
+    private void CollectLoot(LootItemInstance[] loot)
     {
         foreach (var item in loot)
         {
@@ -160,24 +123,22 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
                 case LootType.Consumable:
                 case LootType.Mineral:
                     inventory.AddItem(item);
+                    Debug.Log($"Added {item.itemName} ({item.stars}★) to inventory.");
                     break;
                 case LootType.Gold:
-                    playerStats.AddGold(item.stars);
+                    var amount = item.stars;
+                    playerStats.AddGold(amount);
+                    Debug.Log($"Player received {amount} gold!");
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown loot type: {item.itemName}");
                     break;
             }
-            //Debug.Log($"Loot {item.Name} with {item.Stars} stars {playerStats.GetExp()}");
         }
     }
 
-    public void LevelUp(int newLevel)
-    {
-        Debug.Log($"New Level! {newLevel}");
-        //powerUpManager.ShowPowerUpOptions();
-        OnLevelUp?.Invoke(newLevel);
-    }
 
-    public bool IsMining()
-    {
-        return ICantGetMinerals;
-    }
+    public void LevelUp(int newLevel) => OnLevelUp?.Invoke(newLevel);
+    public bool IsMining() => ICantGetMinerals;
+    public void EquipItem(LootItemInstance item) => equipmentManager.EquipItem(item);
 }

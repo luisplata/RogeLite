@@ -2,5 +2,5 @@
 
 public interface ILootSource
 {
-    Item[] GetLoot();
+    LootItemInstance[] GetLoot();
 }

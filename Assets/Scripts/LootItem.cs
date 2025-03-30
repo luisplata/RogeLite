@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewLootItem", menuName = "Loot System/Loot Item")]
@@ -7,6 +6,7 @@ public class LootItem : ScriptableObject
 {
     public string itemName;
     public LootType lootType;
+    public Sprite itemSprite;
     public EquipmentSlot equipmentSlot; // Nuevo: Define en qué slot se puede equipar
 
     public List<BaseStatsOnItem> baseStatsOnItem = new()
@@ -38,28 +38,5 @@ public class LootItem : ScriptableObject
                 new(StatType.AttackSpeed, 0)
             };
         }
-    }
-}
-
-public enum StatType
-{
-    Attack,
-    Defense,
-    Speed,
-    CooldownReduction,
-    Heal,
-    AttackSpeed
-}
-
-[Serializable]
-public class BaseStatsOnItem
-{
-    public StatType statType; // En lugar de un ScriptableObject, usamos un enum
-    public float statValue;
-
-    public BaseStatsOnItem(StatType statType, float statValue)
-    {
-        this.statType = statType;
-        this.statValue = statValue;
     }
 }

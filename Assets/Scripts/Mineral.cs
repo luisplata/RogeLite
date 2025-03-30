@@ -27,9 +27,11 @@ public class Mineral : MonoBehaviour, ILootSource
         }
     }
 
-    public Item[] GetLoot()
+    public LootItemInstance[] GetLoot()
     {
-        return ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor).ToArray();
+        return ServiceLocator.Instance.GetService<ILootFactory>()
+            .GenerateLoot(lootTable, luckFactor)
+            .ToArray(); // Ahora devuelve LootItemInstance[]
     }
 
     public void TryToDestroy()

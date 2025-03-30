@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc2a69348e9e479d85afaf224de30fd6, type: 3}
-  m_Name: Sword
+  m_Name: SmallSword
   m_EditorClassIdentifier: 
-  itemName: sword
+  itemName: Small Sword
   lootType: 0
-  equipmentSlot: 7
+  itemSprite: {fileID: 1693223518, guid: 5c974ab32eddb074c9abc696258fce42, type: 3}
+  equipmentSlot: 6
   baseStatsOnItem:
   - statType: 0
-    statValue: 300
+    statValue: 3
   - statType: 1
-    statValue: 200
+    statValue: 2
   - statType: 2
-    statValue: 10
+    statValue: 1
   - statType: 3
     statValue: 1
   - statType: 4
-    statValue: 100
+    statValue: 1
   - statType: 5
     statValue: 1

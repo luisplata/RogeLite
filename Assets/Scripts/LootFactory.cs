@@ -1,51 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Bellseboss;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LootFactory : MonoBehaviour, ILootFactory
 {
+    [SerializeField] private LootItem gold;
+    private ILootService _lootService;
+
     private void Awake()
     {
-        var count = FindObjectsByType<LootFactory>(FindObjectsSortMode.None).Length;
-        if (count > 1)
+        if (FindObjectsByType<LootFactory>(FindObjectsSortMode.None).Length > 1)
         {
             Destroy(gameObject);
             return;
         }
 
+        ILootItemFactory lootItemFactory = new RandomLootItemFactory();
+        _lootService = new LootService(lootItemFactory, gold);
+
         ServiceLocator.Instance.RegisterService<ILootFactory>(this);
+        ServiceLocator.Instance.RegisterService(_lootService);
     }
 
     private void OnDestroy()
     {
         ServiceLocator.Instance.UnregisterService<ILootFactory>();
+        ServiceLocator.Instance.UnregisterService<ILootService>();
     }
 
-    public List<Item> GenerateLoot(LootTable lootTable, float luckFactor)
+    public List<LootItemInstance> GenerateLoot(LootTable lootTable, float luckFactor)
     {
-        List<Item> droppedItems = new();
-        int drops = 0;
+        return _lootService.GenerateLoot(lootTable, luckFactor);
+    }
 
-        foreach (var entry in lootTable.lootEntries)
-        {
-            if (drops >= lootTable.maxDrops) break;
-            float modifiedChance = entry.dropChance * luckFactor;
-            if (Random.value <= modifiedChance)
-            {
-                var configItemInstantiate = Instantiate(entry.item);
-                Item newItem = ItemBuilder.Create(configItemInstantiate);
-                newItem.stats = configItemInstantiate.baseStatsOnItem;
-                droppedItems.Add(newItem);
-                drops++;
-            }
-        }
+    public LootItemInstance CreateLootItem(LootItem lootItem)
+    {
+        ILootItemFactory lootItemFactory = new RandomLootItemFactory();
+        return lootItemFactory.CreateLootItem(lootItem);
+    }
 
-        // Agregar oro como mínimo
-        var goldAmount = Mathf.CeilToInt(5 * luckFactor);
-        droppedItems.Add(new Item("Gold", LootType.Gold, goldAmount));
-
-        return droppedItems;
+    public LootItemInstance GenerateGold(float luckFactor)
+    {
+        LootItemInstance goldLoot = CreateLootItem(gold);
+        goldLoot.stars = Mathf.CeilToInt(5 * luckFactor);
+        goldLoot.itemName = "Gold";
+        goldLoot.itemType = LootType.Gold;
+        return goldLoot;
     }
 }

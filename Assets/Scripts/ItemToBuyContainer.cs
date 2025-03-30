@@ -25,7 +25,7 @@ public class ItemToBuyContainer : MonoBehaviour
         }
     }
 
-    public void Configure(Item item)
+    public void Configure(LootItemInstance item)
     {
         switch (item.itemType)
         {

@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using Bellseboss;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EquipmentMenuUI : MonoBehaviour, IUIScreen
 {
     [SerializeField] private UIDocument uiDocument;
-    [SerializeField] private UIDocument modal;
     [SerializeField] private VisualTreeAsset itemTemplate;
     private VisualElement root;
-    private VisualElement modalRoot;
+    private VisualElement modal;
     private Button backButton;
     private UIManager uiManager;
     private VisualElement helmetContainer, pantContainer, shoesContainer, chestplateContainer;
+    private ScrollView scrollView;
 
     private void OnEnable()
     {
@@ -21,7 +22,6 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
         }
 
         root = uiDocument.rootVisualElement;
-        modalRoot = modal.rootVisualElement;
 
         if (root == null)
         {
@@ -29,24 +29,48 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
             return;
         }
 
-        modalRoot.style.display = DisplayStyle.None;
+        modal = root.Q<VisualElement>("Modal");
+
+        modal.style.display = DisplayStyle.None;
 
         backButton = root.Q<Button>("Button_Back");
         helmetContainer = root.Q<VisualElement>("Helmet");
         pantContainer = root.Q<VisualElement>("Pants");
         shoesContainer = root.Q<VisualElement>("Shoes");
         chestplateContainer = root.Q<VisualElement>("Chestplate");
+        scrollView = root.Q<ScrollView>("ItemsContainer");
 
-        helmetContainer.RegisterCallback<PointerDownEvent>(evt => helmetContainer.AddToClassList("active"));
+        helmetContainer.RegisterCallback<PointerDownEvent>(ClickPointDownHelmet);
         helmetContainer.RegisterCallback<PointerUpEvent>(evt => helmetContainer.RemoveFromClassList("active"));
-        pantContainer.RegisterCallback<PointerDownEvent>(evt => pantContainer.AddToClassList("active"));
+        pantContainer.RegisterCallback<PointerDownEvent>(ClickPointDownPants);
         pantContainer.RegisterCallback<PointerUpEvent>(evt => pantContainer.RemoveFromClassList("active"));
-        shoesContainer.RegisterCallback<PointerDownEvent>(evt => shoesContainer.AddToClassList("active"));
+        shoesContainer.RegisterCallback<PointerDownEvent>(ClickPointDownShoes);
         shoesContainer.RegisterCallback<PointerUpEvent>(evt => shoesContainer.RemoveFromClassList("active"));
-        chestplateContainer.RegisterCallback<PointerDownEvent>(evt => chestplateContainer.AddToClassList("active"));
+        chestplateContainer.RegisterCallback<PointerDownEvent>(ClickPointDownChest);
         chestplateContainer.RegisterCallback<PointerUpEvent>(evt => chestplateContainer.RemoveFromClassList("active"));
 
         backButton.clicked += OnBackButtonClicked;
+    }
+
+    private void ClickPointDownHelmet(PointerDownEvent evt)
+    {
+        helmetContainer.AddToClassList("active");
+        LoadItems(EquipmentSlot.Helmet);
+    }
+
+    private void ClickPointDownPants(PointerDownEvent evt)
+    {
+        pantContainer.AddToClassList("active");
+    }
+
+    private void ClickPointDownShoes(PointerDownEvent evt)
+    {
+        shoesContainer.AddToClassList("active");
+    }
+
+    private void ClickPointDownChest(PointerDownEvent evt)
+    {
+        chestplateContainer.AddToClassList("active");
     }
 
     private void OnDisable()
@@ -71,16 +95,55 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
     {
         uiManager = manager;
         uiManager.RegisterScreen("EquipmentMenu", this);
-        
+    }
+
+    private void LoadItems(EquipmentSlot typeOfSlot)
+    {
         // Cargar los items del jugador
-        var items = ServiceLocator.Instance.GetService<DataBaseService>().GetItems();
+        scrollView.Clear();
+        var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
         foreach (var item in items)
         {
+            if (item.itemType != LootType.Equipable || item.Slot == EquipmentSlot.NONE
+                // || item.Slot != typeOfSlot
+                ) continue;
             var itemElement = itemTemplate.Instantiate();
             itemElement.Q<Label>("ItemName").text = item.itemName;
             itemElement.Q<Label>("ItemDescription").text = item.stats.ToString();
+            itemElement.RegisterCallback<PointerUpEvent>(evt => { EquipItem(item); });
             //itemElement.Q<VisualElement>("ItemImage").style.backgroundImage = SpriteToTexture2D(item.sprite);
-            root.Add(itemElement);
+            scrollView.Add(itemElement);
+        }
+
+        modal.style.display = DisplayStyle.Flex;
+    }
+
+    private void EquipItem(LootItemInstance item)
+    {
+        modal.style.display = DisplayStyle.None;
+        uiManager.EquipItem(item);
+        switch (item.Slot)
+        {
+            case EquipmentSlot.Helmet:
+                helmetContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
+                // helmetContainer.Q<Label>("ItemName").text = item.itemName;
+                // helmetContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
+                break;
+            case EquipmentSlot.Pants:
+                pantContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
+                // pantContainer.Q<Label>("ItemName").text = item.itemName;
+                // pantContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
+                break;
+            case EquipmentSlot.Shoes:
+                shoesContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
+                // shoesContainer.Q<Label>("ItemName").text = item.itemName;
+                // shoesContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
+                break;
+            case EquipmentSlot.Chestplate:
+                chestplateContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
+                // chestplateContainer.Q<Label>("ItemName").text = item.itemName;
+                // chestplateContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
+                break;
         }
     }
 

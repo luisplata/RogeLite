@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    private Dictionary<EquipmentSlot, Item> equippedItems = new();
+    private Dictionary<EquipmentSlot, LootItemInstance> equippedItems = new();
     private PlayerStats playerStats;
 
     public void Initialize(PlayerStats stats)
@@ -12,7 +12,7 @@ public class EquipmentManager : MonoBehaviour
         playerStats = stats;
     }
 
-    public bool EquipItem(Item item)
+    public bool EquipItem(LootItemInstance item)
     {
         if (!item.IsEquipable()) return false;
 
@@ -26,21 +26,21 @@ public class EquipmentManager : MonoBehaviour
             UnequipItem(EquipmentSlot.TwoHandedWeapon);
         }
 
-        equippedItems[item.Slot.Value] = item;
+        equippedItems[item.Slot] = item;
         ApplyItemStats(item);
         return true;
     }
 
     public void UnequipItem(EquipmentSlot slot)
     {
-        if (equippedItems.TryGetValue(slot, out Item item))
+        if (equippedItems.TryGetValue(slot, out LootItemInstance item))
         {
             RemoveItemStats(item);
             equippedItems.Remove(slot);
         }
     }
 
-    private void ApplyItemStats(Item item)
+    private void ApplyItemStats(LootItemInstance item)
     {
         foreach (var stat in item.stats)
         {
@@ -48,7 +48,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    private void RemoveItemStats(Item item)
+    private void RemoveItemStats(LootItemInstance item)
     {
         foreach (var stat in item.stats)
         {

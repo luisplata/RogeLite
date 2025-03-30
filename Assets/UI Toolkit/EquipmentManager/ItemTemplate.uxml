@@ -11,7 +11,7 @@
                 <engine:VisualElement name="Star_4" class="star" style="flex-grow: 1;" />
                 <engine:VisualElement name="Star_5" class="star" style="flex-grow: 1;" />
             </engine:VisualElement>
-            <engine:Label name="ItemQuantity" text="x1" style="align-self: center; -unity-text-align: upper-center; font-size: 25px;" />
+            <engine:Label name="ItemDescription" text="x1" style="align-self: center; -unity-text-align: upper-center; font-size: 25px;" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

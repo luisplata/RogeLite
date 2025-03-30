@@ -4,7 +4,7 @@ public class UIInitializer : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private MainMenuUI mainMenu;
-    [SerializeField] private EquipmentMenuUI equipmentMenu;
+    [SerializeField] private EquipmentCanvasUi equipmentMenu;
     [SerializeField] private Store store;
 
     private void Start()

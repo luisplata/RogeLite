@@ -4,10 +4,10 @@ using Bellseboss;
 
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
+    [SerializeField] private List<LootItem> lootItems;
     private void Awake()
     {
-        var count = FindObjectsByType<DataBaseService>(FindObjectsSortMode.None).Length;
-        if (count > 1)
+        if (FindObjectsByType<DataBaseService>(FindObjectsSortMode.None).Length > 1)
         {
             Destroy(gameObject);
             return;
@@ -19,47 +19,77 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         LoadInventory();
     }
 
-    public void AddItem(Item item)
+    public void AddItem(LootItemInstance item)
     {
-        // Cargar el inventario actual
         InventoryData inventory = LoadInventory();
+        Debug.Log($"In Add item slot {item.Slot}");
+        inventory.Items.Add(new LootItemInstanceData(item));
 
-        // Agregar el nuevo ítem
-        inventory.Items.Add(item);
-
-        // Convertir a JSON y guardar
         string json = JsonUtility.ToJson(inventory);
         PlayerPrefs.SetString("Inventory", json);
-        PlayerPrefs.Save(); // Asegurar que se guarde inmediatamente
+        PlayerPrefs.Save();
 
         Debug.Log($"Json Saved: {json}");
     }
 
-    private InventoryData LoadInventory()
+    public List<LootItemInstance> GetItems()
     {
-        string json = PlayerPrefs.GetString("Inventory", "{}"); // Evitar null
-        Debug.Log($"Json Loaded: {json}");
+        InventoryData inventory = LoadInventory();
+        List<LootItemInstance> items = new();
 
-        InventoryData inventory = JsonUtility.FromJson<InventoryData>(json);
-        return inventory;
+        foreach (var itemData in inventory.Items)
+        {
+            LootItem lootItem = FindLootItemByName(itemData.itemName);
+            if (lootItem != null)
+            {
+                items.Add(new LootItemInstance(itemData, lootItem));
+            }
+            else
+            {
+                Debug.LogWarning($"LootItem no encontrado: {itemData.itemName}");
+            }
+        }
+
+        return items;
     }
 
-    public List<Item> GetItems()
+    public List<LootItem> GetListItemLoot()
     {
-        return new List<Item>(LoadInventory().Items);
+        return lootItems;
+    }
+
+    private InventoryData LoadInventory()
+    {
+        string json = PlayerPrefs.GetString("Inventory", "{}");
+        Debug.Log($"Json Loaded: {json}");
+
+        InventoryData inventory = JsonUtility.FromJson<InventoryData>(json) ?? new InventoryData();
+        return inventory;
     }
 
     public void ClearItems()
     {
-        PlayerPrefs.DeleteKey("Inventory"); // Elimina los datos guardados
-        PlayerPrefs.Save(); // Asegurar que se apliquen los cambios
+        PlayerPrefs.DeleteKey("Inventory");
+        PlayerPrefs.Save();
     }
 
     public void SaveInventory(Inventory inventory)
     {
+        InventoryData inventoryData = new InventoryData();
         foreach (var item in inventory.GetAllItems())
         {
-            AddItem(item);
+            Debug.Log($"In SaveInventory slot {item.Slot}");
+            inventoryData.Items.Add(new LootItemInstanceData(item));
         }
+
+        string json = JsonUtility.ToJson(inventoryData);
+        PlayerPrefs.SetString("Inventory", json);
+        PlayerPrefs.Save();
+    }
+
+    private LootItem FindLootItemByName(string itemName)
+    {
+        // Aquí deberías tener una lista de LootItems cargados en memoria
+        return lootItems.Find(item => item.itemName == itemName);
     }
 }

@@ -2,24 +2,26 @@
 using Bellseboss;
 using UnityEngine;
 
-public class ItemBuilder
+public class ItemBuilder: IItemBuilder
 {
     private string _name;
     private LootType _type;
+    private Sprite _image;
     private int _stars;
     private EquipmentSlot? _slot;
-    private List<BaseStatsOnItem> stats = new();
+    private List<BaseStatsOnItem> _stats = new();
 
-    public static Item Create(LootItem lootItem)
+    public static LootItemInstance Create(LootItem lootItem)
     {
         int stars = DetermineStars(); // Calculamos estrellas
         return new ItemBuilder()
             .SetName(lootItem.itemName)
             .SetType(lootItem.lootType)
             .SetStars(stars)
+            .SetImage(lootItem.itemSprite)
             .SetSlot(lootItem.equipmentSlot) // Ahora los ítems pueden tener un slot de equipamiento
             .GenerateStats()
-            .Build();
+            .Build(lootItem);
     }
 
     public ItemBuilder SetName(string name)
@@ -31,6 +33,12 @@ public class ItemBuilder
     public ItemBuilder SetType(LootType type)
     {
         _type = type;
+        return this;
+    }
+
+    public ItemBuilder SetImage(Sprite image)
+    {
+        _image = image;
         return this;
     }
 
@@ -82,12 +90,12 @@ public class ItemBuilder
 
     private void SetStats(StatType statType, float statValue)
     {
-        stats.Add(new BaseStatsOnItem(statType, statValue));
+        _stats.Add(new BaseStatsOnItem(statType, statValue));
     }
 
-    public Item Build()
+    public LootItemInstance Build(LootItem lootItem)
     {
-        return new Item(_name, _type, _stars, _slot) { stats = stats };
+        return new LootItemInstance(lootItem, _stars) { stats = _stats };
     }
 
     private static int DetermineStars()
@@ -99,4 +107,8 @@ public class ItemBuilder
         if (roll > 0.20f) return 2;
         return 1;
     }
+}
+
+public interface IItemBuilder
+{
 }
