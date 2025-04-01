@@ -6,10 +6,11 @@ using Object = UnityEngine.Object;
 
 public class GameLoop : MonoBehaviour, IGameLoop
 {
-    [SerializeField, InterfaceType(typeof(IPlayerMediator))]
+    [SerializeField, InterfaceType(typeof(IInitializableCharacter))]
     private Object player;
 
-    private IPlayerMediator PlayerMediatorInstance => player as IPlayerMediator;
+    private IInitializableCharacter InitializableCharacterInstance => player as IInitializableCharacter;
+    private IPlayerMediator PlayerMediatorInstance => InitializableCharacterInstance.GetMediator() as IPlayerMediator;
     
     // [SerializeField, InterfaceType(typeof(IEnemySpawn))]
     // private Object spawnEnemy;
@@ -102,7 +103,7 @@ public class GameLoop : MonoBehaviour, IGameLoop
 
     public void EnablePlayerMovement()
     {
-        PlayerMediatorInstance.Initialize();
+        InitializableCharacterInstance.Initialize();
     }
 
     public void EnableSpawnEnemies()

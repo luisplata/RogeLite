@@ -108,6 +108,11 @@ public class PlayerConfigurationService : IPlayerConfigurationService
     {
         return ServiceLocator.Instance.GetService<IDataBaseService>().GetListItemLoot().Find(item => item.itemName == itemName);
     }
+
+    public Dictionary<EquipmentSlot,LootItemInstance> GetEquippedItem()
+    {
+        return _equippedItems;
+    }
 }
 
 [System.Serializable]

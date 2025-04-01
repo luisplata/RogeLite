@@ -8,7 +8,7 @@ public class InitState : StateBaseGameLoop
 
     public override async Awaitable Enter()
     {
-        //Debug.Log($"{GetType()}");
+        Debug.Log($"{GetType()}");
         await Awaitable.NextFrameAsync();
         gameLoop.HideGameOverUi();
     }

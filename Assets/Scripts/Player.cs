@@ -1,20 +1,19 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Joystick joystick;
+    private Joystick joystick;
     [SerializeField] private Rigidbody2D rb;
-    public Tilemap tilemap;
 
     private float moveSpeed = 5f;
     private PlayerMediator mediator;
 
     private bool playerCanMove;
 
-    public void Initialize(PlayerMediator mediator)
+    public void Initialize(PlayerMediator mediatorInComming, Joystick joystick1)
     {
-        this.mediator = mediator;
+        mediator = mediatorInComming;
+        joystick = joystick1;
     }
 
     public void ApplyStats()

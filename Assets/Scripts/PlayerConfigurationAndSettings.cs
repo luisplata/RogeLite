@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfigurationAndSettings
 {
     private bool _isConfigured;
+
     private void Awake()
     {
         var count = FindObjectsByType<PlayerConfigurationAndSettings>(FindObjectsSortMode.None).Length;
@@ -13,9 +15,13 @@ public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfiguratio
         }
 
         ServiceLocator.Instance.RegisterService<IPlayerConfigurationAndSettings>(this);
-        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
         _isConfigured = true;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
     }
 
     private void OnDestroy()

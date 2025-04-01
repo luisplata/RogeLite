@@ -1,6 +1,5 @@
 ﻿using System;
 using Bellseboss;
-using TMPro;
 using UnityEngine;
 
 public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
@@ -10,7 +9,6 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     [SerializeField] private Pistol pistol;
     [SerializeField] private PowerUpManager powerUpManager;
     [SerializeField] private Inventory inventory;
-    [SerializeField] private TextMeshProUGUI stats, inventoryText;
     [SerializeField] private EquipmentManager equipmentManager;
     public PlayerStats PlayerStats => playerStats;
     public event Action<int> OnLevelUp;
@@ -63,16 +61,15 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     }
 
     public float GetTimeToMining() => playerStats.GetTimeToMining();
-
-    public void Initialize()
+    public GameObject GetGameObject()
     {
-        player = GetComponent<Player>();
-        playerStats = GetComponent<PlayerStats>();
-        pistol = GetComponentInChildren<Pistol>();
-        powerUpManager = GetComponent<PowerUpManager>();
+        return gameObject;
+    }
 
+    public void Initialize(Joystick joystick)
+    {
         equipmentManager.Initialize(playerStats);
-        player.Initialize(this);
+        player.Initialize(this, joystick);
         playerStats.Initialize(this);
         pistol.Initialize(this, this);
         powerUpManager.Initialize(this);
@@ -93,8 +90,9 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     {
         player.ApplyStats();
         pistol.UpdateStats(playerStats);
-        stats.text = playerStats.GetFormattedStats() + "\n" + equipmentManager.GetFormattedEquipment();
-        inventoryText.text = inventory.GetFormattedInventory();
+        ServiceLocator.Instance.GetService<IUIGameScreen>()
+            .SetStatsText(playerStats.GetFormattedStats() + "\n" + equipmentManager.GetFormattedEquipment());
+        ServiceLocator.Instance.GetService<IUIGameScreen>().SetInventoryText(inventory.GetFormattedInventory());
     }
 
     public void GameOver()

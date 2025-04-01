@@ -1,6 +1,8 @@
-﻿public interface IPlayerMediator
+﻿using UnityEngine;
+
+public interface IPlayerMediator
 {
-    void Initialize();
+    void Initialize(Joystick joystick);
     event System.Action<int> OnLevelUp;
     event System.Action OnDie;
     bool IsDead { get; }
@@ -10,4 +12,5 @@
     void CanMove(bool canMove);
     void GetMinerals();
     float GetTimeToMining();
+    GameObject GetGameObject();
 }

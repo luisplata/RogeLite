@@ -19,7 +19,10 @@ public class GameUiController : MonoBehaviour
         cooldown = root.Q<Label>("CooldDown");
         speed = root.Q<Label>("Speed");
         gold = root.Q<Label>("Gold");
+    }
 
+    public void Initialize()
+    {
         ServiceLocator.Instance.GetService<IGameUiController>().OnUpdate += OnOnUpdate;
     }
 
