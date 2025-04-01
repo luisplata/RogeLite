@@ -75,7 +75,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
 
     public void SaveInventory(Inventory inventory)
     {
-        InventoryData inventoryData = new InventoryData();
+        InventoryData inventoryData = LoadInventory();
         foreach (var item in inventory.GetAllItems())
         {
             Debug.Log($"In SaveInventory slot {item.Slot}");

@@ -76,4 +76,9 @@ public class Pistol : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
+    public void DisableControls()
+    {
+        isConfigured = false;
+    }
 }

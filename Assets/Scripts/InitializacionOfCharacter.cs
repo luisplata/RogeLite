@@ -22,13 +22,17 @@ public class InitializacionOfCharacter : MonoBehaviour, IInitializableCharacter
     private void PlayerMediatorOnOnDie()
     {
         playerMediator.OnDie -= PlayerMediatorOnOnDie;
-        Destroy(playerMediator.GetGameObject());
-        playerMediator = null;
+        playerMediator.DisableControls();
     }
 
     public IPlayerMediator GetMediator()
     {
         return playerMediator;
+    }
+
+    public bool PlayerIsDead()
+    {
+        return playerMediator.IsDead;
     }
 }
 
@@ -36,4 +40,5 @@ public interface IInitializableCharacter
 {
     void Initialize();
     IPlayerMediator GetMediator();
+    bool PlayerIsDead();
 }

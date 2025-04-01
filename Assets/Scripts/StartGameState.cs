@@ -21,6 +21,7 @@ public class StartGameState : StateBaseGameLoop
         {
             await Awaitable.WaitForSecondsAsync(0.5f);
         }
+        Debug.Log("StartGameState");
     }
 
     public override async Awaitable Exit()

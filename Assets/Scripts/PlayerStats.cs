@@ -122,7 +122,7 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
         ApplyStats();
         if (health <= 0)
         {
-            Debug.Log("Game Over");
+            //Debug.Log("Game Over");
             mediator.GameOver();
             attacker.OnKill(this);
         }

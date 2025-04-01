@@ -2,7 +2,7 @@
 using Bellseboss;
 using UnityEngine;
 
-public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
+public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphicalCharacter
 {
     [SerializeField] private Player player;
     [SerializeField] private PlayerStats playerStats;
@@ -10,6 +10,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     [SerializeField] private PowerUpManager powerUpManager;
     [SerializeField] private Inventory inventory;
     [SerializeField] private EquipmentManager equipmentManager;
+    [SerializeField] private GraphicalCharacter graphicalCharacter;
     public PlayerStats PlayerStats => playerStats;
     public event Action<int> OnLevelUp;
     public event Action OnDie;
@@ -26,6 +27,25 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     private void OnEnable() => _whileTrue = true;
     private void OnDisable() => _whileTrue = false;
 
+    public void Initialize(Joystick joystick)
+    {
+        equipmentManager.Initialize(playerStats);
+        player.Initialize(this, joystick);
+        playerStats.Initialize(this);
+        pistol.Initialize(this, this);
+        powerUpManager.Initialize(this);
+        graphicalCharacter.Initialize(this);
+
+        _stateMachine = new GameStateMachine();
+        _stateMachine.AddInitialState(StateOfGame.INIT, new InitPlayerState(StateOfGame.PLAYER_WALK, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_WALK, new WalkPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_SHOOT, new ShootingPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_MINING, new MiningPlayerState(StateOfGame.PLAYER_DEAD, this));
+        _stateMachine.AddState(StateOfGame.PLAYER_DEAD, new DeadPlayerState(StateOfGame.EXIT, this));
+
+        _ = StartStateMachine();
+    }
+
     private async Awaitable StartStateMachine()
     {
         var gameState = _stateMachine.GetInitialState();
@@ -40,7 +60,11 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
         }
     }
 
-    public void DisableControls() => player.DisableControls();
+    public void DisableControls()
+    {
+        player.DisableControls();
+        pistol.DisableControls();
+    }
 
     public void CanGetMinerals(bool canGetMinerals, Mineral mineral)
     {
@@ -64,24 +88,6 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator
     public GameObject GetGameObject()
     {
         return gameObject;
-    }
-
-    public void Initialize(Joystick joystick)
-    {
-        equipmentManager.Initialize(playerStats);
-        player.Initialize(this, joystick);
-        playerStats.Initialize(this);
-        pistol.Initialize(this, this);
-        powerUpManager.Initialize(this);
-
-        _stateMachine = new GameStateMachine();
-        _stateMachine.AddInitialState(StateOfGame.INIT, new InitPlayerState(StateOfGame.PLAYER_WALK, this));
-        _stateMachine.AddState(StateOfGame.PLAYER_WALK, new WalkPlayerState(StateOfGame.PLAYER_DEAD, this));
-        _stateMachine.AddState(StateOfGame.PLAYER_SHOOT, new ShootingPlayerState(StateOfGame.PLAYER_DEAD, this));
-        _stateMachine.AddState(StateOfGame.PLAYER_MINING, new MiningPlayerState(StateOfGame.PLAYER_DEAD, this));
-        _stateMachine.AddState(StateOfGame.PLAYER_DEAD, new DeadPlayerState(StateOfGame.EXIT, this));
-
-        _ = StartStateMachine();
     }
 
     public void OnPowerUpApplied(PowerUp powerUp) => powerUp.ApplyEffect(playerStats);

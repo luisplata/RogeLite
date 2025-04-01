@@ -10,7 +10,6 @@ public class GameLoop : MonoBehaviour, IGameLoop
     private Object player;
 
     private IInitializableCharacter InitializableCharacterInstance => player as IInitializableCharacter;
-    private IPlayerMediator PlayerMediatorInstance => InitializableCharacterInstance.GetMediator() as IPlayerMediator;
     
     // [SerializeField, InterfaceType(typeof(IEnemySpawn))]
     // private Object spawnEnemy;
@@ -26,12 +25,12 @@ public class GameLoop : MonoBehaviour, IGameLoop
     private GameStateMachine _stateMachine;
 
     public bool StartGame { get; set; }
-    public bool PlayerIsDead => PlayerMediatorInstance.IsDead;
+    public bool PlayerIsDead => InitializableCharacterInstance.PlayerIsDead();
     public bool WantExit { get; set; }
 
     public void DisablePlayerMovement()
     {
-        PlayerMediatorInstance.DisableControls();
+        InitializableCharacterInstance.GetMediator().DisableControls();
     }
 
     public void DisableSpawnEnemies()
