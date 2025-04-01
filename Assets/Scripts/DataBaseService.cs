@@ -14,6 +14,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         }
 
         ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
+        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
         DontDestroyOnLoad(gameObject);
 
         LoadInventory();

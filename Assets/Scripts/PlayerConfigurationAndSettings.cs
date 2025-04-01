@@ -19,11 +19,6 @@ public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfiguratio
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
-    }
-
     private void OnDestroy()
     {
         if (!_isConfigured) return;
