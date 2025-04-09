@@ -315,6 +315,7 @@ MonoBehaviour:
   - {fileID: 7511242425515498784}
   itemImage: {fileID: 4656878029925960390}
   itenName: {fileID: 1183122921519742276}
+  buttonToBuy: {fileID: 2798048275939760861}
 --- !u!114 &2798048275939760861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,19 +359,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4988991260639988099}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4379230721095936898}
-        m_TargetAssemblyTypeName: ItemToBuyContainer, Assembly-CSharp
-        m_MethodName: TryToBuyItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4519341956133606551
 GameObject:
   m_ObjectHideFlags: 0

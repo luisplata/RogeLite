@@ -8,8 +8,10 @@ public class ItemToBuyContainer : MonoBehaviour
     [SerializeField] private GameObject[] positionStarts;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itenName;
+    [SerializeField] private Button buttonToBuy;
+    private LootItemInstance itemInstance;
 
-    public async void TryToBuyItem()
+    private async void TryToBuyItem()
     {
         var response = await ServiceLocator.Instance.GetService<INotificationService>()
             .ShowDecision("Sure to buy?", NotificationType.Bad);
@@ -27,6 +29,7 @@ public class ItemToBuyContainer : MonoBehaviour
 
     public void Configure(LootItemInstance item)
     {
+        itemInstance = item;
         switch (item.itemType)
         {
             case LootType.Consumable:
@@ -45,6 +48,8 @@ public class ItemToBuyContainer : MonoBehaviour
         {
             positionStarts[i].SetActive(true);
         }
+        
+        buttonToBuy.onClick.AddListener(TryToBuyItem);
 
         itenName.text = item.itemName;
     }

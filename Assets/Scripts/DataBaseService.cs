@@ -5,6 +5,10 @@ using Bellseboss;
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
     [SerializeField] private List<LootItem> lootItems;
+
+    private IDataPersistenceService _dataPersistenceService;
+    private IInventoryService _inventoryService;
+
     private void Awake()
     {
         if (FindObjectsByType<DataBaseService>(FindObjectsSortMode.None).Length > 1)
@@ -13,45 +17,25 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
             return;
         }
 
+        _dataPersistenceService = new PlayerPrefsDataPersistenceService();
+        _inventoryService = new InventoryService(_dataPersistenceService, lootItems);
+
         ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
         ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
-        DontDestroyOnLoad(gameObject);
+        ServiceLocator.Instance.RegisterService(_dataPersistenceService);
+        ServiceLocator.Instance.RegisterService(_inventoryService);
 
-        LoadInventory();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void AddItem(LootItemInstance item)
     {
-        InventoryData inventory = LoadInventory();
-        Debug.Log($"In Add item slot {item.Slot}");
-        inventory.Items.Add(new LootItemInstanceData(item));
-
-        string json = JsonUtility.ToJson(inventory);
-        PlayerPrefs.SetString("Inventory", json);
-        PlayerPrefs.Save();
-
-        Debug.Log($"Json Saved: {json}");
+        _inventoryService.AddItem(item);
     }
 
     public List<LootItemInstance> GetItems()
     {
-        InventoryData inventory = LoadInventory();
-        List<LootItemInstance> items = new();
-
-        foreach (var itemData in inventory.Items)
-        {
-            LootItem lootItem = FindLootItemByName(itemData.itemName);
-            if (lootItem != null)
-            {
-                items.Add(new LootItemInstance(itemData, lootItem));
-            }
-            else
-            {
-                Debug.LogWarning($"LootItem no encontrado: {itemData.itemName}");
-            }
-        }
-
-        return items;
+        return _inventoryService.GetItems();
     }
 
     public List<LootItem> GetListItemLoot()
@@ -59,38 +43,16 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         return lootItems;
     }
 
-    private InventoryData LoadInventory()
-    {
-        string json = PlayerPrefs.GetString("Inventory", "{}");
-        Debug.Log($"Json Loaded: {json}");
-
-        InventoryData inventory = JsonUtility.FromJson<InventoryData>(json) ?? new InventoryData();
-        return inventory;
-    }
-
     public void ClearItems()
     {
-        PlayerPrefs.DeleteKey("Inventory");
-        PlayerPrefs.Save();
+        _inventoryService.ClearInventory();
     }
 
     public void SaveInventory(Inventory inventory)
     {
-        InventoryData inventoryData = LoadInventory();
         foreach (var item in inventory.GetAllItems())
         {
-            Debug.Log($"In SaveInventory slot {item.Slot}");
-            inventoryData.Items.Add(new LootItemInstanceData(item));
+            _inventoryService.AddItem(item);
         }
-
-        string json = JsonUtility.ToJson(inventoryData);
-        PlayerPrefs.SetString("Inventory", json);
-        PlayerPrefs.Save();
-    }
-
-    private LootItem FindLootItemByName(string itemName)
-    {
-        // Aquí deberías tener una lista de LootItems cargados en memoria
-        return lootItems.Find(item => item.itemName == itemName);
     }
 }

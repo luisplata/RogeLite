@@ -8,6 +8,8 @@ public class LootItem : ScriptableObject
     public LootType lootType;
     public Sprite itemSprite;
     public EquipmentSlot equipmentSlot; // Nuevo: Define en qué slot se puede equipar
+    public int priceToBuy;
+    public int priceToSell;
 
     public List<BaseStatsOnItem> baseStatsOnItem = new()
     {
