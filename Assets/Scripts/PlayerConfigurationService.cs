@@ -28,7 +28,7 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
     public void EquipItem(LootItemInstance item)
     {
-        _equippedItems[item.Slot] = item;
+        _equippedItems[item.Data.equipmentSlot] = item;
         SaveEquippedItems();
     }
 
@@ -77,14 +77,14 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
         foreach (var itemData in equippedData.Items)
         {
-            LootItem lootItem = FindLootItemByName(itemData.itemName);
+            LootItem lootItem = FindLootItemByName(itemData.lootItemId.Data.itemName);
             if (lootItem != null)
             {
-                equippedItems[itemData.slot] = new LootItemInstance(itemData, lootItem);
+                equippedItems[itemData.lootItemId.Data.equipmentSlot] = new LootItemInstance(itemData, lootItem);
             }
             else
             {
-                Debug.LogWarning($"LootItem no encontrado: {itemData.itemName}");
+                Debug.LogWarning($"LootItem no encontrado: {itemData.lootItemId.Data.itemName}");
             }
         }
 
@@ -106,7 +106,7 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
     private LootItem FindLootItemByName(string itemName)
     {
-        return ServiceLocator.Instance.GetService<IDataBaseService>().GetListItemLoot().Find(item => item.itemName == itemName);
+        return ServiceLocator.Instance.GetService<IDataBaseService>().GetListItemLoot().Find(item => item.Data.itemName == itemName);
     }
 
     public Dictionary<EquipmentSlot,LootItemInstance> GetEquippedItem()

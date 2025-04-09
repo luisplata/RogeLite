@@ -29,7 +29,7 @@ public class EquipmentCanvasUiModal : MonoBehaviour
         items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
         foreach (var item in items)
         {
-            if (item.itemType == LootType.Equipable && item.Slot == slot)
+            if (item.Data.lootType == LootType.Equipable && item.Data.equipmentSlot == slot)
             {
                 var itemElement = Instantiate(itemTemplate, contentItems.transform);
                 itemElement.Initialize(item, this);

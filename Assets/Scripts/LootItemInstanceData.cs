@@ -6,19 +6,15 @@ namespace Bellseboss
     [Serializable]
     public class LootItemInstanceData
     {
-        public string itemName;
-        public LootType itemType;
+        public LootItem lootItemId;
         public int stars;
-        public EquipmentSlot slot;
         public List<BaseStatsOnItem> stats;
 
         public LootItemInstanceData(LootItemInstance instance)
         {
-            itemName = instance.itemName;
-            itemType = instance.itemType;
+            lootItemId = instance.LootItemData;
             stars = instance.stars;
-            slot = instance.Slot;
-            stats = instance.stats ?? new List<BaseStatsOnItem>();
+            stats = instance.Data.baseStats;
         }
 
         public LootItemInstance ToLootItemInstance(LootItem lootItem)
@@ -26,4 +22,6 @@ namespace Bellseboss
             return new LootItemInstance(lootItem, stars);
         }
     }
+
+
 }

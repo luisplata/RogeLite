@@ -16,17 +16,17 @@ public class EquipmentManager : MonoBehaviour
     {
         if (!item.IsEquipable()) return false;
 
-        if (item.Slot == EquipmentSlot.TwoHandedWeapon)
+        if (item.Data.equipmentSlot == EquipmentSlot.TwoHandedWeapon)
         {
             UnequipItem(EquipmentSlot.LeftHandWeapon);
             UnequipItem(EquipmentSlot.RightHandWeapon);
         }
-        else if (item.Slot == EquipmentSlot.LeftHandWeapon || item.Slot == EquipmentSlot.RightHandWeapon)
+        else if (item.Data.equipmentSlot == EquipmentSlot.LeftHandWeapon || item.Data.equipmentSlot == EquipmentSlot.RightHandWeapon)
         {
             UnequipItem(EquipmentSlot.TwoHandedWeapon);
         }
 
-        equippedItems[item.Slot] = item;
+        equippedItems[item.Data.equipmentSlot] = item;
         ApplyItemStats(item);
         return true;
     }
@@ -42,7 +42,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void ApplyItemStats(LootItemInstance item)
     {
-        foreach (var stat in item.stats)
+        foreach (var stat in item.Data.baseStats)
         {
             playerStats.ApplyStat(stat);
         }
@@ -50,7 +50,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void RemoveItemStats(LootItemInstance item)
     {
-        foreach (var stat in item.stats)
+        foreach (var stat in item.Data.baseStats)
         {
             playerStats.ApplyStat(stat);
         }
@@ -65,7 +65,7 @@ public class EquipmentManager : MonoBehaviour
 
         foreach (var entry in equippedItems)
         {
-            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.itemName} (<color=yellow>{entry.Value.stars}★</color>)");
+            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.Data.itemName} (<color=yellow>{entry.Value.stars}★</color>)");
         }
 
         return sb.ToString();

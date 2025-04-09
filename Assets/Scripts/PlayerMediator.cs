@@ -121,13 +121,13 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     {
         foreach (var item in loot)
         {
-            switch (item.itemType)
+            switch (item.Data.lootType)
             {
                 case LootType.Equipable:
                 case LootType.Consumable:
                 case LootType.Mineral:
                     inventory.AddItem(item);
-                    Debug.Log($"Added {item.itemName} ({item.stars}★) to inventory.");
+                    Debug.Log($"Added {item.Data.itemName} ({item.stars}★) to inventory.");
                     break;
                 case LootType.Gold:
                     var amount = item.stars;
@@ -135,7 +135,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
                     Debug.Log($"Player received {amount} gold!");
                     break;
                 default:
-                    Debug.LogWarning($"Unknown loot type: {item.itemName}");
+                    Debug.LogWarning($"Unknown loot type: {item.Data.itemName}");
                     break;
             }
         }

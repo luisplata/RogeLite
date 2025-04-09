@@ -15,9 +15,9 @@ public class ItemInstanceUiModal : MonoBehaviour
 
     public void Initialize(LootItemInstance item, EquipmentCanvasUiModal equipmentCanvasUiModal)
     {
-        itemName.text = item.itemName;
-        itemDescription.text = item.stats.ToString();
-        itemImage.sprite = item.itemSprite;
+        itemName.text = item.Data.itemName;
+        itemDescription.text = item.Data.baseStats.ToString();
+        itemImage.sprite = item.Data.itemSprite;
         for (int i = 0; i < item.stars; i++)
         {
             Instantiate(starPrefab, starParent.transform);

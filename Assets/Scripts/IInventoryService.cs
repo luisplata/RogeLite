@@ -33,7 +33,7 @@ public class InventoryService : IInventoryService
     public void RemoveItem(LootItemInstance item)
     {
         InventoryData inventory = LoadInventory();
-        inventory.Items.RemoveAll(x => x.itemName == item.itemName);
+        inventory.Items.RemoveAll(x => x.lootItemId.Data.itemName == item.Data.itemName);
         SaveInventory(inventory);
     }
 
@@ -56,7 +56,7 @@ public class InventoryService : IInventoryService
 
         foreach (var itemData in inventory.Items)
         {
-            LootItem lootItem = _lootItems.Find(item => item.itemName == itemData.itemName);
+            LootItem lootItem = _lootItems.Find(item => item.Data.itemName == itemData.lootItemId.Data.itemName);
             if (lootItem != null)
                 items.Add(new LootItemInstance(itemData, lootItem));
         }

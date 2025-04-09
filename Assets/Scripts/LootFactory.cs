@@ -43,8 +43,8 @@ public class LootFactory : MonoBehaviour, ILootFactory
     {
         LootItemInstance goldLoot = CreateLootItem(gold);
         goldLoot.stars = Mathf.CeilToInt(5 * luckFactor);
-        goldLoot.itemName = "Gold";
-        goldLoot.itemType = LootType.Gold;
+        goldLoot.Data.itemName = "Gold";
+        goldLoot.Data.lootType = LootType.Gold;
         return goldLoot;
     }
 }

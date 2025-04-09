@@ -14,35 +14,35 @@ public class ItemToBuyContainer : MonoBehaviour
     private async void TryToBuyItem()
     {
         var response = await ServiceLocator.Instance.GetService<INotificationService>()
-            .ShowDecision("Sure to buy?", NotificationType.Bad);
+            .ShowDecision($"Sure to buy {itemInstance.Data.itemName}?", NotificationType.Bad);
         if (response)
         {
             ServiceLocator.Instance.GetService<INotificationService>()
-                .Notify("Buy!", NotificationType.Good);
+                .Notify($"Buy! {itemInstance.Data.itemName}?", NotificationType.Good);
         }
         else
         {
             ServiceLocator.Instance.GetService<INotificationService>()
-                .Notify("Cancel Buy", NotificationType.Normal);
+                .Notify($"Cancel Buy to {itemInstance.Data.itemName}?", NotificationType.Normal);
         }
     }
 
     public void Configure(LootItemInstance item)
     {
         itemInstance = item;
-        switch (item.itemType)
-        {
-            case LootType.Consumable:
-            case LootType.Mineral:
-                itemImage.color = Color.blue;
-                break;
-            case LootType.Equipable:
-                itemImage.color = Color.yellow;
-                break;
-            default:
-                itemImage.color = Color.white;
-                break;
-        }
+        // switch (item.Data.lootType)
+        // {
+        //     case LootType.Consumable:
+        //     case LootType.Mineral:
+        //         itemImage.color = Color.blue;
+        //         break;
+        //     case LootType.Equipable:
+        //         itemImage.color = Color.yellow;
+        //         break;
+        //     default:
+        //         itemImage.color = Color.white;
+        //         break;
+        // }
 
         for (int i = 0; i < item.stars; i++)
         {
@@ -51,6 +51,8 @@ public class ItemToBuyContainer : MonoBehaviour
         
         buttonToBuy.onClick.AddListener(TryToBuyItem);
 
-        itenName.text = item.itemName;
+        itenName.text = item.Data.itemName;
+        itemImage.sprite = item.Data.itemSprite;
+        
     }
 }

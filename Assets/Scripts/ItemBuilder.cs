@@ -2,7 +2,7 @@
 using Bellseboss;
 using UnityEngine;
 
-public class ItemBuilder: IItemBuilder
+public class ItemBuilder : IItemBuilder
 {
     private string _name;
     private LootType _type;
@@ -15,11 +15,11 @@ public class ItemBuilder: IItemBuilder
     {
         int stars = DetermineStars(); // Calculamos estrellas
         return new ItemBuilder()
-            .SetName(lootItem.itemName)
-            .SetType(lootItem.lootType)
+            .SetName(lootItem.Data.itemName)
+            .SetType(lootItem.Data.lootType)
             .SetStars(stars)
-            .SetImage(lootItem.itemSprite)
-            .SetSlot(lootItem.equipmentSlot) // Ahora los ítems pueden tener un slot de equipamiento
+            .SetImage(lootItem.Data.itemSprite)
+            .SetSlot(lootItem.Data.equipmentSlot) // Ahora los ítems pueden tener un slot de equipamiento
             .GenerateStats()
             .Build(lootItem);
     }
@@ -95,7 +95,7 @@ public class ItemBuilder: IItemBuilder
 
     public LootItemInstance Build(LootItem lootItem)
     {
-        return new LootItemInstance(lootItem, _stars) { stats = _stats };
+        return new LootItemInstance(lootItem, _stars) { Data = { baseStats = _stats } };
     }
 
     private static int DetermineStars()

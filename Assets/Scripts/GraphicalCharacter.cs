@@ -27,7 +27,7 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -41,7 +41,7 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -55,7 +55,7 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -69,7 +69,7 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
     }

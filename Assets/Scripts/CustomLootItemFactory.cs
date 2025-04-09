@@ -14,8 +14,8 @@ namespace Bellseboss
         public LootItemInstance CreateLootItem(LootItem baseItem)
         {
             int stars = Random.Range(1, 6);
-            var stats = _statModifierStrategy.ModifyStats(baseItem.baseStatsOnItem, stars);
-            return new LootItemInstance(baseItem, stars) { stats = stats };
+            var stats = _statModifierStrategy.ModifyStats(baseItem.Data.baseStats, stars);
+            return new LootItemInstance(baseItem, stars) { Data = { baseStats = stats } };
         }
     }
 }

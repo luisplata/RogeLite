@@ -17,7 +17,7 @@ public class PlayerCharacter : MonoBehaviour
         Debug.Log($"Character initialized: {CharacterType}");
         foreach (var item in EquippedItems)
         {
-            Debug.Log($"Equipped {item.Key}: {item.Value.itemName}");
+            Debug.Log($"Equipped {item.Key}: {item.Value.Data.itemName}");
         }
     }
 }

@@ -104,12 +104,12 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
         var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
         foreach (var item in items)
         {
-            if (item.itemType != LootType.Equipable || item.Slot == EquipmentSlot.NONE
+            if (item.Data.lootType != LootType.Equipable || item.Data.equipmentSlot == EquipmentSlot.NONE
                 // || item.Slot != typeOfSlot
                 ) continue;
             var itemElement = itemTemplate.Instantiate();
-            itemElement.Q<Label>("ItemName").text = item.itemName;
-            itemElement.Q<Label>("ItemDescription").text = item.stats.ToString();
+            itemElement.Q<Label>("ItemName").text = item.Data.itemName;
+            itemElement.Q<Label>("ItemDescription").text = item.Data.baseStats.ToString();
             itemElement.RegisterCallback<PointerUpEvent>(evt => { EquipItem(item); });
             //itemElement.Q<VisualElement>("ItemImage").style.backgroundImage = SpriteToTexture2D(item.sprite);
             scrollView.Add(itemElement);
@@ -122,7 +122,7 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
     {
         modal.style.display = DisplayStyle.None;
         uiManager.EquipItem(item);
-        switch (item.Slot)
+        switch (item.Data.equipmentSlot)
         {
             case EquipmentSlot.Helmet:
                 helmetContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);

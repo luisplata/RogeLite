@@ -40,7 +40,7 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -54,7 +54,7 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -68,7 +68,7 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
 
@@ -82,7 +82,7 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.Data.itemSprite;
             }
         }
     }

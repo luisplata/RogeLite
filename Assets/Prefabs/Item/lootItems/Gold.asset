@@ -10,21 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc2a69348e9e479d85afaf224de30fd6, type: 3}
-  m_Name: Posion
+  m_Name: Gold
   m_EditorClassIdentifier: 
-  itemName: Pota de vida
-  lootType: 1
-  equipmentSlot: 0
-  baseStatsOnItem:
-  - statType: 0
-    statValue: 0
-  - statType: 1
-    statValue: 0
-  - statType: 2
-    statValue: 0
-  - statType: 3
-    statValue: 0
-  - statType: 4
-    statValue: 100
-  - statType: 5
-    statValue: 0
+  Data:
+    itemName: Gold
+    lootType: 3
+    equipmentSlot: 0
+    itemSprite: {fileID: 5735836495725886720, guid: 4b7e3d1bfa87d6b4eaf7b862e65947ee, type: 3}
+    priceToBuy: 10
+    priceToSell: 15
+    baseStats: []
