@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bellseboss;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
@@ -65,7 +67,7 @@ public class EquipmentManager : MonoBehaviour
 
         foreach (var entry in equippedItems)
         {
-            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.Data.itemName} (<color=yellow>{entry.Value.stars}★</color>)");
+            sb.AppendLine($"- <b>{entry.Key}:</b> {entry.Value.Data.itemName} (<color=yellow>{entry.Value.Stars}★</color>)");
         }
 
         return sb.ToString();

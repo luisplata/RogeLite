@@ -7,6 +7,7 @@ public class PlayerPrefsDataPersistenceService : IDataPersistenceService
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString(key, json);
         PlayerPrefs.Save();
+        Debug.Log($"Data saved {key} {json}");
     }
 
     public T Load<T>(string key, T defaultValue)

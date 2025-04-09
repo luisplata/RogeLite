@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Items;
+using Items.Runtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Store : MonoBehaviour, IUIScreen
 {
-    [SerializeField] private GameObject sotre;
+    [SerializeField] private GameObject store;
     [SerializeField] private Button closeButton;
     [SerializeField] private ItemToBuyContainer containerPrefab;
     [SerializeField] private GameObject parentToContainer;
+    [SerializeField] private TextMeshProUGUI totalGoldText;
 
     private List<ItemToBuyContainer> instantiates = new();
     private UIManager uiManager;
@@ -17,6 +22,31 @@ public class Store : MonoBehaviour, IUIScreen
         uiManager = manager;
         uiManager.RegisterScreen("Store", this);
         closeButton.onClick.AddListener(HideStore);
+
+        UpdateGold(ServiceLocator.Instance.GetService<IGoldService>().GetGold());
+    }
+
+    private void OnEnable()
+    {
+        ServiceLocator.Instance.GetService<IGoldService>().OnGoldChanged += UpdateGold;
+        ServiceLocator.Instance.GetService<IInventoryService>().OnInventoryChanged += OnInventoryChanged;
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Instance.GetService<IGoldService>().OnGoldChanged -= UpdateGold;
+        ServiceLocator.Instance.GetService<IInventoryService>().OnInventoryChanged -= OnInventoryChanged;
+    }
+
+    private void OnInventoryChanged()
+    {
+        ClearStoreItems();
+        ShowStore();
+    }
+
+    private void UpdateGold(int totalGold)
+    {
+        totalGoldText.text = $"Total gold is {totalGold}";
     }
 
     public void ShowStore()
@@ -33,6 +63,7 @@ public class Store : MonoBehaviour, IUIScreen
     {
         var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
         Debug.Log($"Count of items {items.Count}");
+
         foreach (var item in items)
         {
             var itemToBuy = Instantiate(containerPrefab, parentToContainer.transform);
@@ -40,17 +71,28 @@ public class Store : MonoBehaviour, IUIScreen
             instantiates.Add(itemToBuy);
         }
 
-        sotre.SetActive(true);
+        store.SetActive(true);
     }
 
     public void Hide()
     {
-        sotre.SetActive(false);
+        store.SetActive(false);
+
         foreach (var container in instantiates)
         {
             Destroy(container.gameObject);
         }
 
         instantiates = new List<ItemToBuyContainer>();
+    }
+
+    private void ClearStoreItems()
+    {
+        foreach (var container in instantiates)
+        {
+            Destroy(container.gameObject);
+        }
+
+        instantiates.Clear();
     }
 }

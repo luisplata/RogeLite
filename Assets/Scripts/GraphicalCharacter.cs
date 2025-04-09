@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Items;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GraphicalCharacter : MonoBehaviour

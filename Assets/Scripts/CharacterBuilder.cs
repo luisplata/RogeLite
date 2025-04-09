@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bellseboss;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public class CharacterBuilder : ICharacterBuilder

@@ -1,19 +1,10 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System;
+using UnityEngine;
 
-namespace Bellseboss
+namespace Bellseboss.Items.Core
 {
     public abstract class DroppedLoot
     {
-        public LootItemData Data { get; protected set; }
-        public int stars { get; set; }
-
-        protected DroppedLoot(LootItemData data, int stars)
-        {
-            Data = data;
-            this.stars = stars;
-        }
-
-        public bool IsEquipable() => Data.equipmentSlot != EquipmentSlot.NONE;
+        
     }
 }

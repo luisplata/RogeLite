@@ -1,4 +1,5 @@
 ﻿using System;
+using Items;
 using UnityEngine;
 
 public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfigurationAndSettings

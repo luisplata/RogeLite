@@ -1,5 +1,7 @@
 ﻿using System;
 using Bellseboss;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker, ILootSource

@@ -1,5 +1,7 @@
 ﻿using System;
 using Bellseboss;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphicalCharacter
@@ -99,6 +101,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
         ServiceLocator.Instance.GetService<IUIGameScreen>()
             .SetStatsText(playerStats.GetFormattedStats() + "\n" + equipmentManager.GetFormattedEquipment());
         ServiceLocator.Instance.GetService<IUIGameScreen>().SetInventoryText(inventory.GetFormattedInventory());
+        ServiceLocator.Instance.GetService<IGoldService>().AddGold(playerStats.Gold);
     }
 
     public void GameOver()
@@ -127,10 +130,10 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
                 case LootType.Consumable:
                 case LootType.Mineral:
                     inventory.AddItem(item);
-                    Debug.Log($"Added {item.Data.itemName} ({item.stars}★) to inventory.");
+                    Debug.Log($"Added {item.Data.itemName} ({item.Stars}★) to inventory.");
                     break;
                 case LootType.Gold:
-                    var amount = item.stars;
+                    var amount = item.Stars;
                     playerStats.AddGold(amount);
                     Debug.Log($"Player received {amount} gold!");
                     break;

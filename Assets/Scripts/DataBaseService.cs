@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Bellseboss;
+using Bellseboss.Items;
+using Items;
+using Items.Config;
+using Items.Data;
+using Items.Runtime;
 
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
@@ -8,6 +13,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
 
     private IDataPersistenceService _dataPersistenceService;
     private IInventoryService _inventoryService;
+    private IGoldService _goldService;
 
     private void Awake()
     {
@@ -19,11 +25,14 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
 
         _dataPersistenceService = new PlayerPrefsDataPersistenceService();
         _inventoryService = new InventoryService(_dataPersistenceService, lootItems);
+        _goldService = new GoldService(_dataPersistenceService);
 
-        ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
-        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
         ServiceLocator.Instance.RegisterService(_dataPersistenceService);
         ServiceLocator.Instance.RegisterService(_inventoryService);
+        ServiceLocator.Instance.RegisterService(_goldService);
+        ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
+        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(
+            new PlayerConfigurationService(_dataPersistenceService, _inventoryService, this));
 
         DontDestroyOnLoad(gameObject);
     }
@@ -55,4 +64,5 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
             _inventoryService.AddItem(item);
         }
     }
+
 }

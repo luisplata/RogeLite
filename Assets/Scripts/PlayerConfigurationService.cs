@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Bellseboss;
+using Bellseboss.Items;
+using Items;
+using Items.Config;
+using Items.Data;
+using Items.Runtime;
 
 public class PlayerConfigurationService : IPlayerConfigurationService
 {
@@ -11,9 +16,16 @@ public class PlayerConfigurationService : IPlayerConfigurationService
     private CharacterType _characterType;
     private Dictionary<EquipmentSlot, LootItemInstance> _equippedItems = new();
     private PlayerGlobalStats _stats = new();
+    private readonly IDataPersistenceService _dataPersistenceService;
+    private readonly IInventoryService _inventoryService;
+    private readonly IDataBaseService _dataBaseService;
 
-    public PlayerConfigurationService()
+    public PlayerConfigurationService(IDataPersistenceService dataPersistenceService,
+        IInventoryService inventoryService, IDataBaseService dataBaseService)
     {
+        _dataPersistenceService = dataPersistenceService;
+        _inventoryService = inventoryService;
+        _dataBaseService = dataBaseService;
         LoadFromPrefs();
     }
 
@@ -28,8 +40,14 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
     public void EquipItem(LootItemInstance item)
     {
+        if (_equippedItems.ContainsKey(item.Data.equipmentSlot) && _equippedItems[item.Data.equipmentSlot] != null)
+        {
+            _inventoryService.AddItem(_equippedItems[item.Data.equipmentSlot]);
+        }
+
         _equippedItems[item.Data.equipmentSlot] = item;
         SaveEquippedItems();
+        _inventoryService.RemoveItem(item);
     }
 
     public LootItemInstance GetEquippedItem(EquipmentSlot slot)
@@ -55,36 +73,34 @@ public class PlayerConfigurationService : IPlayerConfigurationService
     private void SaveEquippedItems()
     {
         EquippedItemsData equippedData = new EquippedItemsData();
-        
+
         foreach (var item in _equippedItems.Values)
         {
             equippedData.Items.Add(new LootItemInstanceData(item));
         }
 
-        string json = JsonUtility.ToJson(equippedData);
-        Debug.Log($"{EQUIPPED_ITEMS_KEY} Saving equipped items: {json}");
-        PlayerPrefs.SetString(EQUIPPED_ITEMS_KEY, json);
-        PlayerPrefs.Save();
+        _dataPersistenceService.Save(EQUIPPED_ITEMS_KEY, equippedData);
+        // string json = JsonUtility.ToJson(equippedData);
+        // Debug.Log($"{EQUIPPED_ITEMS_KEY} Saving equipped items: {json}");
+        // PlayerPrefs.SetString(EQUIPPED_ITEMS_KEY, json);
+        // PlayerPrefs.Save();
     }
 
     private Dictionary<EquipmentSlot, LootItemInstance> LoadEquippedItems()
     {
-        string json = PlayerPrefs.GetString(EQUIPPED_ITEMS_KEY, "{}");
-        Debug.Log($"{EQUIPPED_ITEMS_KEY} Loaded equipped items: {json}");
-
-        EquippedItemsData equippedData = JsonUtility.FromJson<EquippedItemsData>(json) ?? new EquippedItemsData();
+        EquippedItemsData equippedData = _dataPersistenceService.Load(EQUIPPED_ITEMS_KEY, new EquippedItemsData());
         Dictionary<EquipmentSlot, LootItemInstance> equippedItems = new();
 
         foreach (var itemData in equippedData.Items)
         {
-            LootItem lootItem = FindLootItemByName(itemData.lootItemId.Data.itemName);
+            LootItem lootItem = FindLootItemByName(itemData.LootItemUUID);
             if (lootItem != null)
             {
-                equippedItems[itemData.lootItemId.Data.equipmentSlot] = new LootItemInstance(itemData, lootItem);
+                equippedItems[itemData.ToLootItemInstance(lootItem).Data.equipmentSlot] = new LootItemInstance(lootItem, itemData.Stars);
             }
             else
             {
-                Debug.LogWarning($"LootItem no encontrado: {itemData.lootItemId.Data.itemName}");
+                Debug.LogWarning($"LootItem no encontrado: {itemData.ToLootItemInstance(lootItem).Data.itemName}");
             }
         }
 
@@ -106,10 +122,11 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
     private LootItem FindLootItemByName(string itemName)
     {
-        return ServiceLocator.Instance.GetService<IDataBaseService>().GetListItemLoot().Find(item => item.Data.itemName == itemName);
+        return _dataBaseService.GetListItemLoot()
+            .Find(item => item.Data.itemName == itemName);
     }
 
-    public Dictionary<EquipmentSlot,LootItemInstance> GetEquippedItem()
+    public Dictionary<EquipmentSlot, LootItemInstance> GetEquippedItem()
     {
         return _equippedItems;
     }
