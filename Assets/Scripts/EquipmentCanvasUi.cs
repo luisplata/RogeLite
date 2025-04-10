@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Items;
+using Items.Equipment;
+using Items.Runtime;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
@@ -18,7 +21,24 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
         CloseModal();
 
         backButton.onClick.AddListener(OnBackButtonClicked);
+        helmetButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Head); });
+        pantsButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Pants); });
+        shoesButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Shoes); });
+        chestplateButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Chest); });
         modal.Initialize(this);
+        UpdateImages();
+    }
+
+    private void OpenEquipmentModal(EquipmentSlot slot)
+    {
+        modal.Show(slot);
+    }
+
+    public void EquipItem(LootItemInstance item)
+    {
+        //TODO implement player stats service to apply stats in game
+        ServiceLocator.Instance.GetService<IEquipmentPersistenceService>().EquipItem(item);
+        modal.Hide();
         UpdateImages();
     }
 
@@ -27,22 +47,58 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
         //Load Data from service
         foreach (var image in helmetImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Head);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in pantsImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Pants);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in shoesImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Shoes);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in chestplateImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Chest);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
     }
 

@@ -1,21 +1,31 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Inventory;
+using Items;
+using Items.Equipment;
+using Items.Runtime;
+using UnityEngine;
 
 public class PlayerConfigurationService : IPlayerConfigurationService
 {
     private const string CHARACTER_TYPE_KEY = "CharacterType";
-    private const string EQUIPPED_ITEMS_KEY = "EquippedItems";
     private const string PLAYER_STATS_KEY = "PlayerStats";
 
     private CharacterType _characterType;
     private PlayerGlobalStats _stats = new();
-    private readonly IDataPersistenceService _dataPersistenceService;
-    private readonly IDataBaseService _dataBaseService;
 
-    public PlayerConfigurationService(IDataPersistenceService dataPersistenceService,
-        IDataBaseService dataBaseService)
+    private readonly IDataPersistenceService _dataPersistenceService;
+    private readonly IInventoryService _inventoryService;
+    private readonly IEquipmentPersistenceService _equipmentPersistenceService;
+
+    public PlayerConfigurationService(
+        IDataPersistenceService dataPersistenceService,
+        IInventoryService inventoryService,
+        IEquipmentPersistenceService equipmentPersistenceService)
     {
         _dataPersistenceService = dataPersistenceService;
-        _dataBaseService = dataBaseService;
+        _inventoryService = inventoryService;
+        _equipmentPersistenceService = equipmentPersistenceService;
         LoadFromPrefs();
     }
 
@@ -28,6 +38,20 @@ public class PlayerConfigurationService : IPlayerConfigurationService
 
     public CharacterType GetCharacterType() => _characterType;
 
+    public LootItemInstance GetEquippedItem(EquipmentSlot slot)
+    {
+        return _inventoryService.GetAllItems().FirstOrDefault(x => x.LootItemConfig.EquipmentSlot == slot);
+    }
+
+    public void SaveEquippedItems(List<LootItemInstance> equippedItems)
+    {
+        _equipmentPersistenceService.SaveEquippedItems(equippedItems);
+    }
+
+    public List<LootItemInstance> LoadEquippedItems()
+    {
+        return _equipmentPersistenceService.LoadEquippedItems();
+    }
 
     public void SetStats(PlayerGlobalStats stats)
     {

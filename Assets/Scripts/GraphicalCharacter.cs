@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Items;
+using Items.Equipment;
+using UnityEngine;
 
 public class GraphicalCharacter : MonoBehaviour
 {
@@ -12,28 +14,63 @@ public class GraphicalCharacter : MonoBehaviour
         graphicalCharacter = mediator;
         UpdateImages();
     }
-
-    private void UpdateImages()
+private void UpdateImages()
     {
         //Load Data from service
         foreach (var image in helmetImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Head);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in pantsImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Pants);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in shoesImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Shoes);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
 
         foreach (var image in chestplateImage)
         {
-            image.sprite = defaultSprite;
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Chest);
+            if (itemLoot == null)
+            {
+                image.sprite = defaultSprite;
+            }
+            else
+            {
+                image.sprite = itemLoot.LootItemConfig.Icon;
+            }
         }
     }
 

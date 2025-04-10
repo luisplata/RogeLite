@@ -12,7 +12,7 @@ namespace Inventory
         private const string InventoryKey = "player_inventory"; // Clave para guardar en PlayerPrefs
         private IDataPersistenceService _dataPersistenceService;
 
-        private List<LootItemInstance> _inventoryItems = new List<LootItemInstance>();
+        private List<LootItemInstance> _inventoryItems = new();
         private readonly ILootFactory _lootFactory;
 
         // Constructor
