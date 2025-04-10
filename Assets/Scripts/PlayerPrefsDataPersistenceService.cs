@@ -13,6 +13,7 @@ public class PlayerPrefsDataPersistenceService : IDataPersistenceService
     public T Load<T>(string key, T defaultValue)
     {
         string json = PlayerPrefs.GetString(key, "{}");
+        Debug.Log($"Data loaded {key} {json}");
         return string.IsNullOrEmpty(json) ? defaultValue : JsonUtility.FromJson<T>(json);
     }
 

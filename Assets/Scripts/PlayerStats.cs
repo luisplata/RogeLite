@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Inventory;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiController
@@ -31,6 +30,7 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
         ApplyStats();
         xpManager = new XPManager(xpConfig);
         xpManager.OnLevelUp += HandleLevelUp;
+        gold = ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().LoadGold();
     }
 
     private void HandleLevelUp(int newLevel)
@@ -140,5 +140,12 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     public float GetTimeToMining()
     {
         return miningTime;
+    }
+
+    public float GetLuckFactor()
+    {
+        // Implementar la lógica para calcular el factor de suerte
+        // Por ahora, devolvemos un valor fijo
+        return 1.0f;
     }
 }

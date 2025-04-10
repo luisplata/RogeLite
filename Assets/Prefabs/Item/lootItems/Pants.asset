@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebaa9da82e884db48b79e2abedd6364d, type: 3}
+  m_Name: Pants
+  m_EditorClassIdentifier: 
+  UUID: pants
+  ItemName: Pants
+  LootType: 0
+  EquipmentSlot: 3
+  Icon: {fileID: -146784520314977075, guid: 5c974ab32eddb074c9abc696258fce42, type: 3}
+  BuyPrice: 10
+  SellPrice: 5
+  BaseStats:
+  - StatType: 1
+    Value: 10
+  - StatType: 4
+    Value: 10

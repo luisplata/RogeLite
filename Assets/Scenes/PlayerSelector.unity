@@ -1038,9 +1038,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   store: {fileID: 547245869}
   closeButton: {fileID: 547245873}
-  containerPrefab: {fileID: 4379230721095936898, guid: a7a246338f3497341a10f793fecbfa00, type: 3}
   parentToContainer: {fileID: 1098249345}
   totalGoldText: {fileID: 962073521}
+  itemToBuyContainerPrefab: {fileID: 1522617982414469359, guid: a7a246338f3497341a10f793fecbfa00, type: 3}
 --- !u!1 &317419833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3951,7 +3951,6 @@ MonoBehaviour:
   root: {fileID: 600022026}
   closeButton: {fileID: 732595112}
   contentItems: {fileID: 1111914270}
-  itemTemplate: {fileID: 3724061809307247127, guid: 0eec19172bfa5724cb56e5cfec5b59af, type: 3}
 --- !u!1 &1448559988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5545,46 +5544,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: lootItems.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 3317d43cefb1d094f80068e7ce7261df, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ea2f61b57f87f4479082f1a923de1c1, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: d669bd1cb2030ba419f259d68f4a3f5b, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 7b20250278073b045be45687cfa27c0f, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 1c60457d5cf91194d94f18aebfefa80c, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[5]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c204401a9410e4a4592a68f5d4d8edcf, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[6]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 6a85b02fc1258404b856e9ab8e927225, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
-    - target: {fileID: 460519844543686165, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
-      propertyPath: 'lootItems.Array.data[8]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 1635a474f6f78f349bbefdf11dcde9c8, type: 2}
     - target: {fileID: 1856379149985381703, guid: 4c5dd7019e4971240a340313f4a2749a, type: 3}
       propertyPath: m_Name
       value: DataBaseService

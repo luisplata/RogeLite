@@ -1,8 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Factories;
+using UnityEngine;
 
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
+    [SerializeField] private List<LootItem> lootItems;
     private IDataPersistenceService _dataPersistenceService;
+    private ILootFactory _factoryItems;
+    private IInventoryService _inventoryService;
+    private IPlayerGoldPersistenceService _playerGoldPersistenceService;
+    private IGoldGenerationService _goldGenerationService;
 
     private void Awake()
     {
@@ -13,9 +22,17 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         }
 
         _dataPersistenceService = new PlayerPrefsDataPersistenceService();
+        _factoryItems = new LootItemFactory(lootItems);
+        _inventoryService = new InventoryService(_dataPersistenceService, _factoryItems);
+        _playerGoldPersistenceService = new PlayerGoldPersistenceService(_dataPersistenceService);
+        _goldGenerationService = new GoldGenerationService();
 
         ServiceLocator.Instance.RegisterService(_dataPersistenceService);
+        ServiceLocator.Instance.RegisterService(_factoryItems);
         ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
+        ServiceLocator.Instance.RegisterService(_inventoryService);
+        ServiceLocator.Instance.RegisterService(_playerGoldPersistenceService);
+        ServiceLocator.Instance.RegisterService(_goldGenerationService);
         ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(
             new PlayerConfigurationService(_dataPersistenceService, this));
 

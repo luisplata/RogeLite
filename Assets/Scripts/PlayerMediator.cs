@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphicalCharacter
@@ -75,6 +79,11 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     public void GetMinerals()
     {
         if (currentMineral == null) return;
+        if (currentMineral is ILootable lootable)
+        {
+            GetItems(lootable.GetLoot());
+        }
+
         currentMineral.TryToDestroy();
     }
 
@@ -85,6 +94,11 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
         return gameObject;
     }
 
+    public float GetLuckFactor()
+    {
+        return playerStats.GetLuckFactor();
+    }
+
     public void OnPowerUpApplied(PowerUp powerUp) => powerUp.ApplyEffect(playerStats);
 
     public void OnStatsChanged()
@@ -93,6 +107,7 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
         pistol.UpdateStats(playerStats);
         ServiceLocator.Instance.GetService<IUIGameScreen>()
             .SetStatsText(playerStats.GetFormattedStats());
+        ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().SaveGold(playerStats.Gold);
     }
 
     public void GameOver()
@@ -105,6 +120,22 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     public void OnKill(IDamageable target)
     {
         if (target is IXPSource xpSource) GainXP(xpSource.GetXPAmount());
+        if (target is ILootable lootable) GetItems(lootable.GetLoot());
+        if (target is IGoldLootable goldLootable) GetGold(goldLootable.GetGold());
+    }
+
+    private void GetGold(int gold)
+    {
+        playerStats.AddGold(gold);
+    }
+
+    private void GetItems(List<LootItemInstance> loot)
+    {
+        foreach (var lootItemInstance in loot)
+        {
+            Debug.Log($"Looted {lootItemInstance.LootItemConfig.ItemName} with {lootItemInstance.Stars} stars");
+            ServiceLocator.Instance.GetService<IInventoryService>().AddItem(lootItemInstance);
+        }
     }
 
     private void GainXP(int amount) => playerStats.AddExp(amount);

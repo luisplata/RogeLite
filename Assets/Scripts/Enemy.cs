@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Factories;
+using Items.Runtime;
+using LootSystem;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker
+public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker, ILootable, IGoldLootable
 {
     public int health = 50;
     public float moveSpeed = 2f;
     public int level;
-    [SerializeField] private float luckFactor = 1.0f;
+    [SerializeField] private float luckFactor = 1.0f; //TODO get luck factor from player
     [SerializeField] private int xp = 1;
+    [SerializeField] private LootTable lootTable;
+    [SerializeField] private int goldBase = 1;
 
     public event Action OnDeath;
 
@@ -22,7 +30,7 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
         }
     }
 
-    protected virtual void Die(IAttacker attacker)
+    private void Die(IAttacker attacker)
     {
         OnDeath?.Invoke();
         attacker.OnKill(this);
@@ -54,5 +62,17 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
     public bool PlayerIsConfigured()
     {
         return player != null;
+    }
+
+    public List<LootItemInstance> GetLoot()
+    {
+        var lootItems = ServiceLocator.Instance.GetService<ILootFactory>()
+            .GenerateLoot(lootTable, luckFactor);
+        return lootItems;
+    }
+
+    public int GetGold()
+    {
+        return ServiceLocator.Instance.GetService<IGoldGenerationService>().GenerateGold(goldBase, luckFactor, level);
     }
 }
