@@ -1,6 +1,4 @@
-﻿using Items;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class GraphicalCharacter : MonoBehaviour
 {
@@ -14,64 +12,28 @@ public class GraphicalCharacter : MonoBehaviour
         graphicalCharacter = mediator;
         UpdateImages();
     }
-    
+
     private void UpdateImages()
     {
         //Load Data from service
         foreach (var image in helmetImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Helmet);
-            if (itemLoot == null)
-            {
-                image.sprite = defaultSprite;
-            }
-            else
-            {
-                image.sprite = itemLoot.Data.itemSprite;
-            }
+            image.sprite = defaultSprite;
         }
 
         foreach (var image in pantsImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Pants);
-            if (itemLoot == null)
-            {
-                image.sprite = defaultSprite;
-            }
-            else
-            {
-                image.sprite = itemLoot.Data.itemSprite;
-            }
+            image.sprite = defaultSprite;
         }
 
         foreach (var image in shoesImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Shoes);
-            if (itemLoot == null)
-            {
-                image.sprite = defaultSprite;
-            }
-            else
-            {
-                image.sprite = itemLoot.Data.itemSprite;
-            }
+            image.sprite = defaultSprite;
         }
 
         foreach (var image in chestplateImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Chestplate);
-            if (itemLoot == null)
-            {
-                image.sprite = defaultSprite;
-            }
-            else
-            {
-                image.sprite = itemLoot.Data.itemSprite;
-            }
+            image.sprite = defaultSprite;
         }
     }
 

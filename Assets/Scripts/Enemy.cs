@@ -1,15 +1,11 @@
 ﻿using System;
-using Bellseboss;
-using Items;
-using Items.Runtime;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker, ILootSource
+public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker
 {
     public int health = 50;
     public float moveSpeed = 2f;
     public int level;
-    [SerializeField] private LootTable lootTable;
     [SerializeField] private float luckFactor = 1.0f;
     [SerializeField] private int xp = 1;
 
@@ -53,15 +49,6 @@ public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource
     public void OnKill(IDamageable target)
     {
         //Debug.Log($"Kill Player!");
-    }
-
-    public LootItemInstance[] GetLoot()
-    {
-        var list = ServiceLocator.Instance.GetService<ILootFactory>().GenerateLoot(lootTable, luckFactor);
-        
-        list.Add(ServiceLocator.Instance.GetService<ILootFactory>().GenerateGold(luckFactor));
-
-        return list.ToArray();
     }
 
     public bool PlayerIsConfigured()

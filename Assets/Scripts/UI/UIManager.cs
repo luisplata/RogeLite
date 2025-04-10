@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using Bellseboss;
-using Items;
-using Items.Runtime;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -34,11 +31,6 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError($"UIManager: No se encontró la pantalla {name}.");
         }
-    }
-
-    public void EquipItem(LootItemInstance item)
-    {
-        //TODO implement player stats service to apply stats in game
     }
 }
 

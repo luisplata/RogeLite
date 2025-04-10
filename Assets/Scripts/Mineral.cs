@@ -1,11 +1,7 @@
-﻿using Bellseboss;
-using Items;
-using Items.Runtime;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Mineral : MonoBehaviour, ILootSource
+public class Mineral : MonoBehaviour
 {
-    [SerializeField] private LootTable lootTable;
     [SerializeField] private float luckFactor = 1.0f;
     [SerializeField] private int timesToMining = 3;
     private IPlayerMediator _mediator;
@@ -27,13 +23,6 @@ public class Mineral : MonoBehaviour, ILootSource
             _mediator.CanGetMinerals(false, null);
             _mediator = null;
         }
-    }
-
-    public LootItemInstance[] GetLoot()
-    {
-        return ServiceLocator.Instance.GetService<ILootFactory>()
-            .GenerateLoot(lootTable, luckFactor)
-            .ToArray(); // Ahora devuelve LootItemInstance[]
     }
 
     public void TryToDestroy()

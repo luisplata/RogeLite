@@ -1,8 +1,6 @@
-﻿using System;
-using Items;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfigurationAndSettings
+public class PlayerConfigurationAndSettings : MonoBehaviour
 {
     private bool _isConfigured;
 
@@ -14,8 +12,6 @@ public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfiguratio
             Destroy(gameObject);
             return;
         }
-
-        ServiceLocator.Instance.RegisterService<IPlayerConfigurationAndSettings>(this);
         _isConfigured = true;
         DontDestroyOnLoad(gameObject);
     }
@@ -23,7 +19,6 @@ public class PlayerConfigurationAndSettings : MonoBehaviour, IPlayerConfiguratio
     private void OnDestroy()
     {
         if (!_isConfigured) return;
-        ServiceLocator.Instance.UnregisterService<IPlayerConfigurationAndSettings>();
         ServiceLocator.Instance.UnregisterService<IPlayerConfigurationService>();
     }
 }
