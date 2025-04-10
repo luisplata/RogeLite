@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Bellseboss;
+﻿using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,17 +20,12 @@ public class EquipmentCanvasUiModal : MonoBehaviour
         _canvas = canvas;
     }
 
-    private void Start()
-    {
-        closeButton.onClick.AddListener(() => { _canvas.CloseModal(); });
-    }
-
     public void Show(EquipmentSlot slot)
     {
-        items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
+        items = ServiceLocator.Instance.GetService<IInventoryService>().GetAllItems();
         foreach (var item in items)
         {
-            if (item.itemType == LootType.Equipable && item.Slot == slot)
+            if (item.LootItemConfig.LootType == LootType.Equipment && item.LootItemConfig.EquipmentSlot == slot)
             {
                 var itemElement = Instantiate(itemTemplate, contentItems.transform);
                 itemElement.Initialize(item, this);
@@ -40,17 +36,15 @@ public class EquipmentCanvasUiModal : MonoBehaviour
         root.SetActive(true);
     }
 
-    public void Hide()
+    private void Start()
     {
-        foreach (var item in itemsInstances)
-        {
-            Destroy(item.gameObject);
-        }
-
-        itemsInstances.Clear();
-        root.SetActive(false);
+        closeButton.onClick.AddListener(() => { _canvas.CloseModal(); });
     }
 
+    public void Hide()
+    {
+        root.SetActive(false);
+    }
     public void EquipItem(LootItemInstance item)
     {
         _canvas.EquipItem(item);

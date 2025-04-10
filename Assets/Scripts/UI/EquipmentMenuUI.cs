@@ -1,5 +1,4 @@
-﻿using Bellseboss;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EquipmentMenuUI : MonoBehaviour, IUIScreen
@@ -55,7 +54,6 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
     private void ClickPointDownHelmet(PointerDownEvent evt)
     {
         helmetContainer.AddToClassList("active");
-        LoadItems(EquipmentSlot.Helmet);
     }
 
     private void ClickPointDownPants(PointerDownEvent evt)
@@ -97,55 +95,7 @@ public class EquipmentMenuUI : MonoBehaviour, IUIScreen
         uiManager.RegisterScreen("EquipmentMenu", this);
     }
 
-    private void LoadItems(EquipmentSlot typeOfSlot)
-    {
-        // Cargar los items del jugador
-        scrollView.Clear();
-        var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
-        foreach (var item in items)
-        {
-            if (item.itemType != LootType.Equipable || item.Slot == EquipmentSlot.NONE
-                // || item.Slot != typeOfSlot
-                ) continue;
-            var itemElement = itemTemplate.Instantiate();
-            itemElement.Q<Label>("ItemName").text = item.itemName;
-            itemElement.Q<Label>("ItemDescription").text = item.stats.ToString();
-            itemElement.RegisterCallback<PointerUpEvent>(evt => { EquipItem(item); });
-            //itemElement.Q<VisualElement>("ItemImage").style.backgroundImage = SpriteToTexture2D(item.sprite);
-            scrollView.Add(itemElement);
-        }
-
-        modal.style.display = DisplayStyle.Flex;
-    }
-
-    private void EquipItem(LootItemInstance item)
-    {
-        modal.style.display = DisplayStyle.None;
-        uiManager.EquipItem(item);
-        switch (item.Slot)
-        {
-            case EquipmentSlot.Helmet:
-                helmetContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
-                // helmetContainer.Q<Label>("ItemName").text = item.itemName;
-                // helmetContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
-                break;
-            case EquipmentSlot.Pants:
-                pantContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
-                // pantContainer.Q<Label>("ItemName").text = item.itemName;
-                // pantContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
-                break;
-            case EquipmentSlot.Shoes:
-                shoesContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
-                // shoesContainer.Q<Label>("ItemName").text = item.itemName;
-                // shoesContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
-                break;
-            case EquipmentSlot.Chestplate:
-                chestplateContainer.style.backgroundColor = new Color(0.5f, 0.5f, 0.5f);
-                // chestplateContainer.Q<Label>("ItemName").text = item.itemName;
-                // chestplateContainer.Q<Label>("ItemDescription").text = item.stats.ToString();
-                break;
-        }
-    }
+    
 
     private void OnBackButtonClicked()
     {

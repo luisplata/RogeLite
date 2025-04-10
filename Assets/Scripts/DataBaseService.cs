@@ -1,10 +1,20 @@
 ﻿using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Equipment;
+using Items.Factories;
 using UnityEngine;
-using Bellseboss;
 
 public class DataBaseService : MonoBehaviour, IDataBaseService
 {
     [SerializeField] private List<LootItem> lootItems;
+    private IDataPersistenceService _dataPersistenceService;
+    private ILootFactory _factoryItems;
+    private IInventoryService _inventoryService;
+    private IPlayerGoldPersistenceService _playerGoldPersistenceService;
+    private IGoldGenerationService _goldGenerationService;
+    private IEquipmentPersistenceService _equipmentPersistenceService;
+
     private void Awake()
     {
         if (FindObjectsByType<DataBaseService>(FindObjectsSortMode.None).Length > 1)
@@ -13,84 +23,27 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
             return;
         }
 
+        _dataPersistenceService = new PlayerPrefsDataPersistenceService();
+        _factoryItems = new LootItemFactory(lootItems);
+        _inventoryService = new InventoryService(_dataPersistenceService, _factoryItems);
+        _playerGoldPersistenceService = new PlayerGoldPersistenceService(_dataPersistenceService);
+        _goldGenerationService = new GoldGenerationService();
+        _equipmentPersistenceService = new EquipmentPersistenceService(
+            _dataPersistenceService,
+            _factoryItems,
+            _inventoryService
+        );
+
+        ServiceLocator.Instance.RegisterService(_dataPersistenceService);
+        ServiceLocator.Instance.RegisterService(_factoryItems);
         ServiceLocator.Instance.RegisterService<IDataBaseService>(this);
-        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(new PlayerConfigurationService());
+        ServiceLocator.Instance.RegisterService(_inventoryService);
+        ServiceLocator.Instance.RegisterService(_playerGoldPersistenceService);
+        ServiceLocator.Instance.RegisterService(_goldGenerationService);
+        ServiceLocator.Instance.RegisterService(_equipmentPersistenceService);
+        ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(
+            new PlayerConfigurationService(_dataPersistenceService, _inventoryService, _equipmentPersistenceService));
+
         DontDestroyOnLoad(gameObject);
-
-        LoadInventory();
-    }
-
-    public void AddItem(LootItemInstance item)
-    {
-        InventoryData inventory = LoadInventory();
-        Debug.Log($"In Add item slot {item.Slot}");
-        inventory.Items.Add(new LootItemInstanceData(item));
-
-        string json = JsonUtility.ToJson(inventory);
-        PlayerPrefs.SetString("Inventory", json);
-        PlayerPrefs.Save();
-
-        Debug.Log($"Json Saved: {json}");
-    }
-
-    public List<LootItemInstance> GetItems()
-    {
-        InventoryData inventory = LoadInventory();
-        List<LootItemInstance> items = new();
-
-        foreach (var itemData in inventory.Items)
-        {
-            LootItem lootItem = FindLootItemByName(itemData.itemName);
-            if (lootItem != null)
-            {
-                items.Add(new LootItemInstance(itemData, lootItem));
-            }
-            else
-            {
-                Debug.LogWarning($"LootItem no encontrado: {itemData.itemName}");
-            }
-        }
-
-        return items;
-    }
-
-    public List<LootItem> GetListItemLoot()
-    {
-        return lootItems;
-    }
-
-    private InventoryData LoadInventory()
-    {
-        string json = PlayerPrefs.GetString("Inventory", "{}");
-        Debug.Log($"Json Loaded: {json}");
-
-        InventoryData inventory = JsonUtility.FromJson<InventoryData>(json) ?? new InventoryData();
-        return inventory;
-    }
-
-    public void ClearItems()
-    {
-        PlayerPrefs.DeleteKey("Inventory");
-        PlayerPrefs.Save();
-    }
-
-    public void SaveInventory(Inventory inventory)
-    {
-        InventoryData inventoryData = LoadInventory();
-        foreach (var item in inventory.GetAllItems())
-        {
-            Debug.Log($"In SaveInventory slot {item.Slot}");
-            inventoryData.Items.Add(new LootItemInstanceData(item));
-        }
-
-        string json = JsonUtility.ToJson(inventoryData);
-        PlayerPrefs.SetString("Inventory", json);
-        PlayerPrefs.Save();
-    }
-
-    private LootItem FindLootItemByName(string itemName)
-    {
-        // Aquí deberías tener una lista de LootItems cargados en memoria
-        return lootItems.Find(item => item.itemName == itemName);
     }
 }

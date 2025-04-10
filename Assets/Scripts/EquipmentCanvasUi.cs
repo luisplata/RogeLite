@@ -1,4 +1,6 @@
-﻿using Bellseboss;
+﻿using Items;
+using Items.Equipment;
+using Items.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,11 +21,24 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
         CloseModal();
 
         backButton.onClick.AddListener(OnBackButtonClicked);
-        helmetButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Helmet); });
+        helmetButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Head); });
         pantsButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Pants); });
         shoesButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Shoes); });
-        chestplateButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Chestplate); });
+        chestplateButton.onClick.AddListener(() => { OpenEquipmentModal(EquipmentSlot.Chest); });
         modal.Initialize(this);
+        UpdateImages();
+    }
+
+    private void OpenEquipmentModal(EquipmentSlot slot)
+    {
+        modal.Show(slot);
+    }
+
+    public void EquipItem(LootItemInstance item)
+    {
+        //TODO implement player stats service to apply stats in game
+        ServiceLocator.Instance.GetService<IEquipmentPersistenceService>().EquipItem(item);
+        modal.Hide();
         UpdateImages();
     }
 
@@ -32,21 +47,21 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
         //Load Data from service
         foreach (var image in helmetImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Helmet);
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Head);
             if (itemLoot == null)
             {
                 image.sprite = defaultSprite;
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in pantsImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
                 .GetEquippedItem(EquipmentSlot.Pants);
             if (itemLoot == null)
             {
@@ -54,13 +69,13 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in shoesImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
                 .GetEquippedItem(EquipmentSlot.Shoes);
             if (itemLoot == null)
             {
@@ -68,28 +83,23 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in chestplateImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Chestplate);
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Chest);
             if (itemLoot == null)
             {
                 image.sprite = defaultSprite;
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
-    }
-
-    private void OpenEquipmentModal(EquipmentSlot slot)
-    {
-        modal.Show(slot);
     }
 
     private void OnBackButtonClicked()
@@ -111,13 +121,5 @@ public class EquipmentCanvasUi : MonoBehaviour, IUIScreen
     public void CloseModal()
     {
         modal.Hide();
-    }
-
-    public void EquipItem(LootItemInstance item)
-    {
-        //TODO implement player stats service to apply stats in game
-        ServiceLocator.Instance.GetService<IPlayerConfigurationService>().EquipItem(item);
-        modal.Hide();
-        UpdateImages();
     }
 }

@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
-using Bellseboss;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterBuilder : ICharacterBuilder
 {
     private CharacterType _characterType;
-    private Dictionary<EquipmentSlot, LootItemInstance> _equippedItems = new();
     private PlayerGlobalStats _stats = new();
 
     public static PlayerCharacter Create(PlayerConfigurationService configService)
     {
         return new CharacterBuilder()
             .SetCharacterType(configService.GetCharacterType())
-            .SetEquippedItems(configService.GetEquippedItem())
             .SetStats(configService.GetStats())
             .Build();
     }
@@ -20,12 +16,6 @@ public class CharacterBuilder : ICharacterBuilder
     public ICharacterBuilder SetCharacterType(CharacterType type)
     {
         _characterType = type;
-        return this;
-    }
-
-    public ICharacterBuilder SetEquippedItems(Dictionary<EquipmentSlot, LootItemInstance> equippedItems)
-    {
-        _equippedItems = equippedItems;
         return this;
     }
 
@@ -39,7 +29,7 @@ public class CharacterBuilder : ICharacterBuilder
     {
         GameObject characterObject = new GameObject("PlayerCharacter");
         PlayerCharacter character = characterObject.AddComponent<PlayerCharacter>();
-        character.Initialize(_characterType, _equippedItems, _stats);
+        character.Initialize(_characterType, _stats);
         return character;
     }
 }

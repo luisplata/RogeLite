@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3742827842227971986}
   - component: {fileID: 4503666440640352949}
   - component: {fileID: 1723960077690525142}
-  - component: {fileID: 4245697871491297450}
   - component: {fileID: 6855658768742175492}
   - component: {fileID: 2739313506733578584}
   m_Layer: 12
@@ -60,7 +59,6 @@ MonoBehaviour:
   playerStats: {fileID: 3742827842227971986}
   pistol: {fileID: 3007009232749385403}
   powerUpManager: {fileID: 4503666440640352949}
-  inventory: {fileID: 4245697871491297450}
   equipmentManager: {fileID: 6855658768742175492}
   graphicalCharacter: {fileID: 2739313506733578584}
 --- !u!114 &6940301390927522955
@@ -190,18 +188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemaps: []
---- !u!114 &4245697871491297450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322529217400915350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ae084107da4e1aad8ae091780dd173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6855658768742175492
 MonoBehaviour:
   m_ObjectHideFlags: 0

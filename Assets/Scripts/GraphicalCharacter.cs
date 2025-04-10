@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Items;
+using Items.Equipment;
+using UnityEngine;
 
 public class GraphicalCharacter : MonoBehaviour
 {
@@ -13,27 +14,26 @@ public class GraphicalCharacter : MonoBehaviour
         graphicalCharacter = mediator;
         UpdateImages();
     }
-    
-    private void UpdateImages()
+private void UpdateImages()
     {
         //Load Data from service
         foreach (var image in helmetImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Helmet);
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Head);
             if (itemLoot == null)
             {
                 image.sprite = defaultSprite;
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in pantsImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
                 .GetEquippedItem(EquipmentSlot.Pants);
             if (itemLoot == null)
             {
@@ -41,13 +41,13 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in shoesImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
                 .GetEquippedItem(EquipmentSlot.Shoes);
             if (itemLoot == null)
             {
@@ -55,21 +55,21 @@ public class GraphicalCharacter : MonoBehaviour
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
 
         foreach (var image in chestplateImage)
         {
-            var itemLoot = ServiceLocator.Instance.GetService<IPlayerConfigurationService>()
-                .GetEquippedItem(EquipmentSlot.Chestplate);
+            var itemLoot = ServiceLocator.Instance.GetService<IEquipmentPersistenceService>()
+                .GetEquippedItem(EquipmentSlot.Chest);
             if (itemLoot == null)
             {
                 image.sprite = defaultSprite;
             }
             else
             {
-                image.sprite = itemLoot.itemSprite;
+                image.sprite = itemLoot.LootItemConfig.Icon;
             }
         }
     }

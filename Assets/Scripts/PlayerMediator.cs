@@ -1,5 +1,8 @@
 ﻿using System;
-using Bellseboss;
+using System.Collections.Generic;
+using Inventory;
+using Items;
+using Items.Runtime;
 using UnityEngine;
 
 public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphicalCharacter
@@ -8,7 +11,6 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Pistol pistol;
     [SerializeField] private PowerUpManager powerUpManager;
-    [SerializeField] private Inventory inventory;
     [SerializeField] private EquipmentManager equipmentManager;
     [SerializeField] private GraphicalCharacter graphicalCharacter;
     public PlayerStats PlayerStats => playerStats;
@@ -77,17 +79,24 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     public void GetMinerals()
     {
         if (currentMineral == null) return;
-        if (currentMineral is ILootSource lootSource)
+        if (currentMineral is ILootable lootable)
         {
-            CollectLoot(lootSource.GetLoot());
-            currentMineral.TryToDestroy();
+            GetItems(lootable.GetLoot());
         }
+
+        currentMineral.TryToDestroy();
     }
 
     public float GetTimeToMining() => playerStats.GetTimeToMining();
+
     public GameObject GetGameObject()
     {
         return gameObject;
+    }
+
+    public float GetLuckFactor()
+    {
+        return playerStats.GetLuckFactor();
     }
 
     public void OnPowerUpApplied(PowerUp powerUp) => powerUp.ApplyEffect(playerStats);
@@ -97,14 +106,13 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
         player.ApplyStats();
         pistol.UpdateStats(playerStats);
         ServiceLocator.Instance.GetService<IUIGameScreen>()
-            .SetStatsText(playerStats.GetFormattedStats() + "\n" + equipmentManager.GetFormattedEquipment());
-        ServiceLocator.Instance.GetService<IUIGameScreen>().SetInventoryText(inventory.GetFormattedInventory());
+            .SetStatsText(playerStats.GetFormattedStats());
+        ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().SaveGold(playerStats.Gold);
     }
 
     public void GameOver()
     {
         if (isGameOverRunning) return;
-        ServiceLocator.Instance.GetService<IDataBaseService>().SaveInventory(inventory);
         isGameOverRunning = true;
         OnDie?.Invoke();
     }
@@ -112,37 +120,27 @@ public class PlayerMediator : MonoBehaviour, IAttacker, IPlayerMediator, IGraphi
     public void OnKill(IDamageable target)
     {
         if (target is IXPSource xpSource) GainXP(xpSource.GetXPAmount());
-        if (target is ILootSource lootSource) CollectLoot(lootSource.GetLoot());
+        if (target is ILootable lootable) GetItems(lootable.GetLoot());
+        if (target is IGoldLootable goldLootable) GetGold(goldLootable.GetGold());
+    }
+
+    private void GetGold(int gold)
+    {
+        playerStats.AddGold(gold);
+    }
+
+    private void GetItems(List<LootItemInstance> loot)
+    {
+        foreach (var lootItemInstance in loot)
+        {
+            Debug.Log($"Looted {lootItemInstance.LootItemConfig.ItemName} with {lootItemInstance.Stars} stars");
+            ServiceLocator.Instance.GetService<IInventoryService>().AddItem(lootItemInstance);
+        }
     }
 
     private void GainXP(int amount) => playerStats.AddExp(amount);
 
-    private void CollectLoot(LootItemInstance[] loot)
-    {
-        foreach (var item in loot)
-        {
-            switch (item.itemType)
-            {
-                case LootType.Equipable:
-                case LootType.Consumable:
-                case LootType.Mineral:
-                    inventory.AddItem(item);
-                    Debug.Log($"Added {item.itemName} ({item.stars}★) to inventory.");
-                    break;
-                case LootType.Gold:
-                    var amount = item.stars;
-                    playerStats.AddGold(amount);
-                    Debug.Log($"Player received {amount} gold!");
-                    break;
-                default:
-                    Debug.LogWarning($"Unknown loot type: {item.itemName}");
-                    break;
-            }
-        }
-    }
-
 
     public void LevelUp(int newLevel) => OnLevelUp?.Invoke(newLevel);
     public bool IsMining() => ICantGetMinerals;
-    public void EquipItem(LootItemInstance item) => equipmentManager.EquipItem(item);
 }

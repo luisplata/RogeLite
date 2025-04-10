@@ -45,12 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootItems:
-  - {fileID: 11400000, guid: 3317d43cefb1d094f80068e7ce7261df, type: 2}
-  - {fileID: 11400000, guid: 2ea2f61b57f87f4479082f1a923de1c1, type: 2}
-  - {fileID: 11400000, guid: d669bd1cb2030ba419f259d68f4a3f5b, type: 2}
-  - {fileID: 11400000, guid: 7b20250278073b045be45687cfa27c0f, type: 2}
-  - {fileID: 11400000, guid: 1c60457d5cf91194d94f18aebfefa80c, type: 2}
-  - {fileID: 11400000, guid: c204401a9410e4a4592a68f5d4d8edcf, type: 2}
-  - {fileID: 11400000, guid: 1635a474f6f78f349bbefdf11dcde9c8, type: 2}
-  - {fileID: 11400000, guid: 6a85b02fc1258404b856e9ab8e927225, type: 2}
-  - {fileID: 11400000, guid: 30829190fcb52c24a87cf8d3ff9d1153, type: 2}
+  - {fileID: 11400000, guid: e02a7a60daa06e54899be0755dc639db, type: 2}
+  - {fileID: 11400000, guid: 8729057bc61e39948a72d261ca0607f5, type: 2}

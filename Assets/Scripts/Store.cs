@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Inventory;
+using Items;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Store : MonoBehaviour, IUIScreen
 {
-    [SerializeField] private GameObject sotre;
+    [SerializeField] private GameObject store;
     [SerializeField] private Button closeButton;
-    [SerializeField] private ItemToBuyContainer containerPrefab;
     [SerializeField] private GameObject parentToContainer;
+    [SerializeField] private TextMeshProUGUI totalGoldText;
+    [SerializeField] private ItemToBuyContainer itemToBuyContainerPrefab;
+    private List<ItemToBuyContainer> itemToBuyContainers = new();
 
-    private List<ItemToBuyContainer> instantiates = new();
     private UIManager uiManager;
 
     public void Initialize(UIManager manager)
@@ -17,6 +22,30 @@ public class Store : MonoBehaviour, IUIScreen
         uiManager = manager;
         uiManager.RegisterScreen("Store", this);
         closeButton.onClick.AddListener(HideStore);
+        UpdateGold(ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().LoadGold());
+    }
+
+    private void OnEnable()
+    {
+        ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().OnGoldChanged += UpdateGold;
+        ServiceLocator.Instance.GetService<IInventoryService>().OnInventoryChanged += OnInventoryChanged;
+    }
+
+    private void OnDisable()
+    {
+        ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().OnGoldChanged -= UpdateGold;
+        ServiceLocator.Instance.GetService<IInventoryService>().OnInventoryChanged -= OnInventoryChanged;
+    }
+
+    private void OnInventoryChanged()
+    {
+        ClearStoreItems();
+        ShowStore();
+    }
+
+    private void UpdateGold(int totalGold)
+    {
+        totalGoldText.text = $"Total gold is {totalGold}";
     }
 
     public void ShowStore()
@@ -31,26 +60,29 @@ public class Store : MonoBehaviour, IUIScreen
 
     public void Show()
     {
-        var items = ServiceLocator.Instance.GetService<IDataBaseService>().GetItems();
-        Debug.Log($"Count of items {items.Count}");
-        foreach (var item in items)
+        store.SetActive(true);
+        UpdateGold(ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().LoadGold());
+        var inventory = ServiceLocator.Instance.GetService<IInventoryService>().GetAllItems();
+        foreach (var item in inventory)
         {
-            var itemToBuy = Instantiate(containerPrefab, parentToContainer.transform);
-            itemToBuy.Configure(item);
-            instantiates.Add(itemToBuy);
+            var itemToBuyContainer = Instantiate(itemToBuyContainerPrefab, parentToContainer.transform);
+            itemToBuyContainer.Configure(item);
+            itemToBuyContainers.Add(itemToBuyContainer);
         }
-
-        sotre.SetActive(true);
     }
 
     public void Hide()
     {
-        sotre.SetActive(false);
-        foreach (var container in instantiates)
+        store.SetActive(false);
+    }
+
+    private void ClearStoreItems()
+    {
+        foreach (var itemToBuyContainer in itemToBuyContainers)
         {
-            Destroy(container.gameObject);
+            Destroy(itemToBuyContainer.gameObject);
         }
 
-        instantiates = new List<ItemToBuyContainer>();
+        itemToBuyContainers.Clear();
     }
 }

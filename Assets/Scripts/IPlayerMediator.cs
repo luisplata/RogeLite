@@ -13,4 +13,5 @@ public interface IPlayerMediator
     void GetMinerals();
     float GetTimeToMining();
     GameObject GetGameObject();
+    float GetLuckFactor();
 }

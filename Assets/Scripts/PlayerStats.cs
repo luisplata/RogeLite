@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Inventory;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiController
@@ -21,9 +20,6 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     [SerializeField] private float currentSpeed;
     [SerializeField] private float currentCooldown;
 
-
-    private List<BaseStatsOnItem> statModifiers = new();
-
     public int ExpToNextLevel => GetXpForLevel(level + 1);
 
 
@@ -34,6 +30,7 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
         ApplyStats();
         xpManager = new XPManager(xpConfig);
         xpManager.OnLevelUp += HandleLevelUp;
+        gold = ServiceLocator.Instance.GetService<IPlayerGoldPersistenceService>().LoadGold();
     }
 
     private void HandleLevelUp(int newLevel)
@@ -48,57 +45,11 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
         OnUpdate?.Invoke(this);
     }
 
-    public void ApplyStat(BaseStatsOnItem stat)
-    {
-        if (statModifiers.Contains(stat))
-        {
-            statModifiers.Find(s => s == stat).statValue += stat.statValue;
-        }
-        else
-        {
-            statModifiers.Add(stat);
-        }
-
-        UpdateStats();
-    }
-
-    public void RemoveStat(BaseStatsOnItem stat)
-    {
-        if (statModifiers.Contains(stat))
-        {
-            statModifiers.Remove(stat);
-        }
-
-        UpdateStats();
-    }
-
     private void UpdateStats()
     {
         float totalDamage = baseDamage;
         float totalSpeed = moveSpeed;
         float totalCooldown = attackCooldown;
-
-        foreach (var stat in statModifiers)
-        {
-            switch (stat.statType)
-            {
-                case StatType.Attack:
-                    totalDamage += stat.statValue;
-                    break;
-                case StatType.Speed:
-                    totalSpeed += stat.statValue;
-                    break;
-                case StatType.CooldownReduction:
-                    totalCooldown -= stat.statValue;
-                    break;
-                case StatType.Heal:
-                    health += Mathf.CeilToInt(stat.statValue);
-                    break;
-                case StatType.AttackSpeed:
-                    totalCooldown *= stat.statValue;
-                    break;
-            }
-        }
 
         // Aplicamos los valores finales
         currentDamage = totalDamage;
@@ -189,5 +140,12 @@ public class PlayerStats : MonoBehaviour, ILevelPlayer, IDamageable, IGameUiCont
     public float GetTimeToMining()
     {
         return miningTime;
+    }
+
+    public float GetLuckFactor()
+    {
+        // Implementar la lógica para calcular el factor de suerte
+        // Por ahora, devolvemos un valor fijo
+        return 1.0f;
     }
 }
