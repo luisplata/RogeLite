@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using City;
 using Inventory;
 using Items;
 using Items.Equipment;
@@ -14,6 +15,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
     private IPlayerGoldPersistenceService _playerGoldPersistenceService;
     private IGoldGenerationService _goldGenerationService;
     private IEquipmentPersistenceService _equipmentPersistenceService;
+    private IMapPersistenceService _mapPersistenceService; 
 
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
             _factoryItems,
             _inventoryService
         );
+        _mapPersistenceService = new MapPersistenceService(_dataPersistenceService);
 
         ServiceLocator.Instance.RegisterService(_dataPersistenceService);
         ServiceLocator.Instance.RegisterService(_factoryItems);
@@ -41,6 +44,7 @@ public class DataBaseService : MonoBehaviour, IDataBaseService
         ServiceLocator.Instance.RegisterService(_playerGoldPersistenceService);
         ServiceLocator.Instance.RegisterService(_goldGenerationService);
         ServiceLocator.Instance.RegisterService(_equipmentPersistenceService);
+        ServiceLocator.Instance.RegisterService(_mapPersistenceService);
         ServiceLocator.Instance.RegisterService<IPlayerConfigurationService>(
             new PlayerConfigurationService(_dataPersistenceService, _inventoryService, _equipmentPersistenceService));
 

@@ -9,10 +9,12 @@ namespace City.CameraMovement
         private readonly GameObject camera;
         private Vector3 lastTouchPosition;
         private bool isDragging = false;
+        private readonly float dragSensitivity;
 
-        public CameraDragController(GameObject camera)
+        public CameraDragController(GameObject camera, float dragSensitivity)
         {
             this.camera = camera;
+            this.dragSensitivity = dragSensitivity;
         }
 
         public void UpdateCameraPosition()
@@ -61,8 +63,6 @@ namespace City.CameraMovement
                 }
             }
         }
-
-        private readonly float dragSensitivity = 0.005f;
 
         private void MoveCamera(Vector3 delta)
         {
