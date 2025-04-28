@@ -2,7 +2,7 @@
 
 namespace City.CameraMovement
 {
-    public class GameSetup : MonoBehaviour
+    public class CameraSetup : MonoBehaviour
     {
         [SerializeField] private GameObject mainCamera;
         [SerializeField] [Range(0, 1)] private float cameraSpeed = 0.01f;

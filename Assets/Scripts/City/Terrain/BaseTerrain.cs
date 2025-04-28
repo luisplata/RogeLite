@@ -1,22 +1,61 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseTerrain : MonoBehaviour
+namespace City.Terrain
 {
-    [Header("Anchors")]
-    [SerializeField] private Transform anchorN;
-    [SerializeField] private Transform anchorS;
-    [SerializeField] private Transform anchorE;
-    [SerializeField] private Transform anchorO;
-
-    public Transform GetAnchor(string anchorName)
+    public class BaseTerrain : MonoBehaviour
     {
-        switch (anchorName)
+        [Header("Anchors")]
+        [SerializeField] private List<TerrainAnchor> _anchors;
+
+        private readonly Dictionary<string, TerrainAnchor> _anchorsById = new();
+        public Guid Guid { get; private set; } = Guid.NewGuid();
+    
+        public bool IsOwned { get; private set; }
+
+        private void Awake()
         {
-            case "N": return anchorN;
-            case "S": return anchorS;
-            case "E": return anchorE;
-            case "O": return anchorO;
-            default: return null;
+            foreach (var anchor in _anchors)
+            {
+                anchor.Configure(this);
+                _anchorsById.Add(anchor.Id, anchor);
+            }
+
+            // Si quieres que el GUID persista después de varias partidas, deberías serializarlo manualmente
         }
+
+        public TerrainAnchor GetAnchor(string anchorId)
+        {
+            return _anchorsById.TryGetValue(anchorId, out var anchor) ? anchor : null;
+        }
+
+        public bool IsAnchorOccupied(string anchorId)
+        {
+            var anchor = GetAnchor(anchorId);
+            return anchor != null && anchor.IsOccupied;
+        }
+
+        public void OccupyAnchor(string anchorId)
+        {
+            var anchor = GetAnchor(anchorId);
+            anchor?.ConnectTo(null);
+        }
+
+        public void SetGuid(Guid parse)
+        {
+            Guid = parse;
+        }
+
+        public string[] GetAllAnchorStates()
+        {
+            List<string> states = new();
+            foreach (var anchor in _anchors)
+            {
+                states.Add($"{anchor.Id}: {(anchor.IsOccupied ? "Occupied" : "Free")}");
+            }
+            return states.ToArray();
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using System;
 
 namespace City.CameraMovement
 {
@@ -10,6 +11,9 @@ namespace City.CameraMovement
         private Vector3 lastTouchPosition;
         private bool isDragging = false;
         private readonly float dragSensitivity;
+        private readonly float clickThreshold = 10f; // píxeles
+
+        public event Action<Vector3> OnClick; // Posición del click en pantalla
 
         public CameraDragController(GameObject camera, float dragSensitivity)
         {
@@ -19,48 +23,44 @@ namespace City.CameraMovement
 
         public void UpdateCameraPosition()
         {
-            // Touch (Mobile)
             if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
             {
                 TouchControl touch = Touchscreen.current.touches[0];
                 Vector3 touchPosition = new Vector3(touch.position.x.ReadValue(), touch.position.y.ReadValue(), 0f);
 
-                if (touch.press.wasPressedThisFrame)
-                {
-                    lastTouchPosition = touchPosition;
-                    isDragging = true;
-                }
-                else if (touch.press.isPressed && isDragging)
-                {
-                    Vector3 delta = touchPosition - lastTouchPosition;
-                    MoveCamera(delta);
-                    lastTouchPosition = touchPosition;
-                }
-                else if (touch.press.wasReleasedThisFrame)
-                {
-                    isDragging = false;
-                }
+                HandleInput(touch.press.wasPressedThisFrame, touch.press.isPressed, touch.press.wasReleasedThisFrame, touchPosition);
             }
-            // Mouse (Editor/PC)
             else if (Mouse.current != null)
             {
                 Vector3 mousePosition = Mouse.current.position.ReadValue();
 
-                if (Mouse.current.leftButton.wasPressedThisFrame)
+                HandleInput(Mouse.current.leftButton.wasPressedThisFrame, Mouse.current.leftButton.isPressed, Mouse.current.leftButton.wasReleasedThisFrame, mousePosition);
+            }
+        }
+
+        private void HandleInput(bool pressedThisFrame, bool isPressed, bool releasedThisFrame, Vector3 inputPosition)
+        {
+            if (pressedThisFrame)
+            {
+                lastTouchPosition = inputPosition;
+                isDragging = true;
+            }
+            else if (isPressed && isDragging)
+            {
+                Vector3 delta = inputPosition - lastTouchPosition;
+                MoveCamera(delta);
+                lastTouchPosition = inputPosition;
+            }
+            else if (releasedThisFrame && isDragging)
+            {
+                float distance = Vector3.Distance(inputPosition, lastTouchPosition);
+
+                if (distance < clickThreshold)
                 {
-                    lastTouchPosition = mousePosition;
-                    isDragging = true;
+                    OnClick?.Invoke(inputPosition); // Disparamos el evento de Click
                 }
-                else if (Mouse.current.leftButton.isPressed && isDragging)
-                {
-                    Vector3 delta = mousePosition - lastTouchPosition;
-                    MoveCamera(delta);
-                    lastTouchPosition = mousePosition;
-                }
-                else if (Mouse.current.leftButton.wasReleasedThisFrame)
-                {
-                    isDragging = false;
-                }
+
+                isDragging = false;
             }
         }
 

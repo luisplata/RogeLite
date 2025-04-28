@@ -6,7 +6,9 @@ namespace City.Data
     public class TerrainData
     {
         public string Id;
-        public string Anchor;     // Ej: "N", "S", "E", "O"
-        public string ConnectTo;  // Ej: "S", "N", "E", "O"
+        public string ParentGuid; // <<< Nuevo
+        public string Anchor; // Nuestro anchor
+        public string ConnectTo; // Anchor del terreno padre
+        public string Guid;
     }
 }

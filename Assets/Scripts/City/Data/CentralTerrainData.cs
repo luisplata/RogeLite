@@ -7,5 +7,6 @@ namespace City.Data
     {
         public string Id;
         public string Position; // Se guarda como "x,y,z" string
+        public string Guid;
     }
 }

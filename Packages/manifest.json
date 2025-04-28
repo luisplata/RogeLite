@@ -12,6 +12,7 @@
     "com.unity.inputsystem": "1.11.2",
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.render-pipelines.universal": "17.0.3",
+    "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.10",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
     "net.wraithavengames.unityinterfacesupport": "https://github.com/TheDudeFromCI/Unity-Interface-Support.git?path=/Packages/net.wraithavengames.unityinterfacesupport",
