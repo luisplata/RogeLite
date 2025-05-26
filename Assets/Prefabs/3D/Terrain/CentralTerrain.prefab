@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: N
   _collider: {fileID: 5060902519408668315}
+  visual: {fileID: 2287740405539004119}
 --- !u!65 &5060902519408668315
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: S
   _collider: {fileID: 8477349994289659080}
+  visual: {fileID: 2697009607474976098}
 --- !u!65 &8477349994289659080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -433,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: E
   _collider: {fileID: 8011860181954500332}
+  visual: {fileID: 5065544824053392614}
 --- !u!65 &8011860181954500332
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -556,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: O
   _collider: {fileID: 5046799303424409311}
+  visual: {fileID: 535332089561815021}
 --- !u!65 &5046799303424409311
 BoxCollider:
   m_ObjectHideFlags: 0

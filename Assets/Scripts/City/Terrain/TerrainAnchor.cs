@@ -12,6 +12,8 @@ namespace City.Terrain
 
         [Header("Optional")]
         [SerializeField] private Collider _collider;
+        
+        [SerializeField] private MeshRenderer visual;
 
         public void Configure(BaseTerrain ownerTerrain)
         {
@@ -37,7 +39,10 @@ namespace City.Terrain
         public void EnableCollider(bool enabled)
         {
             if (_collider != null)
+            {
                 _collider.enabled = enabled;
+                visual.enabled = enabled;
+            }
         }
     }
 }
