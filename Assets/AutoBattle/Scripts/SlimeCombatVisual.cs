@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class SlimeCombatVisual : MonoBehaviour
 {
-    public IEnumerator HurtFlashEffect(SlimeCombatStats slime, System.Action onComplete = null)
+    public SlimeCombatVisualUI slimeVisualUI;
+
+    public void Configure(SlimeCombatStats slimeStats)
+    {
+        slimeVisualUI.Configure(slimeStats);
+    }
+
+    public IEnumerator HurtFlashEffect(SlimeMediator slime, System.Action onComplete = null)
     {
         SpriteRenderer sr = slime.GetComponent<SpriteRenderer>();
         if (sr == null) yield break;
@@ -47,6 +54,7 @@ public class SlimeCombatVisual : MonoBehaviour
             t += Time.deltaTime / duration;
             yield return null;
         }
+
         sr.sortingOrder = 0;
     }
 }
