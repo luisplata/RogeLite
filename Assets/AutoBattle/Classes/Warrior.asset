@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   className: warrior
   baseHP: 10
-  baseAttack: 1
+  baseAttack: 4
   baseDefense: 0
   baseSpeed: 0
+  baseGainExp: 150
   hpGrowth: 1
   attackGrowth: 1
   defenseGrowth: 1
   speedGrowth: 1
+  expGrowth: 10

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewLootItem", menuName = "Loot System/Loot Item")]
@@ -8,6 +9,7 @@ namespace Items
         public string UUID; // Unique identifier for this config
         public string ItemName;
         public LootType LootType;
+        public WeaponType WeaponType;
         public EquipmentSlot EquipmentSlot;
         public Sprite Icon;
         public int BuyPrice;
@@ -37,8 +39,17 @@ namespace Items
         LeftHand,
         TwoHanded
     }
-}
 
+    public enum WeaponType
+    {
+        None,
+        Sword,
+        Lance,
+        Axe,
+        Bow,
+        Magic
+    }
+}
 
 
 namespace Items

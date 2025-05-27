@@ -20,7 +20,7 @@ public class SlimeCombatVisualUI : MonoBehaviour
     {
         if (_slimeStats != null && healthFillImage != null)
         {
-            float fillAmount = (float)_slimeStats.CurrentHP / _slimeStats.MaxHP;
+            float fillAmount = (float)_slimeStats.CurrentHp / _slimeStats.MaxHP;
             healthFillImage.fillAmount = Mathf.Clamp01(fillAmount);
         }
     }

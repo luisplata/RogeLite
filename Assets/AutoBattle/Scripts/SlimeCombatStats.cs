@@ -22,9 +22,10 @@ public class SlimeCombatStats : MonoBehaviour
 
     public bool IsAlive => currentHP > 0;
     public string SlimeName => slimeName;
-    public float CurrentHP => currentHP;
+    public float CurrentHp => currentHP;
     public float MaxHP => maxHP;
     public float Attack => attack;
+    public int BaseGainExp => slimeClass.baseGainExp;
 
     void Start()
     {
@@ -49,6 +50,9 @@ public class SlimeCombatStats : MonoBehaviour
             currentExp -= maxExp;
             LevelUp();
         }
+
+        Debug.Log(
+            $"{SlimeName} gana {amount} de experiencia. Nivel actual: {level}, EXP actual: {currentExp}/{maxExp}");
     }
 
     void LevelUp()
@@ -71,10 +75,11 @@ public class SlimeCombatStats : MonoBehaviour
         yield return StartCoroutine(visual.HurtFlashEffect(target));
     }
 
-    public void Configure(SlimeClassSO slimeClassSo)
+    public void Configure(SlimeClassSO slimeClassSo, string slimeCustomName)
     {
         slimeClass = slimeClassSo;
-        slimeName = slimeClass.className;
+        slimeName = (string.IsNullOrEmpty(slimeCustomName) ? "" : $" ({slimeCustomName})") + " " +
+                    slimeClassSo.className;
 
         // Inicializar stats basados en la clase de slime
         maxHP = slimeClass.baseHP;

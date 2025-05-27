@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerSelector.unity
     guid: 07fd4046b8e4115439047f180b7a3c53
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/AutoBattle/DungeonScene.unity
+    guid: 055dcd2c58b9b22419def9818f61e360
+  - enabled: 1
+    path: Assets/Scenes/Builder.unity
+    guid: 844e0c4ebc2311f44905f9217e5f88e3
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 5e1be5a06eb68b24897bc2a15326ac6d, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: f1387e18dd21a954a9b59ccf0694ae2f, type: 2}

@@ -13,6 +13,7 @@ namespace Items.Runtime
         public string LootItemUUID { get; private set; } // Reference to LootItem config
         public int Stars { get; set; }
         public List<BaseStatOnItem> GeneratedStats { get; set; } = new();
+        public WeaponType WeaponType => LootItemConfig.WeaponType;
 
         [NonSerialized]
         public LootItem LootItemConfig; // Loaded at runtime from UUID
