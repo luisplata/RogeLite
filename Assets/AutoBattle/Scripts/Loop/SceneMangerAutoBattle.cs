@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Bellseboss
@@ -8,6 +9,7 @@ namespace Bellseboss
     {
         [SerializeField] private CombatManager combatManager;
         [SerializeField] private DungeonMap dungeonMap;
+        [SerializeField] UnityEvent<bool> onFinishDungeon;
         private DungeonNode currentNode;
 
         private void Start()
@@ -19,7 +21,6 @@ namespace Bellseboss
         {
             Debug.Log("Esperando a que el jugador inicie el dungeon...");
             // Mostrar UI de inicio, botón llama a StartDungeon()
-            StartDungeon();
         }
 
         public void StartDungeon()
@@ -92,7 +93,7 @@ namespace Bellseboss
         private void ShowResultScreen(bool victory)
         {
             Debug.Log(victory ? "¡Victoria! Fin de la mazmorra." : "¡Derrota!");
-            // Aquí mostrarías tu UI final, botón para reiniciar
+            onFinishDungeon?.Invoke(victory);
         }
 
         public void RestartScene()
