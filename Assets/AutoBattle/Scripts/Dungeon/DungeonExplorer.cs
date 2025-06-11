@@ -16,7 +16,7 @@ namespace Bellseboss
         {
             currentDungeon = dungeon;
             currentNode = currentDungeon.GetNode(dungeon.StartNodeId);
-            Debug.Log($"Entraste a la mazmorra. Nodo inicial: {currentNode.id}");
+            //Debug.Log($"Entraste a la mazmorra. Nodo inicial: {currentNode.id}");
             HandleCurrentNode();
         }
 
