@@ -5,8 +5,11 @@ namespace Bellseboss.States
 {
     public class FinishState : IBattleState
     {
-        public FinishState()
+        private readonly ICombatManagerResult _combatManager;
+
+        public FinishState(ICombatManagerResult combatManager)
         {
+            _combatManager = combatManager;
             NextStateId = EnemyStatesConfiguration.BreakingState;
         }
 
@@ -23,6 +26,7 @@ namespace Bellseboss.States
 
         public IEnumerator DoExit()
         {
+            Debug.Log($"Result: {_combatManager.GetResult()}");
             yield return null;
         }
 

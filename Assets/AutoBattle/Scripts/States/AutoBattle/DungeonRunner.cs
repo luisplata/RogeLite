@@ -18,6 +18,7 @@ namespace Bellseboss
 
         private void Start()
         {
+            combatManager.Configure();
             waitStartState = new WaitStartState(this);
             stateMachine = new DungeonStateMachine();
             stateMachine.SetState(waitStartState);
