@@ -16,7 +16,7 @@ namespace Bellseboss
         public void Enter()
         {
             Debug.Log($"Nodo actual: {currentNode.id} - Tipo: {currentNode.nodeType}");
-
+            runner.SetScene(currentNode);
             if (!runner.PlayerWon && currentNode.nodeType == NodeType.Final)
             {
                 FinishDungeon();
@@ -32,6 +32,10 @@ namespace Bellseboss
 
                 case NodeType.Combat:
                     PrepareCombat();
+                    break;
+
+                case NodeType.Farm:
+                    GoToNextNode();
                     break;
 
                 case NodeType.Empty:
@@ -83,10 +87,6 @@ namespace Bellseboss
         }
 
         public void Exit()
-        {
-        }
-
-        public void Update()
         {
         }
     }

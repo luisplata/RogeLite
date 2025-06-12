@@ -17,15 +17,24 @@ MonoBehaviour:
     nodeType: 0
     connectedNodeIds:
     - B
+    scenarioPrefab: {fileID: 8480472915323263484, guid: 72783b367cda93e43a5f886dab45f8fa, type: 3}
   - id: B
     nodeType: 1
     connectedNodeIds:
     - C
+    scenarioPrefab: {fileID: 1640084891584017506, guid: d853ff03f97bcbe42b9e814c7ef731f9, type: 3}
   - id: C
-    nodeType: 1
+    nodeType: 2
     connectedNodeIds:
     - D
+    scenarioPrefab: {fileID: 5437989729854651240, guid: 6175040e0e63f0e49a04bef42d14a17f, type: 3}
   - id: D
-    nodeType: 2
+    nodeType: 1
+    connectedNodeIds:
+    - E
+    scenarioPrefab: {fileID: 1640084891584017506, guid: d853ff03f97bcbe42b9e814c7ef731f9, type: 3}
+  - id: E
+    nodeType: 3
     connectedNodeIds: []
+    scenarioPrefab: {fileID: 8480472915323263484, guid: 72783b367cda93e43a5f886dab45f8fa, type: 3}
   StartNodeId: A

@@ -62,7 +62,7 @@ public class EnemySpawner : MonoBehaviour, IEnemySpawn
         int enemyIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject enemy = Instantiate(enemyPrefabs[enemyIndex], spawnPosition, Quaternion.identity);
 
-        var ene = enemy.GetComponent<ILevelEnemy>();
+        var ene = enemy.GetComponent<ILevel>();
         if (ene != null)
         {
             if (levelPlayer != null)

@@ -16,6 +16,8 @@ namespace Bellseboss
         private WaitStartState waitStartState;
         public bool PlayerWon => combatManager.PlayerWon;
 
+        private GameObject _scenario;
+
         private void Start()
         {
             combatManager.Configure();
@@ -84,6 +86,16 @@ namespace Bellseboss
         public void ResetDungeon()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void SetScene(DungeonNode currentNode)
+        {
+            if (_scenario != null)
+            {
+                Destroy(_scenario);
+            }
+
+            _scenario = Instantiate(currentNode.scenarioPrefab);
         }
     }
 }

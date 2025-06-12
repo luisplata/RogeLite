@@ -26,7 +26,7 @@ namespace Bellseboss.States
         {
             if (_slime.IsAlive)
             {
-                yield return _combatManager.Coroutine(_slime.PerformAction(_slime, _combatManager.AllSlimes()));
+                yield return _combatManager.Coroutine(_slime.PerformAction(_slime, _combatManager.AllSlimes(_slime)));
             }
         }
 

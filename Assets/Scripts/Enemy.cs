@@ -7,7 +7,7 @@ using Items.Runtime;
 using LootSystem;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, ILevelEnemy, IDamageable, IXPSource, IAttacker, ILootable, IGoldLootable
+public abstract class Enemy : MonoBehaviour, ILevel, IDamageable, IXPSource, IAttacker, ILootable, IGoldLootable
 {
     public int health = 50;
     public float moveSpeed = 2f;

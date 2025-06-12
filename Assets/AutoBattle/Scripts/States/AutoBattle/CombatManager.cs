@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AutoBattle.Scripts.Core.Entities;
 using Bellseboss;
 using UnityEngine;
 using Bellseboss.States;
@@ -97,9 +98,10 @@ public class CombatManager : MonoBehaviour, ICombatManagerTurn, ICombatManagerCh
         return slime;
     }
 
-    public List<SlimeMediator> AllSlimes()
+    public List<SlimeMediator> AllSlimes(SlimeMediator attacker)
     {
-        return turnOrder;
+        return turnOrder.Where(s => s.IsAlive && s.IsPlayerTeam != attacker.IsPlayerTeam)
+            .ToList();
     }
 
     public IEnumerator Coroutine(IEnumerator performAction)
@@ -134,6 +136,6 @@ public interface ICombatManagerCheck
 public interface ICombatManagerTurn
 {
     SlimeMediator GetNextSlime();
-    List<SlimeMediator> AllSlimes();
+    List<SlimeMediator> AllSlimes(SlimeMediator attacker);
     IEnumerator Coroutine(IEnumerator performAction);
 }

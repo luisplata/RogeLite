@@ -24,11 +24,6 @@ namespace Bellseboss
             // Ocultar UI de inicio si es necesario
         }
 
-        public void Update()
-        {
-            
-        }
-
         public void RequestStart()
         {
             StartDungeon();

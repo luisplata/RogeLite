@@ -2,7 +2,7 @@
 {
     int Level { get; }
 }
-public interface ILevelEnemy
+public interface ILevel
 {
     void SetLevel(int level);
 }

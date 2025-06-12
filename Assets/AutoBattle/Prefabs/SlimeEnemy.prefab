@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4932986465899933888}
   - component: {fileID: 6907149930346597988}
   - component: {fileID: 338691967682867566}
-  - component: {fileID: 5334507342023479124}
+  - component: {fileID: 6108356449677067326}
   m_Layer: 0
   m_Name: SlimeEnemy
   m_TagString: Untagged
@@ -209,12 +209,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   currentExp: 0
-  maxExp: 100
-  currentHP: 0
-  maxHP: 10
-  attack: 1
-  defense: 0
-  speed: 0
   isPlayerTeam: 0
   visual: {fileID: 6907149930346597988}
 --- !u!114 &6907149930346597988
@@ -244,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeNameText: {fileID: 6873769577803715212}
   healthFillImage: {fileID: 8926504335041198571}
---- !u!114 &5334507342023479124
+--- !u!114 &6108356449677067326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,10 +247,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 668322962890159828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76ae39ac6d9440489f54f23bcb05098, type: 3}
+  m_Script: {fileID: 11500000, guid: 72016707f3924cd882a7e20ba170a03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slimeStats: {fileID: 4932986465899933888}
+  slimeName: 
+  equippedWeapon: {fileID: 0}
   slimeClass: {fileID: 11400000, guid: df30e9a31e3a0674cb97c61b1a430187, type: 2}
 --- !u!1 &3500537353610453420
 GameObject:

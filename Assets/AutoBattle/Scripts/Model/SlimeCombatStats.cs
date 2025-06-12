@@ -16,6 +16,8 @@ public class SlimeCombatStats : MonoBehaviour
     private int defense;
     private int speed;
 
+    private SlimeMediator _slimeMediator;
+
     public bool isPlayerTeam;
 
     [SerializeField] private SlimeCombatVisual visual;
@@ -26,12 +28,7 @@ public class SlimeCombatStats : MonoBehaviour
     public float MaxHP => maxHP;
     public float Attack => attack;
     public int BaseGainExp => slimeClass.baseGainExp;
-
-    void Start()
-    {
-        InitializeStats();
-        visual.Configure(this);
-    }
+    public int Level => level;
 
     public void InitializeStats()
     {
@@ -75,8 +72,9 @@ public class SlimeCombatStats : MonoBehaviour
         yield return StartCoroutine(visual.HurtFlashEffect(target));
     }
 
-    public void Configure(SlimeClassSO slimeClassSo, string slimeCustomName)
+    public void Configure(SlimeClassSO slimeClassSo, string slimeCustomName, SlimeMediator mediator)
     {
+        _slimeMediator = mediator;
         slimeClass = slimeClassSo;
         slimeName = (string.IsNullOrEmpty(slimeCustomName) ? "" : $" ({slimeCustomName})") + " " +
                     slimeClassSo.className;
@@ -94,6 +92,10 @@ public class SlimeCombatStats : MonoBehaviour
         {
             visual.Configure(this);
         }
+
+        InitializeStats();
+
+        visual.ResetVisual(_slimeMediator);
     }
 
     public void TakeDamage(float attackerAttack)
@@ -104,5 +106,15 @@ public class SlimeCombatStats : MonoBehaviour
         if (currentHP < 0) currentHP = 0;
 
         //Debug.Log($"{slimeName} de {attackerAttack} recibió {damage} de daño. HP restante: {currentHP}");
+    }
+
+    public void SetLevel(int newLevel)
+    {
+        level = newLevel;
+    }
+
+    public void Die()
+    {
+        visual.Died(_slimeMediator);
     }
 }

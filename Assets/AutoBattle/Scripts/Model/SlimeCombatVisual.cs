@@ -4,10 +4,12 @@ using UnityEngine;
 public class SlimeCombatVisual : MonoBehaviour
 {
     public SlimeCombatVisualUI slimeVisualUI;
+    private SlimeCombatStats _slimeStats;
 
     public void Configure(SlimeCombatStats slimeStats)
     {
-        slimeVisualUI.Configure(slimeStats);
+        _slimeStats = slimeStats;
+        slimeVisualUI.Configure(_slimeStats);
     }
 
     public IEnumerator HurtFlashEffect(SlimeMediator slime, System.Action onComplete = null)
@@ -56,5 +58,25 @@ public class SlimeCombatVisual : MonoBehaviour
         }
 
         sr.sortingOrder = 0;
+    }
+
+    public void Died(SlimeMediator slime)
+    {
+        SpriteRenderer sr = slime.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = Color.gray; // Cambia el color a gris para indicar que está muerto
+        }
+    }
+
+    public void ResetVisual(SlimeMediator slime)
+    {
+        SpriteRenderer sr = slime.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            sr.color = Color.white; // Resetea el color a blanco
+        }
+
+        slimeVisualUI.Configure(_slimeStats);
     }
 }

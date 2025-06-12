@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Bellseboss
 {
@@ -6,6 +7,7 @@ namespace Bellseboss
     {
         Empty,
         Combat,
+        Farm,
         Final
     }
 
@@ -15,5 +17,6 @@ namespace Bellseboss
         public string id;
         public NodeType nodeType;
         public List<string> connectedNodeIds = new();
+        public GameObject scenarioPrefab;
     }
 }
