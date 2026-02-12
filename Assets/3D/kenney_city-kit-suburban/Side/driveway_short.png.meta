@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      driveway_short_0: -7016727869106514716
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
 
 namespace Bellseboss
 {
@@ -33,7 +32,6 @@ namespace Bellseboss
 
         public IBattleState GetState(int stateId)
         {
-            Assert.IsTrue(_states.ContainsKey(stateId), $"State with id {stateId} do not exit");
             return _states[stateId];
         }
 
